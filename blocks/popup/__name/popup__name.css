@@ -1,0 +1,15 @@
+.popup__name {
+    color: #000000;
+    box-sizing: border-box;
+    border: none;
+    padding-bottom: 12px;
+    font-size: 14px;
+    line-height: 17px;
+    width: 100%;
+    max-width: 358px;
+    box-shadow: 0 1px rgba(0, 0, 0, 0.2);
+}
+
+.popup__name:active, .popup__name:focus {
+    outline: none;
+}

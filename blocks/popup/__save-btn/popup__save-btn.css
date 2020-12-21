@@ -1,0 +1,29 @@
+.popup__save-btn {
+    color: #ffffff;
+    background: #000000;
+    border: none;
+    box-shadow: none;
+    border-radius: 2px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    width: 100%;
+    max-width: 358px;
+    height: 50px;
+    transition: 0.5s;
+}
+
+.popup__save-btn:hover {
+    opacity: 0.6;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.popup__save-btn:active, .popup__save-btn:focus {
+    outline: none;
+  }
+  .popup__save-btn::-moz-focus-inner {
+    border: 0;
+  }
