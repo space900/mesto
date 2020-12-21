@@ -1,0 +1,32 @@
+.info__edit-btn {
+    border: 1px solid #ffffff;
+    margin: auto 0;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    box-shadow: none;
+    transition: 0.5s;
+    background: url(../../../images/edit_btn.png);
+    background-repeat: no-repeat;
+    background-size: 10px 10px;
+    background-position: center;
+}
+
+.info__edit-btn:hover {
+   opacity: 0.6;
+   transition: 0.5s;
+   cursor: pointer;
+}
+
+.info__edit-btn:active, .info__edit-btn:focus {
+    outline: none;
+  }
+  .info__edit-btn::-moz-focus-inner {
+    border: 0;
+}
+
+@media screen and (max-width: 767px) {
+    .info__edit-btn {
+        margin-right: auto;
+    }
+}
