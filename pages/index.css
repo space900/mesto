@@ -27,3 +27,21 @@
 @import url(../blocks/info/__title/info__title.css);
 @import url(../blocks/info/__subtitle/info__subtitle.css);
 @import url(../blocks/info/__edit-btn/info__edit-btn.css);
+
+
+/* photo-grid */
+
+@import url(../blocks/photo-grid/photo-grid.css);
+
+
+/* elements */
+
+@import url(../blocks/elements/elements.css);
+
+
+/* element */
+
+@import url(../blocks/element/element.css);
+@import url(../blocks/element/__image/element__image.css);
+@import url(../blocks/element/__title/element__title.css);
+@import url(../blocks/element/__like-btn/element__like-btn.css);

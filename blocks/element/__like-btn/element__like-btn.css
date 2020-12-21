@@ -1,0 +1,27 @@
+.element__like-btn {
+    padding: 0;
+    margin: auto;
+    margin-right: 21px;
+    background: #ffffff;
+    background: url(../../../images/like.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    width: 22px;
+    height: 20px;
+    transition: 0.5s;
+}
+
+.element__like-btn:hover {
+    opacity: 0.5;
+    transition: 0.5s;
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+.element__like-btn:active, .element__like-btn:focus {
+    outline: none;
+  }
+  .element__like-btn::-moz-focus-inner {
+    border: 0;
+  }
