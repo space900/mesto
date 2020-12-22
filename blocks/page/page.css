@@ -3,6 +3,7 @@
     margin: auto;
     box-sizing: border-box;
     font-family: 'Inter', Arial, serif;
+    min-width: 320px;
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

@@ -53,11 +53,6 @@
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 
 
-/* overlay */
-
-@import url(../blocks/overlay/overlay.css);
-
-
 /* popup */
 
 @import url(../blocks/popup/popup.css);
