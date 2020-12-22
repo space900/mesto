@@ -62,18 +62,19 @@
         <footer class="footer">
             <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
         </footer>
-
-        <div class="popup">
-            <div class="popup__container">
-                <button class="popup__close" aria-label="close"></button>
-                <h2 class="popup__title">Редактировать профиль</h2>
-                <form action="#" name="field" method="GET">
-                    <input type="text" value="" name="name" class="popup__name">
-                    <input type="text" value="" name="job" class="popup__job">
-                    <button class="popup__save-btn" type="submit" aria-label="save">Сохранить</button>
-                </form>
+        <section class="overlay">
+            <div class="popup">
+                <div class="popup__container">
+                    <button class="popup__close" aria-label="close"></button>
+                    <h2 class="popup__title">Редактировать профиль</h2>
+                    <form action="#" name="field" method="GET">
+                        <input type="text" value="" name="name" class="popup__name">
+                        <input type="text" value="" name="job" class="popup__job">
+                        <button class="popup__save-btn" type="submit" aria-label="save">Сохранить</button>
+                    </form>
+                </div>
             </div>
-        </div>
+        </section>
     </div>
 
     <script src="./scripts/index.js" defer></script>

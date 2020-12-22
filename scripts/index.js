@@ -16,6 +16,12 @@ function formSubmitHandler (evt) {
 
 formElement.addEventListener('submit', formSubmitHandler);
 
+formElement.addEventListener('click', function() {
+    if (event.target === event.currentTarget) {
+        formElement.classList.remove('popup_is-opened')
+    }
+})
+
 popupOpenButton.addEventListener('click', function(evt) {
     formElement.classList.add('popup_is-opened');
 
