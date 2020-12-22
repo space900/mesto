@@ -24,3 +24,11 @@
   .popup__close::-moz-focus-inner {
     border: 0;
 }
+
+@media screen and (max-width: 549px) {
+    .popup__close {
+        transform: scale(0.65);
+        right: 0;
+        top: -50px;
+    }
+}

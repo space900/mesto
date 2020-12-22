@@ -13,6 +13,8 @@
     max-width: 358px;
     height: 50px;
     transition: 0.5s;
+    padding: 0;
+    margin: 48px 0 0;
 }
 
 .popup__save-btn:hover {
@@ -26,4 +28,11 @@
   }
   .popup__save-btn::-moz-focus-inner {
     border: 0;
-  }
+}
+
+@media screen and (max-width: 449px) {
+    .popup__save-btn {
+      font-size: 14px;
+      line-height: 17px;
+    }
+}

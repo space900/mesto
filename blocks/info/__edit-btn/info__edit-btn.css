@@ -30,3 +30,9 @@
         margin-right: auto;
     }
 }
+
+@media screen and (max-width: 549px) {
+    .info__edit-btn {
+        transform: scale(0.75);
+    }
+}
