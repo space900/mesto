@@ -20,6 +20,7 @@
 
 .photo-grid__like-btn:active, .photo-grid__like-btn:focus {
     outline: none;
+    
   }
   .photo-grid__like-btn::-moz-focus-inner {
     border: 0;
