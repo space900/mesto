@@ -6,8 +6,8 @@ let popupOpenButton = document.querySelector('.info__edit-btn')
 let popupCloseButton = document.querySelector('.popup__close')
 let defaultName = document.querySelector('.info__title')
 let defaultJob = document.querySelector('.info__subtitle')
-let nameInput = document.querySelector('.popup__name')
-let jobInput = document.querySelector('.popup__job')
+let nameInput = document.querySelector('.popup__text_name')
+let jobInput = document.querySelector('.popup__text_job')
 
 /* объявляем общую функцию*/
 
