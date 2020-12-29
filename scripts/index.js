@@ -4,8 +4,8 @@ let popupCloseButton = document.querySelector('.popup__close')
 let popupSaveButton = document.querySelector('.popup__save-btn')
 let defaultName = document.querySelector('.info__title')
 let defaultJob = document.querySelector('.info__subtitle')
-let nameInput = document.querySelector('.popup__name')
-let jobInput = document.querySelector('.popup__job')
+let nameInput = document.querySelector('.popup__text_name')
+let jobInput = document.querySelector('.popup__text_job')
 
 function formSubmitHandler (evt) {
     evt.preventDefault();
