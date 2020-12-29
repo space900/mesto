@@ -1,4 +1,4 @@
-.element__title {
+.photo-grid__title {
     font-style: normal;
     font-weight: 900;
     font-size: 24px;
@@ -13,7 +13,7 @@
 }
 
 @media screen and (max-width: 1023px) {
-    .element__title {
+    .photo-grid__title {
         max-width: 160px;
     }
 }

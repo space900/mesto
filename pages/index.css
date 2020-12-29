@@ -32,19 +32,11 @@
 /* photo-grid */
 
 @import url(../blocks/photo-grid/photo-grid.css);
-
-
-/* elements */
-
-@import url(../blocks/elements/elements.css);
-
-
-/* element */
-
-@import url(../blocks/element/element.css);
-@import url(../blocks/element/__image/element__image.css);
-@import url(../blocks/element/__title/element__title.css);
-@import url(../blocks/element/__like-btn/element__like-btn.css);
+@import url(../blocks/photo-grid/__list/photo-grid__list.css);
+@import url(../blocks/photo-grid/__card/photo-grid__card.css);
+@import url(../blocks/photo-grid/__image/photo-grid__image.css);
+@import url(../blocks/photo-grid/__title/photo-grid__title.css);
+@import url(../blocks/photo-grid/__like-btn/photo-grid__like-btn.css);
 
 
 /* footer */

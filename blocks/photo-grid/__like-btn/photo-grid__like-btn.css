@@ -1,4 +1,4 @@
-.element__like-btn {
+.photo-grid__like-btn {
     padding: 0;
     margin: auto;
     margin-right: 21px;
@@ -11,16 +11,16 @@
     transition: 0.5s;
 }
 
-.element__like-btn:hover {
+.photo-grid__like-btn:hover {
     opacity: 0.5;
     transition: 0.5s;
     cursor: pointer;
     transform: scale(1.2);
 }
 
-.element__like-btn:active, .element__like-btn:focus {
+.photo-grid__like-btn:active, .photo-grid__like-btn:focus {
     outline: none;
   }
-  .element__like-btn::-moz-focus-inner {
+  .photo-grid__like-btn::-moz-focus-inner {
     border: 0;
   }
