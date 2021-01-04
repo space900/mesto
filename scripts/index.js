@@ -12,20 +12,24 @@ let jobInput = document.querySelector('.field_job')
 /* объявляем общую функцию*/
 
 function formSubmitHandler (evt) {
-    popup.classList.add('popup_is-opened') /* добавляем toggle в попап, в результате чего класс popup_is-opened добавляется при нажатии на "редактировать" и удаляется при нажатии на крестик. */ 
+    popup.classList.add('popup_is-opened') /* добавляем класс, в результате чего класс popup_is-opened добавляется при нажатии на "редактировать" и удаляется при нажатии на крестик. */ 
     nameInput.value = defaultName.textContent /* получаем информацию из содержимого полей формы */
     jobInput.value = defaultJob.textContent
 }
+
+/* функция закрытия попап */
 
 function classRemove (evt) {
     popup.classList.remove('popup_is-opened');
 }
 
+/* функция сброса стандартного поведения страницы, перезаписи полученный значений в полях*/
+
 function defaultEvt (evt) {
     evt.preventDefault();
     defaultName.textContent = nameInput.value /* перезаписываем полученные значения полей, для возможности изменения */
     defaultJob.textContent = jobInput.value
-    classRemove();
+    classRemove(); /* вызываем функцию закрытия модального окна */
 }
 
 popupOpenButton.addEventListener('click', formSubmitHandler) /* делаем кнопку работоспособной при помощи метода addEventListener, события "клик" и ранее объявленной функции */
