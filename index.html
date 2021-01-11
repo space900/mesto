@@ -64,14 +64,25 @@
         <footer class="footer">
             <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
         </footer>
-        <div class="popup">
+        <div class="popup popup_texts">
             <div class="popup__container">
-                <button class="popup__close" aria-label="Закрыть" type="button"></button>
+                <button class="popup__close popup__close_texts" aria-label="Закрыть" type="button"></button>
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <form action="#" name="field" method="get">
                     <input type="text" value="" name="name" class="popup__text popup__text_field_name">
                     <input type="text" value="" name="job" class="popup__text popup__text_field_job">
                     <button class="popup__save-btn" type="submit" aria-label="Сохранить">Сохранить</button>
+                </form>
+            </div>
+        </div>
+        <div class="popup popup_cards">
+            <div class="popup__container">
+                <button class="popup__close popup__close_cards" aria-label="Закрыть" type="button"></button>
+                <h2 class="popup__title">Новое место</h2>
+                <form action="#" name="field" method="get">
+                    <input type="text" placeholder="Название" value="" name="name" class="popup__text popup__card_field_name">
+                    <input type="text" placeholder="Ссылка на картинку" value="" name="link" class="popup__text popup__card_field_link">
+                    <button class="popup__save-btn" type="submit" aria-label="Создать">Создать</button>
                 </form>
             </div>
         </div>
