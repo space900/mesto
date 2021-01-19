@@ -26,52 +26,23 @@
             </section>
 
             <section class="photo-grid">
-                
+                <ul class="photo-grid__list">
+
+                </ul>
             </section>
         </main>
         
-        <template id="photo-template">
-            <ul class="photo-grid__list">
-                <li class="photo-grid__card">
-                    <img src="./images/karakaya-su.jpg" alt="фото водопад Каракая-Су" class="photo-grid__image">
-                    <button class="photo-grid__delete-btn" aria-label="Удалить" type="button"></button>
-                    <h3 class="photo-grid__title">Каракая-Су</h3>
-                    <button class="photo-grid__like-btn" aria-label="Лайк" type="button"></button>
-                </li>
-                <li class="photo-grid__card">
-                    <img src="./images/elbrus.jpg" alt="фото Эльбрус" class="photo-grid__image">
-                    <button class="photo-grid__delete-btn" aria-label="Удалить" type="button"></button>
-                    <h3 class="photo-grid__title">вид на Эльбрус</h3>
-                    <button class="photo-grid__like-btn" aria-label="Лайк" type="button"></button>
-                </li>
-                <li class="photo-grid__card">
-                    <img src="./images/ritza.jpg" alt="фото озеро Рица" class="photo-grid__image">
-                    <button class="photo-grid__delete-btn" aria-label="Удалить" type="button"></button>
-                    <h3 class="photo-grid__title">озеро Рица</h3>
-                    <button class="photo-grid__like-btn" aria-label="Лайк" type="button"></button>
-                </li>
-                <li class="photo-grid__card">
-                    <img src="./images/psaho.jpg" alt="фото каньон Псахо" class="photo-grid__image">
-                    <button class="photo-grid__delete-btn" aria-label="Удалить" type="button"></button>
-                    <h3 class="photo-grid__title">каньон Псахо в Сочи</h3>
-                    <button class="photo-grid__like-btn" aria-label="Лайк" type="button"></button>
-                </li>
-                <li class="photo-grid__card">
-                    <img src="./images/uvan.jpg" alt="фото Уральские горы" class="photo-grid__image">
-                    <button class="photo-grid__delete-btn" aria-label="Удалить" type="button"></button>
-                    <h3 class="photo-grid__title">вид с горы Уван</h3>
-                    <button class="photo-grid__like-btn" aria-label="Лайк" type="button"></button>
-                </li>
-                <li class="photo-grid__card">
-                    <img src="./images/armenia.jpg" alt="фото Армения" class="photo-grid__image">
-                    <button class="photo-grid__delete-btn" aria-label="Удалить" type="button"></button>
-                    <h3 class="photo-grid__title">серпантины Армении</h3>
-                    <button class="photo-grid__like-btn" aria-label="Лайк" type="button"></button>
-                </li>
-            </ul>
+        <template class="photo-grid__list-template">
+            <li class="photo-grid__card">
+                <img src="" alt="" class="photo-grid__image">
+                <button class="photo-grid__delete-btn" aria-label="Удалить" type="button"></button>
+                <h3 class="photo-grid__title"></h3>
+                <button class="photo-grid__like-btn" aria-label="Лайк" type="button"></button>
+            </li>
+            
         </template>
         <footer class="footer">
-            <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
+            <p class="footer__copyright">&#169; 2021 Mesto Russia</p>
         </footer>
         <div class="popup popup_texts">
             <div class="popup__container">
@@ -80,7 +51,7 @@
                 <form action="#" name="field" method="get">
                     <input type="text" value="" name="name" class="popup__text popup__text_field_name">
                     <input type="text" value="" name="job" class="popup__text popup__text_field_job">
-                    <button class="popup__save-btn" type="submit" aria-label="Сохранить">Сохранить</button>
+                    <button class="popup__submit popup__submit_save-btn" type="submit" aria-label="Сохранить">Сохранить</button>
                 </form>
             </div>
         </div>
@@ -91,7 +62,7 @@
                 <form action="#" name="field" method="get">
                     <input type="text" placeholder="Название" value="" name="name" class="popup__text popup__card_field_name">
                     <input type="text" placeholder="Ссылка на картинку" value="" name="link" class="popup__text popup__card_field_link">
-                    <button class="popup__save-btn popup__crea" type="submit" aria-label="Создать">Создать</button>
+                    <button class="popup__submit popup__submit_create-btn" type="submit" aria-label="Создать">Создать</button>
                 </form>
             </div>
         </div>

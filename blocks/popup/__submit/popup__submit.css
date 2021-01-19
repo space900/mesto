@@ -1,4 +1,4 @@
-.popup__save-btn {
+.popup__submit {
     color: #ffffff;
     background: #000000;
     border: none;
@@ -17,21 +17,21 @@
     margin: 48px 0 0;
 }
 
-.popup__save-btn:hover {
+.popup__submit:hover {
     opacity: 0.8;
     transition: 0.5s;
     cursor: pointer;
 }
 
-.popup__save-btn:active, .popup__save-btn:focus {
+.popup__submit:active, .popup__submit:focus {
     outline: none;
   }
-  .popup__save-btn::-moz-focus-inner {
+  .popup__submit::-moz-focus-inner {
     border: 0;
 }
 
 @media screen and (max-width: 449px) {
-    .popup__save-btn {
+    .popup__submit {
       font-size: 14px;
       line-height: 17px;
       margin: 45px 0 0;

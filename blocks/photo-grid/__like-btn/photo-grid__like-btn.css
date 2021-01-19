@@ -9,21 +9,18 @@
     width: 22px;
     height: 20px;
     transition: 0.5s;
+    outline: none;
+    cursor: pointer;
 }
 
 .photo-grid__like-btn:hover {
     opacity: 0.5;
-    transition: 0.5s;
-    cursor: pointer;
-    transform: scale(1.1);
+    
 }
 
-.photo-grid__like-btn:active, .photo-grid__like-btn:focus {
-    outline: none;
-    background: url(../../../images/black-like.svg);
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-  .photo-grid__like-btn::-moz-focus-inner {
-    border: 0;
-  }
+.photo-grid__like-btn_active {
+  outline: none;
+  background: url(../../../images/black-like.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}

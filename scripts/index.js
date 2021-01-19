@@ -1,5 +1,5 @@
 /* объявляем переменные */
-
+let itemTemplate = document.querySelector('.photo-grid__list-template').content;
 let formElement = document.querySelector('form')
 let popupName = document.querySelector('.popup_texts')
 let popupCard = document.querySelector('.popup_cards')
@@ -13,74 +13,103 @@ let nameInput = document.querySelector('.popup__text_field_name')
 let jobInput = document.querySelector('.popup__text_field_job')
 let cardNameInput = document.querySelector('.popup__card_field_name')
 let cardLinkInput = document.querySelector('.popup__card_field_link')
-let deleteButton = document.querySelector('.photo-grid__delete-btn')
-let photoGrid = document.querySelector('.photo-grid')
+let gridList = document.querySelector('.photo-grid__list')
+let createButton = document.querySelector('.popup__submit_create-btn')
 
-
-/* объявляем общую функцию*/
-
-/*
 const initialCards = [
     {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+        name: 'Каракая-Су',
+        link: './images/karakaya-su.jpg',
+        altText: 'фото водопад Каракая-Су'
     },
     {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+        name: 'Эльбрус',
+        link: './images/elbrus.jpg',
+        altText: 'фото гора Эльбрус'
     },
     {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+        name: 'о. Рица',
+        link: './images/ritza.jpg',
+        altText: 'фото озеро Рица'
     },
     {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+        name: 'Каньон Псахо',
+        link: './images/psaho.jpg',
+        altText: 'фото каньон Псахо Сочи'
     },
     {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+        name: 'Южный Урал',
+        link: './images/uvan.jpg',
+        altText: 'фото горы Южный Урал'
     },
     {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+        name: 'Армения',
+        link: './images/armenia.jpg',
+        altText: 'фото серпантины Армения'
     }
 ];
 
-var arrayImage = []; // определяете искомый массив объектов изображений
-for (var j = 0, J = initialCards.length; j < J; j++)
-   {
-   arrayImage [j] = new Image ();
-   arrayImage [j].src = initialCards [j];
-} */
-
-function addPhotoGrid() {
-    const photoTemp = document.querySelector('#photo-template').content;
-    const photoElement = photoTemp.cloneNode(true);
-    photoGrid.appendChild(photoElement);
+function toggleLike() {
+    
+    cardsElement.querySelector('.photo-grid__like-btn').addEventListener('click', function (evt) { 
+        evt.target.classList.toggle('photo-grid__like-btn_active');
+    });
 }
 
-addPhotoGrid();
+/* Создание карточек из массива */
 
+initialCards.forEach (function (element) {
+    cardsElement = itemTemplate.cloneNode(true);
+    
+    cardsElement.querySelector('.photo-grid__title').textContent = element.name;
+    cardsElement.querySelector('.photo-grid__image').src = element.link;
+    cardsElement.querySelector('.photo-grid__image').alt = element.altText;
+    toggleLike();
+    
+    gridList.append(cardsElement);
+})
 
+/* Создание карточки по клику */
 
-function formSubmitHandler (evt) {
+function createCard(evt) {
+    
+    cardsElement = itemTemplate.cloneNode(true);
+    toggleLike();
+    cardsElement.querySelector('.photo-grid__title').textContent = cardNameInput.value;
+    cardsElement.querySelector('.photo-grid__image').src = cardLinkInput.value;
+    gridList.prepend(cardsElement);
+    evt.preventDefault();
+    
+}
+
+function handleCreateCard() {
+    popupCard.classList.add('popup_is-opened');
+}
+
+function handleDeleteCard() {
+    gridList.onclick = function(e) {
+        const btn = e.target.closest('.photo-grid__delete-btn');
+        if (!btn) {
+            return;
+        }
+        btn.parentElement.remove();
+    }
+}
+
+handleDeleteCard();
+
+function formSubmitHandler () {
     popupName.classList.add('popup_is-opened') /* добавляем класс, в результате чего класс popup_is-opened добавляется при нажатии на "редактировать" и удаляется при нажатии на крестик. */ 
     nameInput.value = defaultName.textContent /* получаем информацию из содержимого полей формы */
     jobInput.value = defaultJob.textContent
 }
 
-function formCreateCard (evt) {
-    popupCard.classList.add('popup_is-opened');
-}
-
 /* функция закрытия попап */
 
-function classRemove (evt) {
+function classRemove () {
     popupName.classList.remove('popup_is-opened');
     popupCard.classList.remove('popup_is-opened');
 }
-
 
 /* функция сброса стандартного поведения страницы, перезаписи полученный значений в полях*/
 
@@ -91,48 +120,15 @@ function defaultEvt (evt) {
     classRemove(); /* вызываем функцию закрытия модального окна */
 }
 
-function CloseButtons (evt) {
-    popupCloseButton.addEventListener('click', classRemove) & popupCloseButtonCard.addEventListener('click', classRemove)
+function CloseButtons () {
+    popupCloseButton.addEventListener('click', classRemove) 
+    popupCloseButtonCard.addEventListener('click', classRemove)
 }
 
-/*
-function createButtons() {
-    let buttonGenerate = document.querySelector('popup__create-btn');
-    deleteButton = document.querySelector('photo-grid__delete-btn');
-
-    buttonGenerate.textContent = 'add';
-    buttonDelete.textContent = 'Delete';
-    
-    let photoGrid = document.querySelector('photo-grid');
-
-    photoGrid.appendChild(buttonGenerate);
-    photoGrid.appendChild(buttonDelete);
-
-    buttonGenerate.addEventListener('click', createImgElement);
-    buttonDelete.addEventListener('click', deleteImgElement);
-}
-
-function deleteImgElement() {
-    let image = document.querySelector('.photo-grid__card');
-
-		if (image != undefined) {
-			image.remove();
-		} else {
-			console.log('Image is undefined');
-		}
-}
-
-function createImgElement() {
-    let image = document.createElement('photo-grid__card');
-
-    image.src = src;
-
-    document.querySelector('photo-grid').appendChild(image);
-} */
+CloseButtons();
 
 popupOpenButton.addEventListener('click', formSubmitHandler) /* делаем кнопку работоспособной при помощи метода addEventListener, события "клик" и ранее объявленной функции */
-popupEditButton.addEventListener('click', formCreateCard)
-/*deleteButton.addEventListener('click', deleteImgElement); */
-CloseButtons();
+popupEditButton.addEventListener('click', handleCreateCard)
+createButton.addEventListener('click', createCard);
+
 formElement.addEventListener('submit', defaultEvt);
-/* createButtons(); */
