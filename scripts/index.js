@@ -79,7 +79,7 @@ function createCard(evt) {
     cardsElement.querySelector('.photo-grid__image').src = cardLinkInput.value;
     gridList.prepend(cardsElement);
     evt.preventDefault();
-    
+    classRemove();
 }
 
 function handleCreateCard() {
