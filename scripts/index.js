@@ -62,7 +62,7 @@ function popupCurrentPhoto (evt) {
     let photoUrl = evt.target.src;
     let photoLabel = evt.target.parentElement.querySelector('.photo-grid__title').textContent;
     popupPhoto.querySelector('img').src = photoUrl;
-    popupPhoto.querySelector('.photo-grid__caption').textContent = photoLabel;
+    popupPhoto.querySelector('.popup__caption').textContent = photoLabel;
 }
 
 /* функция лайка */
