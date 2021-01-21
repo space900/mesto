@@ -25,13 +25,13 @@
                 <button class="profile__btn" aria-label="Добавить" type="button"></button>
             </section>
 
-            <section class="photo-grid">
+            <div class="photo-grid">
                 <ul class="photo-grid__list">
 
                 </ul>
-            </section>
+            </div>
         </main>
-        
+
         <template class="photo-grid__list-template">
             <li class="photo-grid__card">
                 <img src="" alt="" class="photo-grid__image">
@@ -39,7 +39,7 @@
                 <h3 class="photo-grid__title"></h3>
                 <button class="photo-grid__like-btn" aria-label="Лайк" type="button"></button>
             </li>
-            
+
         </template>
         <footer class="footer">
             <p class="footer__copyright">&#169; 2021 Mesto Russia</p>
@@ -51,7 +51,8 @@
                 <form action="#" name="field" method="get">
                     <input type="text" value="" name="name" class="popup__text popup__text_field_name">
                     <input type="text" value="" name="job" class="popup__text popup__text_field_job">
-                    <button class="popup__submit popup__submit_save-btn" type="submit" aria-label="Сохранить">Сохранить</button>
+                    <button class="popup__submit popup__submit_save-btn" type="submit"
+                        aria-label="Сохранить">Сохранить</button>
                 </form>
             </div>
         </div>
@@ -60,16 +61,20 @@
                 <button class="popup__close popup__close_cards" aria-label="Закрыть" type="button"></button>
                 <h2 class="popup__title">Новое место</h2>
                 <form action="#" name="field" method="get">
-                    <input type="text" placeholder="Название" value="" name="name" class="popup__text popup__card_field_name">
-                    <input type="text" placeholder="Ссылка на картинку" value="" name="link" class="popup__text popup__card_field_link">
-                    <button class="popup__submit popup__submit_create-btn" type="submit" aria-label="Создать">Создать</button>
+                    <input type="text" placeholder="Название" value="" name="name"
+                        class="popup__text popup__card_field_name">
+                    <input type="text" placeholder="Ссылка на картинку" value="" name="link"
+                        class="popup__text popup__card_field_link">
+                    <button class="popup__submit popup__submit_create-btn" type="submit"
+                        aria-label="Создать">Создать</button>
                 </form>
             </div>
         </div>
         <div class="popup popup_background popup_photo">
             <figure class="photo-grid__container">
-                <button class="popup__close popup__close_photo popup__close_image" aria-label="Закрыть" type="button"></button>
-                <img src="" alt="" class="photo-grid__image_is-opened">
+                <button class="popup__close popup__close_photo popup__close_image" aria-label="Закрыть"
+                    type="button"></button>
+                <img src="./images/armenia.jpg" alt="" class="photo-grid__image_is-opened">
                 <p class="photo-grid__caption"></p>
             </figure>
         </div>
