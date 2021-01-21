@@ -1,24 +1,24 @@
 /* объявляем переменные */
 const itemTemplate = document.querySelector('.photo-grid__list-template').content;
-let formElement = document.querySelector('form')
-let popupName = document.querySelector('.popup_texts')
-let popupCard = document.querySelector('.popup_cards')
-let popupOpenButton = document.querySelector('.info__edit-btn')
-let popupEditButton = document.querySelector('.profile__btn')
-let popupCloseButton = document.querySelector('.popup__close_texts')
-let popupCloseButtonCard = document.querySelector('.popup__close_cards')
-let defaultName = document.querySelector('.info__title')
-let defaultJob = document.querySelector('.info__subtitle')
-let nameInput = document.querySelector('.popup__text_field_name')
-let jobInput = document.querySelector('.popup__text_field_job')
-let cardNameInput = document.querySelector('.popup__card_field_name')
-let cardLinkInput = document.querySelector('.popup__card_field_link')
-let gridList = document.querySelector('.photo-grid__list')
-let createButton = document.querySelector('.popup__submit_create-btn')
-let popupPhoto = document.querySelector('.popup_photo')
-let popupPhotoClose = document.querySelector('.popup__close_image')
+const formElement = document.querySelector('form')
+const popupName = document.querySelector('.popup_texts')
+const popupCard = document.querySelector('.popup_cards')
+const popupOpenButton = document.querySelector('.info__edit-btn')
+const popupEditButton = document.querySelector('.profile__btn')
+const popupCloseButton = document.querySelector('.popup__close_texts')
+const popupCloseButtonCard = document.querySelector('.popup__close_cards')
+const defaultName = document.querySelector('.info__title')
+const defaultJob = document.querySelector('.info__subtitle')
+const nameInput = document.querySelector('.popup__text_field_name')
+const jobInput = document.querySelector('.popup__text_field_job')
+const cardNameInput = document.querySelector('.popup__card_field_name')
+const cardLinkInput = document.querySelector('.popup__card_field_link')
+const gridList = document.querySelector('.photo-grid__list')
+const createButton = document.querySelector('.popup__submit_create-btn')
+const popupPhoto = document.querySelector('.popup_photo')
+const popupPhotoClose = document.querySelector('.popup__close_image')
 
-
+/* массив карточек */
 const initialCards = [
     {
         name: 'Каракая-Су',
@@ -52,13 +52,12 @@ const initialCards = [
     }
 ];
 
-function getCurrentPhoto(card) {
+function getCurrentPhoto(card) { // card в качестве аргумента
     card.querySelector('.photo-grid__image').addEventListener('click', popupCurrentPhoto);
 }
 
 /* функция открытия попап-фото */
 function popupCurrentPhoto (evt) {
-    
     popupPhoto.classList.add('popup_is-opened');
     let photoUrl = evt.target.src;
     let photoLabel = evt.target.parentElement.querySelector('.photo-grid__title').textContent;
@@ -66,16 +65,7 @@ function popupCurrentPhoto (evt) {
     popupPhoto.querySelector('.photo-grid__caption').textContent = photoLabel;
 }
 
-function handleDeleteCard() {
-    gridList.onclick = function(e) {
-        const btn = e.target.closest('.photo-grid__delete-btn');
-        if (!btn) {
-            return;
-        }
-        btn.parentElement.remove();
-    }
-}
-
+/* функция лайка */
 function toggleLike() {
     cardsElement.querySelector('.photo-grid__like-btn').addEventListener('click', toggleLikeTarget);
 }
@@ -84,20 +74,19 @@ function toggleLikeTarget (evt) {
     evt.target.classList.toggle('photo-grid__like-btn_active');
 }
 
-/* Создание карточек из массива */
-function render () {
-    initialCards.forEach (renderItems);
-}
 
-function renderItems (element) {
-    cardsElement = itemTemplate.cloneNode(true);
-    cardsElement.querySelector('.photo-grid__title').textContent = element.name;
-    cardsElement.querySelector('.photo-grid__image').src = element.link;
-    cardsElement.querySelector('.photo-grid__image').alt = element.altText;
+function render () {
+    initialCards.forEach (renderItems); //вызываем метод forEach чтобы пройти по всем элементам функции renderItems
+}
+/* Создание карточек из массива */
+function renderItems (element) { // element в качестве аргумента
+    cardsElement = itemTemplate.cloneNode(true); //клонируем узел itemTemplate в переменную cardsElement
+    cardsElement.querySelector('.photo-grid__title').textContent = element.name; // выбираем методом querySelector класс с названием фото и свойством textContent, присваиваем классу значение name из массива
+    cardsElement.querySelector('.photo-grid__image').src = element.link; // выбираем класс с фотографией, присваиваем классу значение link из массива
+    cardsElement.querySelector('.photo-grid__image').alt = element.altText; // выбираем класс с фотографией, атрибутом alt, присваиваем классу значение altText, для добавления текстового описания изображения
     toggleLike();
     getCurrentPhoto(cardsElement);
-    
-    handleDeleteCard();
+    handleDeleteCard(cardsElement);
     gridList.append(cardsElement);
 }
 
@@ -106,14 +95,24 @@ function createCard(evt) {
     cardsElement = itemTemplate.cloneNode(true);
     toggleLike();
     getCurrentPhoto(cardsElement);
+    handleDeleteCard(cardsElement);
     cardsElement.querySelector('.photo-grid__title').textContent = cardNameInput.value;
     cardsElement.querySelector('.photo-grid__image').src = cardLinkInput.value;
     gridList.prepend(cardsElement);
     evt.preventDefault();
     classRemove();
-    handleDeleteCard();
 }
 
+/* функция удаления карточки */
+function handleDeleteCard(element) { // element в качестве аргумента
+    element.querySelector('.photo-grid__delete-btn').addEventListener('click', deleteCard);
+}
+
+function deleteCard (evt) {
+    evt.target.closest('.photo-grid__card').remove();
+}
+
+/* функция добавления попап с созданием фото */
 function handleCreateCard() {
     popupCard.classList.add('popup_is-opened');
 }
@@ -148,7 +147,7 @@ function CloseButtons () {
 CloseButtons();
 render();
 
-popupOpenButton.addEventListener('click', formSubmitHandler) /* делаем кнопку работоспособной при помощи метода addEventListener, события "клик" и ранее объявленной функции */
+popupOpenButton.addEventListener('click', formSubmitHandler)
 popupEditButton.addEventListener('click', handleCreateCard)
 createButton.addEventListener('click', createCard);
 formElement.addEventListener('submit', defaultEvt);
