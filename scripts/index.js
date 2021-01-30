@@ -86,43 +86,36 @@ function toggleLikeTarget(evt) {
 }
 
 function render() {
-  initialCards.forEach(renderItem); //вызываем метод forEach чтобы пройти по всем элементам функции renderItems
+  initialCards.forEach(showDefaultCards); //вызываем метод forEach чтобы пройти по всем элементам функции renderItems
 }
 
-function selectInitialCards(element) {
+function initialCardsValue(element) {
+  cardsElement = itemTemplate.cloneNode(true); //клонируем узел itemTemplate в переменную cardsElement
   cardsElement.querySelector(".photo-grid__title").textContent = element.name; // выбираем методом querySelector класс с названием фото и свойством textContent, присваиваем классу значение name из массива
   cardsElement.querySelector(".photo-grid__image").src = element.link; // выбираем класс с фотографией, присваиваем классу значение link из массива
   cardsElement.querySelector(".photo-grid__image").alt = element.altText; // выбираем класс с фотографией, атрибутом alt, присваиваем классу значение altText, для добавления текстового описания изображения
-}
-
-function cloneTemplate() {
-  cardsElement = itemTemplate.cloneNode(true); //клонируем узел itemTemplate в переменную cardsElement
   toggleLike();
   getCurrentPhoto(cardsElement);
   handleDeleteCard(cardsElement);
 }
 
-function renderItem(element) {
-  function renderCardSubmit() {
-    cloneTemplate();
-    selectInitialCards(element);
-  }
-  renderCardSubmit();
+function showDefaultCards(element) {
+  initialCardsValue(element);
   gridList.append(cardsElement);
 }
 
-function selectCardValue() {
-  cardsElement.querySelector(".photo-grid__title").textContent = cardNameInput.value;
-  cardsElement.querySelector(".photo-grid__image").src = cardLinkInput.value;
-}
-
-/* Создание карточки по клику */
-function cardSubmitHandler(evt) {
-  cloneTemplate();
-  selectCardValue();
-  gridList.prepend(cardsElement);
-  evt.preventDefault();
-  closeAllPopups();
+function addCard(evt) {
+  let data = {
+    name: cardNameInput.value,
+    link: cardLinkInput.value,
+  };
+  function getAddCard(data) {
+    initialCardsValue(data);
+    closeAllPopups();
+    evt.preventDefault();
+    gridList.prepend(cardsElement);
+  }
+  getAddCard(data);
 }
 
 /* функция удаления карточки */
@@ -154,7 +147,7 @@ function closeAllPopups() {
 }
 
 /* функция сброса стандартного поведения страницы, перезаписи полученных значений в полях*/
-function defaultEvtPopup(evt) {
+function resetProfilePopup(evt) {
   evt.preventDefault();
   defaultName.textContent =
     nameInput.value; /* перезаписываем полученные значения полей, для возможности изменения */
@@ -162,16 +155,16 @@ function defaultEvtPopup(evt) {
   closeAllPopups(); /* вызываем функцию закрытия модального окна */
 }
 
-function CloseButtons() {
+function closeButtons() {
   popupCloseButton.addEventListener("click", closeAllPopups);
   popupCloseButtonCard.addEventListener("click", closeAllPopups);
   popupPhotoClose.addEventListener("click", closeAllPopups);
 }
 
-CloseButtons();
+closeButtons();
 render();
 
 popupOpenButton.addEventListener("click", formSubmitProfile);
 popupEditButton.addEventListener("click", openCardPopup);
-createButton.addEventListener("click", cardSubmitHandler);
-formElement.addEventListener("submit", defaultEvtPopup);
+createButton.addEventListener("click", addCard);
+formElement.addEventListener("submit", resetProfilePopup);
