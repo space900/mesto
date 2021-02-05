@@ -13,3 +13,12 @@
 .popup__text:active, .popup__text:focus {
     outline: none;
 }
+
+.popup__text_invalid {
+    border-bottom: 1px solid red;
+    margin-bottom: 5px;
+}
+
+.popup__text_input-error {
+    color: red;
+}

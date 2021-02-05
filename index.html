@@ -18,7 +18,7 @@
             <section class="profile">
                 <img src="./images/avatar.jpg" alt="Аватар пользователя" class="profile__picture">
                 <div class="info">
-                    <h1 class="info__title">Хныкин Андрей</h1>
+                    <h1 class="info__title">Неизвестный Путешественник</h1>
                     <button class="info__edit-btn" aria-label="Редактировать" type="button"></button>
                     <p class="info__subtitle">Студент Яндекс.Практикум</p>
                 </div>
@@ -48,10 +48,12 @@
             <div class="popup__container">
                 <button class="popup__close popup__close_texts" aria-label="Закрыть" type="button"></button>
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <form action="#" name="field" method="get">
-                    <input type="text" value="" name="name" class="popup__text popup__text_field_name">
-                    <input type="text" value="" name="job" class="popup__text popup__text_field_job">
-                    <button class="popup__submit popup__submit_save-btn" type="submit"
+                <form action="#" class="popup__form" name="field" method="get" novalidate>
+                    <input id="nick-name__input" type="text" placeholder="Имя" value="" name="nick-name" class="popup__text popup__text_field_name popup__text_input" minlength="2" maxlength="40" required>
+                    <span class="nick-name__input-error popup__text_input-error"></span>
+                    <input id="job__input" type="text" placeholder="О себе" value="" name="job" class="popup__text popup__text_field_job popup__text_input" minlength="2" maxlength="200" required>
+                    <span class="job__input-error popup__text_input-error"></span>
+                    <button class="popup__submit popup__submit_save-btn popup__button_disabled" type="submit"
                         aria-label="Сохранить">Сохранить</button>
                 </form>
             </div>
@@ -60,13 +62,15 @@
             <div class="popup__container">
                 <button class="popup__close popup__close_cards" aria-label="Закрыть" type="button"></button>
                 <h2 class="popup__title">Новое место</h2>
-                <form action="#" name="field" method="get">
-                    <input type="text" placeholder="Название" value="" name="name"
-                        class="popup__card popup__card_field_name">
-                    <input type="text" placeholder="Ссылка на картинку" value="" name="link"
-                        class="popup__card popup__card_field_link">
-                    <button class="popup__submit popup__submit_create-btn" type="submit"
-                        aria-label="Создать">Создать</button>
+                <form action="#" name="field" method="get" novalidate>
+                    <input id="photo-name__input" type="text" placeholder="Название" value="" name="photo-name"
+                        class="popup__card popup__card_field_name popup__text_input" minlength="2" maxlength="30" required>
+                    <span class="error popup__error_visible">Вы пропустили это поле.</span>
+                    <input id="link__input" type="url" placeholder="Ссылка на картинку" value="" name="link"
+                        class="popup__card popup__card_field_link popup__text_input" required>
+                    <span class="error popup__error_visible">Введите адрес сайта.</span>
+                    <button class="popup__submit popup__submit_create-btn popup__button_disabled" type="submit"
+                        aria-label="Создать" disabled>Создать</button>
                 </form>
             </div>
         </div>
@@ -81,6 +85,7 @@
     </div>
 
     <script src="./scripts/index.js" defer></script>
+    <script src="./scripts/validation.js" defer></script>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 /* объявляем переменные */
 const itemTemplate = document.querySelector(".photo-grid__list-template").content;
-const formElement = document.querySelector("form");
+const formItem = document.querySelector("form");
 const popupName = document.querySelector(".popup_texts");
 const popupCard = document.querySelector(".popup_cards");
 const popupOpenButton = document.querySelector(".info__edit-btn");
@@ -57,7 +57,12 @@ function openModal(evt) {
 }
 
 function closeModal(evt) {
-  evt.classList.remove("popup_is-opened");
+  evt.classList.remove('popup_is-opened');
+  evt.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+      evt.classList.remove('popup_is-opened');
+    }
+  });
 }
 
 function getCurrentPhoto(card) {
@@ -167,4 +172,4 @@ render();
 popupOpenButton.addEventListener("click", formSubmitProfile);
 popupEditButton.addEventListener("click", openCardPopup);
 createButton.addEventListener("click", addCard);
-formElement.addEventListener("submit", resetProfilePopup);
+formItem.addEventListener("submit", resetProfilePopup);
