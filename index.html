@@ -49,14 +49,14 @@
                 <button class="popup__close popup__close_texts" aria-label="Закрыть" type="button"></button>
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <form action="#" class="popup__form" name="field" method="get" novalidate>
-                    <input id="nick-name__input" type="text" placeholder="Имя" value="" name="nick-name"
+                    <input id="popup__nick-name" type="text" placeholder="Имя" value="" name="nick-name"
                         class="popup__text popup__text_field_name popup__text_input" minlength="2" maxlength="40"
                         required>
-                    <span class="nick-name__input-error popup__text_input-error"></span>
-                    <input id="job__input" type="text" placeholder="О себе" value="" name="job"
+                    <span class="popup__nick-name-error popup__text_input-error"></span>
+                    <input id="popup__job" type="text" placeholder="О себе" value="" name="job"
                         class="popup__text popup__text_field_job popup__text_input" minlength="2" maxlength="200"
                         required>
-                    <span class="job__input-error popup__text_input-error"></span>
+                    <span class="popup__job-error popup__text_input-error"></span>
                     <button class="popup__submit popup__submit_save-btn" type="submit"
                         aria-label="Сохранить">Сохранить</button>
                 </form>
@@ -67,13 +67,13 @@
                 <button class="popup__close popup__close_cards" aria-label="Закрыть" type="button"></button>
                 <h2 class="popup__title">Новое место</h2>
                 <form action="#" class="popup__form" name="field" method="get" novalidate>
-                    <input id="photo-name__input" type="text" placeholder="Название" value="" name="photo-name"
+                    <input id="popup__photo-name" type="text" placeholder="Название" value="" name="photo-name"
                         class="popup__card_field_name popup__text popup__text_input" minlength="2" maxlength="30"
                         required>
-                    <span class="photo-name__input-error popup__text_input-error"></span>
-                    <input id="link__input" type="url" placeholder="Ссылка на картинку" value="" name="link"
+                    <span class="popup__photo-name-error popup__text_input-error"></span>
+                    <input id="popup__link" type="url" placeholder="Ссылка на картинку" value="" name="link"
                         class="popup__card_field_link popup__text popup__text_input" required>
-                    <span class="link__input-error popup__text_input-error"></span>
+                    <span class="popup__link-error popup__text_input-error"></span>
                     <button class="popup__submit popup__submit_create-btn" type="submit"
                         aria-label="Создать">Создать</button>
                 </form>
