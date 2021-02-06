@@ -11,13 +11,13 @@ const showError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.add(enableValidation.inputErrorClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add("popup__text_input-error");
+  errorElement.classList.add("popup__text-input");
 };
 
 const hideError = (formElement, inputElement) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.remove(enableValidation.inputErrorClass);
-  errorElement.classList.remove("popup__text_input-error");
+  errorElement.classList.remove("popup__text-input");
   errorElement.textContent = "";
 };
 

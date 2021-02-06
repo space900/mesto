@@ -19,7 +19,7 @@
     margin-bottom: 5px;
 }
 
-.popup__text_input-error {
+.popup__text-input {
     color: red;
     font-size: 12px;
     line-height: 14.5px;
