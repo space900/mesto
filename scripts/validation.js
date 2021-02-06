@@ -4,7 +4,7 @@ const enableValidation = {
   submitButtonSelector: ".popup__submit",
   inactiveButtonClass: ".popup__submit_disabled",
   inputErrorClass: ".popup__text_invalid",
-  errorClass: "`.${inputElement.id}-error`"
+  errorClass: "`.${inputElement.id}-error`",
 };
 
 const showError = (formElement, inputElement, errorMessage) => {
@@ -49,8 +49,10 @@ const setEventListeners = (formElement) => {
   buttonState(formElement);
 };
 
-function buttonState (formElement) {
-  const inputList = Array.from(formElement.querySelectorAll(enableValidation.inputSelector));
+function buttonState(formElement) {
+  const inputList = Array.from(
+    formElement.querySelectorAll(enableValidation.inputSelector)
+  );
   const buttonElement = formElement.querySelector(enableValidation.submitButtonSelector);
   toggleButtonState(inputList, buttonElement);
   inputList.forEach((inputElement) => {

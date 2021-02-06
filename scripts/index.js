@@ -55,34 +55,20 @@ const initialCards = [
   },
 ];
 
-
-
-
 const closeByoverlay = (e) => {
   if (e.target === e.currentTarget) {
     closeAllPopups();
   }
 };
 
-popupPhoto.addEventListener("click", closeByoverlay);
-popupCard.addEventListener("click", closeByoverlay);
-popupName.addEventListener("click", closeByoverlay);
-
 const closeByEscape = document.addEventListener("keydown", (evt) => {
   if (evt.key === "Escape") {
-    removeOpenPopup();
+    closeAllPopups();
   }
-})
-
-function removeOpenPopup() {
-  popupPhoto.classList.remove("popup_is-opened");
-  popupCard.classList.remove("popup_is-opened");
-  popupName.classList.remove("popup_is-opened");
-}
+});
 
 function openModal(evt) {
   evt.classList.add("popup_is-opened");
- 
 }
 
 function closeModal(evt) {
@@ -93,7 +79,6 @@ function getCurrentPhoto(card) {
   card.querySelector(".photo-grid__image").addEventListener("click", openPhotoPopup);
 }
 
-/* функция открытия попап-фото */
 function openPhotoPopup(evt) {
   openModal(popupPhoto);
   const photoUrl = evt.target.src;
@@ -103,7 +88,6 @@ function openPhotoPopup(evt) {
   popupPhoto.querySelector(".popup__caption").textContent = photoLabel;
 }
 
-/* функция лайка */
 function toggleLike() {
   cardsElement
     .querySelector(".photo-grid__like-btn")
@@ -156,28 +140,18 @@ function handleDeleteCard(element) {
 function deleteCard(evt) {
   evt.target.closest(".photo-grid__card").remove();
 }
-/*
-function handleCloseModalKey (elem) {
-  elem.querySelector("popup").addEventListener("click", closeModalKey);
-}
-function closeModalKey(evt) {
-  evt.target.closest(".popup_is-opened").remove();
-} */
 
-/* функция добавления попап с созданием фото */
 function openCardPopup() {
   openModal(popupCard);
 }
 
 function formSubmitProfile() {
-  openModal(popupName); // добавляем класс, в результате чего класс popup_is-opened добавляется при нажатии на "редактировать" и удаляется при нажатии на крестик. */
-  nameInput.value = defaultName.textContent; // получаем информацию из содержимого полей формы
+  openModal(popupName); 
+  nameInput.value = defaultName.textContent;
   jobInput.value = defaultJob.textContent;
-
   buttonState(popupName, saveButton);
 }
 
-/* функция закрытия попап */
 function closeAllPopups() {
   closeModal(popupName);
   closeModal(popupCard);
@@ -189,7 +163,7 @@ function resetProfilePopup(evt) {
   evt.preventDefault();
   defaultName.textContent = nameInput.value;
   defaultJob.textContent = jobInput.value;
-  closeAllPopups(); /* вызываем функцию закрытия модального окна */
+  closeAllPopups();
 }
 
 function closeButtons() {
