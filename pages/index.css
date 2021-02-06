@@ -2,17 +2,14 @@
 
 @import url(../vendor/fonts.css);
 
-
-/* page */ 
+/* page */
 
 @import url(../blocks/page/page.css);
-
 
 /* header */
 
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);
-
 
 /* profile */
 
@@ -20,14 +17,12 @@
 @import url(../blocks/profile/__picture/profile__picture.css);
 @import url(../blocks/profile/__btn/profile__btn.css);
 
-
 /* info */
 
 @import url(../blocks/info/info.css);
 @import url(../blocks/info/__title/info__title.css);
 @import url(../blocks/info/__subtitle/info__subtitle.css);
 @import url(../blocks/info/__edit-btn/info__edit-btn.css);
-
 
 /* photo-grid */
 
@@ -39,12 +34,10 @@
 @import url(../blocks/photo-grid/__like-btn/photo-grid__like-btn.css);
 @import url(../blocks/photo-grid/__delete-btn/photo-grid__delete-btn.css);
 
-
 /* footer */
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
-
 
 /* popup */
 
