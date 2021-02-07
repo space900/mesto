@@ -9,7 +9,7 @@ const validOptions = {
 
 const showInputError = (formElement, inputElement, errorMessage, errorClass) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add("popup__text_invalid");
+  inputElement.classList.add(validOptions.inputErrorClass);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(errorClass);
 };

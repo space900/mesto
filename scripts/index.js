@@ -88,7 +88,6 @@ function createCard(element) {
 }
 
 function showDefaultCards(cardsElement) { 
-  
   gridList.append(createCard(cardsElement));
 }
 
@@ -97,7 +96,7 @@ function addCard(evt) {
     name: cardNameInput.value,
     link: cardLinkInput.value,
   };
-  function getAddCard(data, cardsElement) {
+  function getAddCard(data) {
     createCard(data);
     closeAllPopups();
     evt.preventDefault();
@@ -144,7 +143,7 @@ function resetProfilePopup(evt) {
 
 function closeButtons() {
   closeButtonProfile.addEventListener("click", closeAllPopups);
-  CloseButtonCard.addEventListener("click", closeAllPopups);
+  CloseButtonCard.addEventListener("click", () => closeModal(popupCard));
   closeButtonPhoto.addEventListener("click", closeAllPopups);
 }
 
