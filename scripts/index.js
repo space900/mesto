@@ -18,61 +18,35 @@ const gridList = document.querySelector(".photo-grid__list");
 const createButton = document.querySelector(".popup__submit_create-btn");
 const saveButton = document.querySelector(".popup__submit_save-btn");
 const popupPhoto = document.querySelector(".popup_photo");
-
 const popupOpened = document.querySelectorAll(".popup_is-opened");
 
-/* массив карточек */
-const initialCards = [
-  {
-    name: "Каракая-Су",
-    link: "./images/karakaya-su.jpg",
-    altText: "фото водопад Каракая-Су",
-  },
-  {
-    name: "Эльбрус",
-    link: "./images/elbrus.jpg",
-    altText: "фото гора Эльбрус",
-  },
-  {
-    name: "о. Рица",
-    link: "./images/ritza.jpg",
-    altText: "фото озеро Рица",
-  },
-  {
-    name: "Каньон Псахо",
-    link: "./images/psaho.jpg",
-    altText: "фото каньон Псахо Сочи",
-  },
-  {
-    name: "Южный Урал",
-    link: "./images/uvan.jpg",
-    altText: "фото горы Южный Урал",
-  },
-  {
-    name: "Армения",
-    link: "./images/armenia.jpg",
-    altText: "фото серпантины Армения",
-  },
-];
+function closeActivePopup (e) {
+  e.preventDefault();
+  const activePopup = document.querySelector(".popup_is-opened");
+  closeModal(activePopup);
+}
 
-const closeByoverlay = (e) => {
+const closeByOverlay = (e) => {
   if (e.target === e.currentTarget) {
-    closeAllPopups();
+    closeActivePopup(e);
   }
 };
 
-const closeByEscape = document.addEventListener("keydown", (evt) => {
-  if (evt.key === "Escape") {
-    closeAllPopups();
-  }
-});
 
 function openModal(evt) {
   evt.classList.add("popup_is-opened");
+  document.addEventListener("keydown", keyHandler);
 }
 
 function closeModal(evt) {
   evt.classList.remove("popup_is-opened");
+  document.removeEventListener("keydown", keyHandler);
+}
+
+const keyHandler = (e) => {
+  if (e.key === "Escape") {
+    closeActivePopup(e);
+  }
 }
 
 function getCurrentPhoto(card) {
@@ -88,7 +62,7 @@ function openPhotoPopup(evt) {
   popupPhoto.querySelector(".popup__caption").textContent = photoLabel;
 }
 
-function toggleLike() {
+function toggleLike(cardsElement) {
   cardsElement
     .querySelector(".photo-grid__like-btn")
     .addEventListener("click", toggleLikeTarget);
@@ -102,34 +76,36 @@ function render() {
   initialCards.forEach(showDefaultCards); //вызываем метод forEach чтобы пройти по всем элементам функции renderItems
 }
 
-function initialCardsValue(element) {
-  cardsElement = itemTemplate.cloneNode(true); //клонируем узел itemTemplate в переменную cardsElement
+function createCard(element) {
+  const cardsElement = itemTemplate.cloneNode(true); //клонируем узел itemTemplate в переменную cardsElement
   cardsElement.querySelector(".photo-grid__title").textContent = element.name; // выбираем методом querySelector класс с названием фото и свойством textContent, присваиваем классу значение name из массива
   cardsElement.querySelector(".photo-grid__image").src = element.link; // выбираем класс с фотографией, присваиваем классу значение link из массива
   cardsElement.querySelector(".photo-grid__image").alt = element.altText; // выбираем класс с фотографией, атрибутом alt, присваиваем классу значение altText, для добавления текстового описания изображения
-  toggleLike();
+  toggleLike(cardsElement);
   getCurrentPhoto(cardsElement);
   handleDeleteCard(cardsElement);
+  return cardsElement;
 }
 
-function showDefaultCards(element) {
-  initialCardsValue(element);
-  gridList.append(cardsElement);
+function showDefaultCards(cardsElement) { 
+  
+  gridList.append(createCard(cardsElement));
 }
 
 function addCard(evt) {
-  let data = {
+  const data = {
     name: cardNameInput.value,
     link: cardLinkInput.value,
   };
-  function getAddCard(data) {
-    initialCardsValue(data);
+  function getAddCard(data, cardsElement) {
+    createCard(data);
     closeAllPopups();
     evt.preventDefault();
-    gridList.prepend(cardsElement);
+    gridList.prepend(createCard(data));
   }
   getAddCard(data);
-  buttonState(popupName, createButton);
+  toggleButtonState(popupName, createButton);
+
 }
 
 /* функция удаления карточки */
@@ -149,7 +125,7 @@ function formSubmitProfile() {
   openModal(popupName); 
   nameInput.value = defaultName.textContent;
   jobInput.value = defaultJob.textContent;
-  buttonState(popupName, saveButton);
+  toggleButtonState(popupName, saveButton);
 }
 
 function closeAllPopups() {
@@ -179,6 +155,6 @@ popupOpenButton.addEventListener("click", formSubmitProfile);
 popupEditButton.addEventListener("click", openCardPopup);
 createButton.addEventListener("click", addCard);
 formItem.addEventListener("submit", resetProfilePopup);
-popupPhoto.addEventListener("click", closeByoverlay);
-popupCard.addEventListener("click", closeByoverlay);
-popupName.addEventListener("click", closeByoverlay);
+popupPhoto.addEventListener("click", closeByOverlay);
+popupCard.addEventListener("click", closeByOverlay);
+popupName.addEventListener("click", closeByOverlay);
