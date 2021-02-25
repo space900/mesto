@@ -1,4 +1,3 @@
-/* объявляем переменные */
 const itemTemplate = document.querySelector(".photo-grid__list-template").content;
 const formItem = document.querySelector("form");
 const popupName = document.querySelector(".popup_texts");
@@ -18,9 +17,8 @@ const gridList = document.querySelector(".photo-grid__list");
 const createButton = document.querySelector(".popup__submit_create-btn");
 const saveButton = document.querySelector(".popup__submit_save-btn");
 const popupPhoto = document.querySelector(".popup_photo");
-const popupOpened = document.querySelectorAll(".popup_is-opened");
 
-function closeActivePopup (e) {
+function closeActivePopup(e) {
   e.preventDefault();
   const activePopup = document.querySelector(".popup_is-opened");
   closeModal(activePopup);
@@ -31,7 +29,6 @@ const closeByOverlay = (e) => {
     closeActivePopup(e);
   }
 };
-
 
 function openModal(evt) {
   evt.classList.add("popup_is-opened");
@@ -47,7 +44,7 @@ const keyHandler = (e) => {
   if (e.key === "Escape") {
     closeActivePopup(e);
   }
-}
+};
 
 function getCurrentPhoto(card) {
   card.querySelector(".photo-grid__image").addEventListener("click", openPhotoPopup);
@@ -61,6 +58,8 @@ function openPhotoPopup(evt) {
   popupPhoto.querySelector("img").src = photoUrl;
   popupPhoto.querySelector(".popup__caption").textContent = photoLabel;
 }
+
+popupPhoto.addEventListener("click", () => openModal(photoUrl, photoLabel));
 
 function toggleLike(cardsElement) {
   cardsElement
@@ -87,7 +86,7 @@ function createCard(element) {
   return cardsElement;
 }
 
-function showDefaultCards(cardsElement) { 
+function showDefaultCards(cardsElement) {
   gridList.append(createCard(cardsElement));
 }
 
@@ -98,13 +97,12 @@ function addCard(evt) {
   };
   function getAddCard(data) {
     createCard(data);
-    closeAllPopups();
+    closeModal(popupCard);
     evt.preventDefault();
     gridList.prepend(createCard(data));
   }
   getAddCard(data);
   toggleButtonState(popupName, createButton);
-
 }
 
 /* функция удаления карточки */
@@ -121,16 +119,10 @@ function openCardPopup() {
 }
 
 function formSubmitProfile() {
-  openModal(popupName); 
+  openModal(popupName);
   nameInput.value = defaultName.textContent;
   jobInput.value = defaultJob.textContent;
   toggleButtonState(popupName, saveButton);
-}
-
-function closeAllPopups() {
-  closeModal(popupName);
-  closeModal(popupCard);
-  closeModal(popupPhoto);
 }
 
 /* функция сброса стандартного поведения страницы, перезаписи полученных значений в полях*/
@@ -138,13 +130,13 @@ function resetProfilePopup(evt) {
   evt.preventDefault();
   defaultName.textContent = nameInput.value;
   defaultJob.textContent = jobInput.value;
-  closeAllPopups();
+  closeModal(popupName);
 }
 
 function closeButtons() {
-  closeButtonProfile.addEventListener("click", closeAllPopups);
+  closeButtonProfile.addEventListener("click", () => closeModal(popupName));
   CloseButtonCard.addEventListener("click", () => closeModal(popupCard));
-  closeButtonPhoto.addEventListener("click", closeAllPopups);
+  closeButtonPhoto.addEventListener("click", () => closeModal(popupPhoto));
 }
 
 closeButtons();
