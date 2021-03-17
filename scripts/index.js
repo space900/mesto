@@ -57,9 +57,13 @@ function openPhotoPopup(evt) {
     .textContent;
   popupPhoto.querySelector("img").src = photoUrl;
   popupPhoto.querySelector(".popup__caption").textContent = photoLabel;
+
+  const popupImage = new Card(data, handleCardClick);
+    data.querySelector("img").src = popupImage.link;
 }
 
-popupPhoto.addEventListener("click", () => openModal(photoUrl, photoLabel));
+
+
 
 function toggleLike(cardsElement) {
   cardsElement
@@ -105,7 +109,7 @@ function addCard(evt) {
   toggleButtonState(popupName, createButton);
 }
 
-/* функция удаления карточки */
+/* функция удаления карточки */ 
 function handleDeleteCard(element) {
   element.querySelector(".photo-grid__delete-btn").addEventListener("click", deleteCard);
 }
@@ -149,3 +153,4 @@ formItem.addEventListener("submit", resetProfilePopup);
 popupPhoto.addEventListener("click", closeByOverlay);
 popupCard.addEventListener("click", closeByOverlay);
 popupName.addEventListener("click", closeByOverlay);
+
