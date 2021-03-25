@@ -50,6 +50,8 @@ function getCurrentPhoto(card) {
   card.querySelector(".photo-grid__image").addEventListener("click", openPhotoPopup);
 }
 
+
+/*
 function openPhotoPopup(evt) {
   openModal(popupPhoto);
   const photoUrl = evt.target.src;
@@ -58,12 +60,7 @@ function openPhotoPopup(evt) {
   popupPhoto.querySelector("img").src = photoUrl;
   popupPhoto.querySelector(".popup__caption").textContent = photoLabel;
 
-  const popupImage = new Card(data, handleCardClick);
-    data.querySelector("img").src = popupImage.link;
-}
-
-
-
+} */
 
 function toggleLike(cardsElement) {
   cardsElement
@@ -153,4 +150,3 @@ formItem.addEventListener("submit", resetProfilePopup);
 popupPhoto.addEventListener("click", closeByOverlay);
 popupCard.addEventListener("click", closeByOverlay);
 popupName.addEventListener("click", closeByOverlay);
-
