@@ -39,7 +39,7 @@ class Card {
       this._handleLikeCard();
     });
     this._element.querySelector(".photo-grid__image").addEventListener("click", () => {
-      this._handleCardClick(this._name, this._link);
+      this._handleCardClick(this._name, this._link, this._altText);
       });
       
   };
@@ -57,11 +57,15 @@ class Card {
   
 }
 
-function handleCardClick() {
-  const openImg = document.querySelector(".popup__image");
+function handleCardClick(a, b, c) {
+  const openImg = document.querySelector(".popup__position");
   const openTitle = document.querySelector(".popup__caption");
-  openImg.src = this._link;
+  
+  openImg.querySelector("img").src = this._link;
+  
   openTitle.textContent = this._name;
+
+  openImg.alt = this._altText;
   
   openModal(popupPhoto);
 }
