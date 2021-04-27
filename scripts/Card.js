@@ -1,3 +1,5 @@
+
+
 class Card {
   constructor(data, cardSelector, handleCardClick) {
     this._name = data.name;
@@ -57,19 +59,35 @@ class Card {
   
 }
 
-function handleCardClick(a, b, c) {
+// открытие попап-фото 
+function handleCardClick() {
   const openImg = document.querySelector(".popup__position");
-  const openTitle = document.querySelector(".popup__caption");
+ // const openTitle = document.querySelector(".popup__caption");
   
   openImg.querySelector("img").src = this._link;
-  
-  openTitle.textContent = this._name;
+  openImg.querySelector("p").textContent = this._name;
+  // openTitle.textContent = this._name;
+  openImg.querySelector("p").alt = this._altText;
 
-  openImg.alt = this._altText;
+  document.querySelector(".popup__image").alt = this._altText;
+  // openImg.alt = this._altText;
   
   openModal(popupPhoto);
 }
 
+
+
+
+function createCard (evt) {
+  const data = {
+    name: cardNameInput.value,
+    link: cardLinkInput.value,
+  };
+
+  evt.preventDefault();
+}
+
+/*
 function createCards(data) {
   const card = new Card(
     data,
@@ -78,10 +96,10 @@ function createCards(data) {
   );
   const cardElement = card.renderCard();
   return cardElement;
-}
+} */
 
 
-
+// рендер карточек 
 initialCards.forEach((item) => {
   const card = new Card(item, ".photo-grid__image", handleCardClick);
   const cardsElement = card.addCard();

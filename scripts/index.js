@@ -1,3 +1,5 @@
+import FormValidator from './FormValidation.js';
+
 const itemTemplate = document.querySelector(".photo-grid__list-template").content;
 const formItem = document.querySelector("form");
 const popupName = document.querySelector(".popup_texts");
@@ -46,9 +48,9 @@ const keyHandler = (e) => {
   }
 };
 
-function getCurrentPhoto(card) {
+/*function getCurrentPhoto(card) {
   card.querySelector(".photo-grid__image").addEventListener("click", openPhotoPopup);
-}
+} */
 
 
 /*
@@ -72,10 +74,12 @@ function toggleLikeTarget(evt) {
   evt.target.classList.toggle("photo-grid__like-btn_active");
 }
 
+/*
 function render() {
   initialCards.forEach(showDefaultCards); //вызываем метод forEach чтобы пройти по всем элементам функции renderItems
-}
+} */
 
+/*
 function createCard(element) {
   const cardsElement = itemTemplate.cloneNode(true); //клонируем узел itemTemplate в переменную cardsElement
   cardsElement.querySelector(".photo-grid__title").textContent = element.name; // выбираем методом querySelector класс с названием фото и свойством textContent, присваиваем классу значение name из массива
@@ -85,11 +89,12 @@ function createCard(element) {
   getCurrentPhoto(cardsElement);
   handleDeleteCard(cardsElement);
   return cardsElement;
-}
+} */
 
+/*
 function showDefaultCards(cardsElement) {
   gridList.append(createCard(cardsElement));
-}
+} */
 
 function addCard(evt) {
   const data = {
@@ -141,7 +146,7 @@ function closeButtons() {
 }
 
 closeButtons();
-render();
+//render();
 
 popupOpenButton.addEventListener("click", formSubmitProfile);
 popupEditButton.addEventListener("click", openCardPopup);
@@ -150,3 +155,24 @@ formItem.addEventListener("submit", resetProfilePopup);
 popupPhoto.addEventListener("click", closeByOverlay);
 popupCard.addEventListener("click", closeByOverlay);
 popupName.addEventListener("click", closeByOverlay);
+
+const settings = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__text_input",
+  submitButtonSelector: ".popup__submit",
+  inactiveButtonClass: "popup__submit_disabled",
+  inputErrorClass: "popup__text_invalid",
+  errorClass: "`${inputElement.id}-error`"
+};
+
+const editProfileForm = document.querySelector(".popup_texts");
+const addCardForm = document.querySelector(".popup_cards");
+
+const addCardValidator = new FormValidator(settings, editProfileForm);
+const editProfileValidator = new FormValidator(settings, addCardForm);
+
+addCardValidator.enableValidation();
+editProfileValidator.enableValidation();
+
+
+
