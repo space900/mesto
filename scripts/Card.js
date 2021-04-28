@@ -1,5 +1,3 @@
-
-
 class Card {
   constructor(data, cardSelector, handleCardClick) {
     this._name = data.name;
@@ -26,24 +24,20 @@ class Card {
     this._cardImage.alt = this._name;
     this._cardLikeButton = this._element.querySelector(".photo-grid__like-btn_active");
     this._element.querySelector(".photo-grid__title").textContent = this._name;
-    
+
     return this._element;
   };
 
-
   _setEventListeners = () => {
-    this._element
-      .querySelector(".photo-grid__delete-btn")
-      .addEventListener("click", () => {
-        this._handleDeleteCard();
-      });
+    this._element.querySelector(".photo-grid__delete-btn").addEventListener("click", () => {
+      this._handleDeleteCard();
+    });
     this._element.querySelector(".photo-grid__like-btn").addEventListener("click", () => {
       this._handleLikeCard();
     });
     this._element.querySelector(".photo-grid__image").addEventListener("click", () => {
       this._handleCardClick(this._name, this._link, this._altText);
-      });
-      
+    });
   };
 
   _handleDeleteCard = () => {
@@ -51,19 +45,15 @@ class Card {
   };
 
   _handleLikeCard = () => {
-    this._element
-      .querySelector(".photo-grid__like-btn")
-      .classList.toggle("photo-grid__like-btn_active");
+    this._element.querySelector(".photo-grid__like-btn").classList.toggle("photo-grid__like-btn_active");
   };
-
-  
 }
 
-// открытие попап-фото 
+// открытие попап-фото
 function handleCardClick() {
   const openImg = document.querySelector(".popup__position");
- // const openTitle = document.querySelector(".popup__caption");
-  
+  // const openTitle = document.querySelector(".popup__caption");
+
   openImg.querySelector("img").src = this._link;
   openImg.querySelector("p").textContent = this._name;
   // openTitle.textContent = this._name;
@@ -71,14 +61,11 @@ function handleCardClick() {
 
   document.querySelector(".popup__image").alt = this._altText;
   // openImg.alt = this._altText;
-  
+
   openModal(popupPhoto);
 }
 
-
-
-
-function createCard (evt) {
+function createCard(evt) {
   const data = {
     name: cardNameInput.value,
     link: cardLinkInput.value,
@@ -98,8 +85,7 @@ function createCards(data) {
   return cardElement;
 } */
 
-
-// рендер карточек 
+// рендер карточек
 initialCards.forEach((item) => {
   const card = new Card(item, ".photo-grid__image", handleCardClick);
   const cardsElement = card.addCard();

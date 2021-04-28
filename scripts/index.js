@@ -1,5 +1,23 @@
 import FormValidator from './FormValidation.js';
 
+const settings = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__text_input",
+  submitButtonSelector: ".popup__submit",
+  inactiveButtonClass: "popup__submit_disabled",
+  inputErrorClass: "popup__text_invalid",
+  errorClass: "`${inputElement.id}-error`"
+};
+
+const editProfileForm = document.querySelector(".popup_texts");
+const addCardForm = document.querySelector(".popup_cards");
+
+const addCardValidator = new FormValidator(settings, editProfileForm);
+const editProfileValidator = new FormValidator(settings, addCardForm);
+
+addCardValidator.enableValidation();
+editProfileValidator.enableValidation();
+
 const itemTemplate = document.querySelector(".photo-grid__list-template").content;
 const formItem = document.querySelector("form");
 const popupName = document.querySelector(".popup_texts");
@@ -155,24 +173,4 @@ formItem.addEventListener("submit", resetProfilePopup);
 popupPhoto.addEventListener("click", closeByOverlay);
 popupCard.addEventListener("click", closeByOverlay);
 popupName.addEventListener("click", closeByOverlay);
-
-const settings = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__text_input",
-  submitButtonSelector: ".popup__submit",
-  inactiveButtonClass: "popup__submit_disabled",
-  inputErrorClass: "popup__text_invalid",
-  errorClass: "`${inputElement.id}-error`"
-};
-
-const editProfileForm = document.querySelector(".popup_texts");
-const addCardForm = document.querySelector(".popup_cards");
-
-const addCardValidator = new FormValidator(settings, editProfileForm);
-const editProfileValidator = new FormValidator(settings, addCardForm);
-
-addCardValidator.enableValidation();
-editProfileValidator.enableValidation();
-
-
 
