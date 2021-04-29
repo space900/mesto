@@ -54,9 +54,11 @@ class Card {
   }
 
   getCard() {
-    const cardTemplate = document.querySelector(this._cardTemplateSelector).content.querySelector(".photo-grid__card");
+    const itemTemplate = document.querySelector(this._cardTemplateSelector).content.querySelector(".photo-grid__card");
 
-    this._cardElement = cardTemplate.cloneNode(true);
+    //const cardTemplate = document.querySelector(this._cardTemplateSelector).content.querySelector(".photo-grid__card");
+
+    this._cardElement = itemTemplate.cloneNode(true);
     const cardImage = this._cardElement.querySelector(".photo-grid__image");
 
     cardImage.style.backgroundImage = `url (${this._link})`;

@@ -127,10 +127,10 @@ function toggleLikeTarget(evt) {
   evt.target.classList.toggle("photo-grid__like-btn_active");
 }
 
-const renderCard = (data, wrap) => {
+/*const renderCard = (data, wrap) => {
   const card = new Card(data, "#card-template");
   wrap.prepend(card.getCard());
-}
+} */
 
 
 function render() {
