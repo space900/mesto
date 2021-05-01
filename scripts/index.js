@@ -1,5 +1,7 @@
 import FormValidator from './FormValidation.js';
+import { openModal, closeModal, closeActivePopup } from './utils.js';
 import Card from './Card.js';
+
 
 const settings = {
   formSelector: ".popup__form",
@@ -36,7 +38,6 @@ const cardNameInput = document.querySelector(".popup__text_field_name");
 const cardLinkInput = document.querySelector(".popup__text_field_link");
 const gridList = document.querySelector(".photo-grid__list");
 const createButton = document.querySelector(".popup__submit_create-btn");
-const saveButton = document.querySelector(".popup__submit_save-btn");
 const popupPhoto = document.querySelector(".popup_photo");
 
 const initialCards = [
@@ -72,31 +73,8 @@ const initialCards = [
   },
 ];
 
-
-function closeActivePopup(e) {
-  e.preventDefault();
-  const activePopup = document.querySelector(".popup_is-opened");
-  closeModal(activePopup);
-}
-
 const closeByOverlay = (e) => {
   if (e.target === e.currentTarget) {
-    closeActivePopup(e);
-  }
-};
-
-function openModal(evt) {
-  evt.classList.add("popup_is-opened");
-  document.addEventListener("keydown", keyHandler);
-}
-
-function closeModal(evt) {
-  evt.classList.remove("popup_is-opened");
-  document.removeEventListener("keydown", keyHandler);
-}
-
-const keyHandler = (e) => {
-  if (e.key === "Escape") {
     closeActivePopup(e);
   }
 };
@@ -104,8 +82,6 @@ const keyHandler = (e) => {
 function getCurrentPhoto(card) {
   card.querySelector(".photo-grid__image").addEventListener("click", openPhotoPopup);
 } 
-
-
 
 function openPhotoPopup(evt) {
   openModal(popupPhoto);
@@ -138,7 +114,7 @@ function render() {
 } 
 
 
-
+// создание карточки из темплейта
 function createCard(element) {
   const cardsElement = itemTemplate.cloneNode(true); //клонируем узел itemTemplate в переменную cardsElement
   cardsElement.querySelector(".photo-grid__title").textContent = element.name; // выбираем методом querySelector класс с названием фото и свойством textContent, присваиваем классу значение name из массива
@@ -167,10 +143,9 @@ function addCard(evt) {
     gridList.prepend(createCard(data));
   }
   getAddCard(data);
-  toggleButtonState(popupName, createButton);
 }
 
-/* функция удаления карточки */ 
+// функция удаления карточки по клику 
 function handleDeleteCard(element) {
   element.querySelector(".photo-grid__delete-btn").addEventListener("click", deleteCard);
 }
@@ -187,10 +162,9 @@ function formSubmitProfile() {
   openModal(popupName);
   nameInput.value = defaultName.textContent;
   jobInput.value = defaultJob.textContent;
-  toggleButtonState(popupName, saveButton);
 }
 
-/* функция сброса стандартного поведения страницы, перезаписи полученных значений в полях*/
+// функция сброса стандартного поведения страницы, перезаписи полученных значений в полях
 function resetProfilePopup(evt) {
   evt.preventDefault();
   defaultName.textContent = nameInput.value;
@@ -207,8 +181,7 @@ function closeButtons() {
 closeButtons();
 render();
 
-
-
+// Слушатели
 popupOpenButton.addEventListener("click", formSubmitProfile);
 popupEditButton.addEventListener("click", openCardPopup);
 createButton.addEventListener("click", addCard);

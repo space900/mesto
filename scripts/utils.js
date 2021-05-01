@@ -4,7 +4,7 @@ const keyHandler = (e) => {
     }
 };
 
-const closeActivePopup = (e) => {
+export const closeActivePopup = (e) => {
     e.preventDefault();
     const activePopup = document.querySelector(".popup_is-opened");
     closeModal(activePopup);
@@ -15,7 +15,7 @@ export const openModal = (evt) => {
     document.addEventListener("keydown", keyHandler);
 }
 
-const closeModal = (evt) => {
+export const closeModal = (evt) => {
     evt.classList.remove("popup_is-opened");
     document.removeEventListener("keydown", keyHandler);
 }
