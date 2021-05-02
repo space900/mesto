@@ -24,7 +24,7 @@ function renderCard(cardData) {
   gridList.append(card.getCard());
 }
 
-addCardForm.addEventListener("submit", (e, wrap) => {
+addCardForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const data = {
