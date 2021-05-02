@@ -42,6 +42,7 @@ class Card {
 
     cardImage.src = this._link;
     this._cardElement.querySelector(".photo-grid__title").textContent = this._text;
+    cardImage.alt = this._altText;
     
     this._setEventListeners();
 
