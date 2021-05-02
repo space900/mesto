@@ -20,7 +20,6 @@ export const closeModal = (evt) => {
     document.removeEventListener("keydown", keyHandler);
 }
 
-
-const popupPhoto = document.querySelector(".popup_photo");
-export const popupElement = popupPhoto.querySelector(".popup__image");
-export const popupCaption = popupPhoto.querySelector(".popup__caption");
+export const popupPhoto = document.querySelector(".popup_photo");
+export const popupImage = popupPhoto.querySelector(".popup__image");
+export const popupImageCaption = popupPhoto.querySelector(".popup__caption");

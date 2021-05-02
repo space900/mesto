@@ -30,3 +30,5 @@ const initialCards = [
       altText: "фото серпантины Армения",
     },
   ];
+
+export default initialCards;

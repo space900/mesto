@@ -1,8 +1,10 @@
+// импорты
 import FormValidator from './FormValidation.js';
 import { openModal, closeModal, closeActivePopup } from './utils.js';
+import initialCards from './data.js'
 import Card from './Card.js';
 
-
+// настройки для валидации
 const settings = {
   formSelector: ".popup__form",
   inputSelector: ".popup__text_input",
@@ -13,7 +15,25 @@ const settings = {
 };
 
 const editProfileForm = document.querySelector(".popup_texts");
-const addCardForm = document.querySelector(".popup_cards");
+const addCardModal = document.querySelector(".popup_cards");
+const addCardForm = addCardModal.querySelector(".popup__form");
+
+// экземпляр карточки
+function renderCard(cardData) {
+  const card = new Card(cardData, ".photo-grid__list-template")
+  gridList.append(card.getCard());
+}
+
+addCardForm.addEventListener("submit", (e, wrap) => {
+  e.preventDefault();
+
+  const data = {
+    name: cardNameInput.value,
+    link: cardLinkInput.value
+  }
+
+  renderCard(data);
+})
 
 const addCardValidator = new FormValidator(settings, editProfileForm);
 const editProfileValidator = new FormValidator(settings, addCardForm);
@@ -21,7 +41,6 @@ const editProfileValidator = new FormValidator(settings, addCardForm);
 addCardValidator.enableValidation();
 editProfileValidator.enableValidation();
 
-const itemTemplate = document.querySelector(".photo-grid__list-template").content;
 const formItem = document.querySelector("form");
 const popupName = document.querySelector(".popup_texts");
 const popupCard = document.querySelector(".popup_cards");
@@ -37,41 +56,7 @@ const jobInput = document.querySelector(".popup__text_field_job");
 const cardNameInput = document.querySelector(".popup__text_field_name");
 const cardLinkInput = document.querySelector(".popup__text_field_link");
 const gridList = document.querySelector(".photo-grid__list");
-const createButton = document.querySelector(".popup__submit_create-btn");
 const popupPhoto = document.querySelector(".popup_photo");
-
-const initialCards = [
-  {
-    name: "Каракая-Су",
-    link: "./images/karakaya-su.jpg",
-    altText: "фото водопад Каракая-Су",
-  },
-  {
-    name: "Эльбрус",
-    link: "./images/elbrus.jpg",
-    altText: "фото гора Эльбрус",
-  },
-  {
-    name: "о. Рица",
-    link: "./images/ritza.jpg",
-    altText: "фото озеро Рица",
-  },
-  {
-    name: "Каньон Псахо",
-    link: "./images/psaho.jpg",
-    altText: "фото каньон Псахо Сочи",
-  },
-  {
-    name: "Южный Урал",
-    link: "./images/uvan.jpg",
-    altText: "фото горы Южный Урал",
-  },
-  {
-    name: "Армения",
-    link: "./images/armenia.jpg",
-    altText: "фото серпантины Армения",
-  },
-];
 
 const closeByOverlay = (e) => {
   if (e.target === e.currentTarget) {
@@ -79,79 +64,8 @@ const closeByOverlay = (e) => {
   }
 };
 
-function getCurrentPhoto(card) {
-  card.querySelector(".photo-grid__image").addEventListener("click", openPhotoPopup);
-} 
-
-function openPhotoPopup(evt) {
-  openModal(popupPhoto);
-  const photoUrl = evt.target.src;
-  const photoLabel = evt.target.parentElement.querySelector(".photo-grid__title")
-    .textContent;
-  popupPhoto.querySelector("img").src = photoUrl;
-  popupPhoto.querySelector(".popup__caption").textContent = photoLabel;
-
-} 
-
-function toggleLike(cardsElement) {
-  cardsElement
-    .querySelector(".photo-grid__like-btn")
-    .addEventListener("click", toggleLikeTarget);
-}
-
-function toggleLikeTarget(evt) {
-  evt.target.classList.toggle("photo-grid__like-btn_active");
-}
-
-/*const renderCard = (data, wrap) => {
-  const card = new Card(data, "#card-template");
-  wrap.prepend(card.getCard());
-} */
-
-
 function render() {
-  initialCards.forEach(showDefaultCards); //вызываем метод forEach чтобы пройти по всем элементам функции renderItems
-} 
-
-
-// создание карточки из темплейта
-function createCard(element) {
-  const cardsElement = itemTemplate.cloneNode(true); //клонируем узел itemTemplate в переменную cardsElement
-  cardsElement.querySelector(".photo-grid__title").textContent = element.name; // выбираем методом querySelector класс с названием фото и свойством textContent, присваиваем классу значение name из массива
-  cardsElement.querySelector(".photo-grid__image").src = element.link; // выбираем класс с фотографией, присваиваем классу значение link из массива
-  cardsElement.querySelector(".photo-grid__image").alt = element.altText; // выбираем класс с фотографией, атрибутом alt, присваиваем классу значение altText, для добавления текстового описания изображения
-  toggleLike(cardsElement);
-  getCurrentPhoto(cardsElement);
-  handleDeleteCard(cardsElement);
-  return cardsElement;
-} 
-
-
-function showDefaultCards(cardsElement) {
-  gridList.append(createCard(cardsElement));
-} 
-
-function addCard(evt) {
-  const data = {
-    name: cardNameInput.value,
-    link: cardLinkInput.value,
-  };
-  function getAddCard(data) {
-    createCard(data);
-    closeModal(popupCard);
-    evt.preventDefault();
-    gridList.prepend(createCard(data));
-  }
-  getAddCard(data);
-}
-
-// функция удаления карточки по клику 
-function handleDeleteCard(element) {
-  element.querySelector(".photo-grid__delete-btn").addEventListener("click", deleteCard);
-}
-
-function deleteCard(evt) {
-  evt.target.closest(".photo-grid__card").remove();
+  initialCards.forEach(renderCard); //вызываем метод forEach чтобы пройти по всем элементам функции renderItems
 }
 
 function openCardPopup() {
@@ -184,12 +98,7 @@ render();
 // Слушатели
 popupOpenButton.addEventListener("click", formSubmitProfile);
 popupEditButton.addEventListener("click", openCardPopup);
-createButton.addEventListener("click", addCard);
 formItem.addEventListener("submit", resetProfilePopup);
 popupPhoto.addEventListener("click", closeByOverlay);
 popupCard.addEventListener("click", closeByOverlay);
 popupName.addEventListener("click", closeByOverlay);
-
-/* initialCards.forEach((data) => {
-  renderCard(data, placeWrap)
-}); */
