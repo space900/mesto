@@ -18,6 +18,7 @@ const editProfileForm = document.querySelector(".popup_texts");
 const addCardModal = document.querySelector(".popup_cards");
 const addCardForm = addCardModal.querySelector(".popup__form");
 
+
 // экземпляр карточки
 function renderCard(cardData) {
   const card = new Card(cardData, ".photo-grid__list-template")
@@ -25,6 +26,7 @@ function renderCard(cardData) {
 }
 
 addCardForm.addEventListener("submit", (e) => {
+
   e.preventDefault();
   const data = {
     name: cardNameInput.value,
@@ -33,6 +35,7 @@ addCardForm.addEventListener("submit", (e) => {
 
   renderCard(data);
   e.target.reset();
+  closeModal(popupCard);
 })
 
 const addCardValidator = new FormValidator(settings, editProfileForm);
@@ -64,6 +67,10 @@ const closeByOverlay = (e) => {
   }
 };
 
+CloseButtonCard.addEventListener("submit", () => {
+  popupCard.reset();
+})
+
 function renderInitialCards() {
   initialCards.forEach(renderCard); //вызываем метод forEach чтобы пройти по всем элементам функции renderItems
 }
@@ -89,7 +96,7 @@ function resetProfilePopup(evt) {
 function closePopupsByCloseButtons() {
   closeButtonProfile.addEventListener("click", () => closeModal(popupName));
   CloseButtonCard.addEventListener("click", () => closeModal(popupCard));
-
+  addCardForm.addEventListener("submit", () => closeModal(popupCard));
   closeButtonPhoto.addEventListener("click", () => closeModal(popupPhoto));
 }
 
