@@ -26,13 +26,13 @@ function renderCard(cardData) {
 
 addCardForm.addEventListener("submit", (e) => {
   e.preventDefault();
-
   const data = {
     name: cardNameInput.value,
     link: cardLinkInput.value
   }
 
   renderCard(data);
+  e.target.reset();
 })
 
 const addCardValidator = new FormValidator(settings, editProfileForm);
@@ -89,6 +89,7 @@ function resetProfilePopup(evt) {
 function closePopupsByCloseButtons() {
   closeButtonProfile.addEventListener("click", () => closeModal(popupName));
   CloseButtonCard.addEventListener("click", () => closeModal(popupCard));
+
   closeButtonPhoto.addEventListener("click", () => closeModal(popupPhoto));
 }
 
