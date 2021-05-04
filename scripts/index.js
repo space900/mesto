@@ -64,7 +64,7 @@ const closeByOverlay = (e) => {
   }
 };
 
-function render() {
+function renderInitialCards() {
   initialCards.forEach(renderCard); //вызываем метод forEach чтобы пройти по всем элементам функции renderItems
 }
 
@@ -86,14 +86,14 @@ function resetProfilePopup(evt) {
   closeModal(popupName);
 }
 
-function closeButtons() {
+function closePopupsByCloseButtons() {
   closeButtonProfile.addEventListener("click", () => closeModal(popupName));
   CloseButtonCard.addEventListener("click", () => closeModal(popupCard));
   closeButtonPhoto.addEventListener("click", () => closeModal(popupPhoto));
 }
 
-closeButtons();
-render();
+closePopupsByCloseButtons();
+renderInitialCards();
 
 // Слушатели
 popupOpenButton.addEventListener("click", formSubmitProfile);
