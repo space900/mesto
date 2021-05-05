@@ -20,9 +20,16 @@ const addCardForm = addCardModal.querySelector(".popup__form");
 
 
 // экземпляр карточки
+
+
 function renderCard(cardData) {
   const card = new Card(cardData, ".photo-grid__list-template")
   gridList.append(card.getCard());
+}
+
+function getAddCard(data) {
+  const card = new Card(data, ".photo-grid__list-template")
+  gridList.prepend(card.getCard());
 }
 
 addCardForm.addEventListener("submit", (e) => {
@@ -33,8 +40,10 @@ addCardForm.addEventListener("submit", (e) => {
     link: cardLinkInput.value
   }
 
-  renderCard(data);
+  
   e.target.reset();
+  getAddCard(data);
+  
   closeModal(popupCard);
 })
 
@@ -50,7 +59,7 @@ const popupCard = document.querySelector(".popup_cards");
 const popupOpenButton = document.querySelector(".info__edit-btn");
 const popupEditButton = document.querySelector(".profile__btn");
 const closeButtonProfile = document.querySelector(".popup__close_texts");
-const CloseButtonCard = document.querySelector(".popup__close_cards");
+const closeButtonCard = document.querySelector(".popup__close_cards");
 const closeButtonPhoto = document.querySelector(".popup__close_image");
 const defaultName = document.querySelector(".info__title");
 const defaultJob = document.querySelector(".info__subtitle");
@@ -66,10 +75,6 @@ const closeByOverlay = (e) => {
     closeActivePopup(e);
   }
 };
-
-CloseButtonCard.addEventListener("submit", () => {
-  popupCard.reset();
-})
 
 function renderInitialCards() {
   initialCards.forEach(renderCard); //вызываем метод forEach чтобы пройти по всем элементам функции renderItems
@@ -95,7 +100,7 @@ function resetProfilePopup(evt) {
 
 function closePopupsByCloseButtons() {
   closeButtonProfile.addEventListener("click", () => closeModal(popupName));
-  CloseButtonCard.addEventListener("click", () => closeModal(popupCard));
+  closeButtonCard.addEventListener("click", () => { closeModal(popupCard); addCardForm.reset();});
   addCardForm.addEventListener("submit", () => closeModal(popupCard));
   closeButtonPhoto.addEventListener("click", () => closeModal(popupPhoto));
 }
