@@ -16,6 +16,7 @@ class FormValidator {
     inputElement.classList.remove(this._settings.inputErrorClass);
     errorElement.classList.remove(this._settings.errorClass);
     errorElement.textContent = "";
+    console.log('in hide', errorElement);
   }
 
   _checkInputValidity(inputElement) {
@@ -32,28 +33,44 @@ class FormValidator {
     });
   }
 
-  _toggleButtonState(inputList, buttonElement) {
+  toggleButtonState(inputList, buttonElement) {
     if (this._hasInvalidInput(inputList)) {
-      buttonElement.classList.add(this._settings.inactiveButtonClass);
-      buttonElement.disabled = true;
+      this._disableButton(buttonElement);
     } else {
-      buttonElement.classList.remove(this._settings.inactiveButtonClass);
-      buttonElement.disabled = false;
+      this._enableButton(buttonElement);
     }
   }
 
+  _enableButton(buttonElement) {
+    buttonElement.classList.remove(this._settings.inactiveButtonClass);
+    buttonElement.disabled = false;
+  }
+
+  _disableButton(buttonElement) {
+    buttonElement.classList.add(this._settings.inactiveButtonClass);
+    buttonElement.disabled = true;
+  }
+
   _setEventListeners() {
-    const inputList = Array.from(
+    this._inputList = Array.from(
       this._form.querySelectorAll(this._settings.inputSelector)
     );
-    const buttonElement = this._form.querySelector(this._settings.submitButtonSelector);
+    this._buttonElement = this._form.querySelector(this._settings.submitButtonSelector);
 
-    inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._checkInputValidity(inputElement);
-        this._toggleButtonState(inputList, buttonElement);
+        this.toggleButtonState(this._inputList, this._buttonElement);
       });
     });
+  }
+
+  resetValidation() {
+    console.log('in reset Validation', this._inputList);
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
+    this._disableButton(this._buttonElement);
   }
 
   enableValidation() {

@@ -17,42 +17,8 @@ const settings = {
 const editProfileForm = document.querySelector(".popup_texts");
 const addCardModal = document.querySelector(".popup_cards");
 const addCardForm = addCardModal.querySelector(".popup__form");
-
-
-// экземпляр карточки
-
-
-function renderCard(cardData) {
-  const card = new Card(cardData, ".photo-grid__list-template")
-  gridList.append(card.getCard());
-}
-
-function getAddCard(data) {
-  const card = new Card(data, ".photo-grid__list-template")
-  gridList.prepend(card.getCard());
-}
-
-addCardForm.addEventListener("submit", (e) => {
-
-  e.preventDefault();
-  const data = {
-    name: cardNameInput.value,
-    link: cardLinkInput.value
-  }
-
-  
-  e.target.reset();
-  getAddCard(data);
-  
-  closeModal(popupCard);
-})
-
-const addCardValidator = new FormValidator(settings, editProfileForm);
-const editProfileValidator = new FormValidator(settings, addCardForm);
-
-addCardValidator.enableValidation();
-editProfileValidator.enableValidation();
-
+const addCardValidator = new FormValidator(settings, addCardForm);
+const editProfileValidator = new FormValidator(settings, editProfileForm);
 const formItem = document.querySelector("form");
 const popupName = document.querySelector(".popup_texts");
 const popupCard = document.querySelector(".popup_cards");
@@ -76,6 +42,19 @@ const closeByOverlay = (e) => {
   }
 };
 
+// экземпляр карточки
+function renderCard(cardData) {
+  const card = new Card(cardData, ".photo-grid__list-template")
+  const createCard = card.getCard();
+  gridList.append(createCard);
+}
+
+function getAddCard(data) {
+  const card = new Card(data, ".photo-grid__list-template")
+  const createCard = card.getCard();
+  gridList.prepend(createCard);
+}
+
 function renderInitialCards() {
   initialCards.forEach(renderCard); //вызываем метод forEach чтобы пройти по всем элементам функции renderItems
 }
@@ -85,6 +64,7 @@ function openCardPopup() {
 }
 
 function formSubmitProfile() {
+  editProfileValidator.resetValidation();
   openModal(popupName);
   nameInput.value = defaultName.textContent;
   jobInput.value = defaultJob.textContent;
@@ -100,11 +80,31 @@ function resetProfilePopup(evt) {
 
 function closePopupsByCloseButtons() {
   closeButtonProfile.addEventListener("click", () => closeModal(popupName));
-  closeButtonCard.addEventListener("click", () => { closeModal(popupCard); addCardForm.reset();});
+  closeButtonCard.addEventListener("click", () => {
+    closeModal(popupCard);
+    addCardForm.reset();
+    addCardValidator.resetValidation();
+  });
   addCardForm.addEventListener("submit", () => closeModal(popupCard));
   closeButtonPhoto.addEventListener("click", () => closeModal(popupPhoto));
 }
 
+addCardForm.addEventListener("submit", (e) => {
+
+  e.preventDefault();
+  const data = {
+    name: cardNameInput.value,
+    link: cardLinkInput.value
+  }
+
+  e.target.reset();
+  getAddCard(data);
+  closeModal(popupCard);
+  addCardValidator.resetValidation();
+})
+
+addCardValidator.enableValidation();
+editProfileValidator.enableValidation();
 closePopupsByCloseButtons();
 renderInitialCards();
 
