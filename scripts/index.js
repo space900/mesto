@@ -48,7 +48,7 @@ const popupPhoto = document.querySelector(".popup_photo");
 
 //экземпляр
 const createCard = (cardData) => {
-  const card = new Card(cardData, ".photo-grid__list-template");
+  const card = new Card(cardData, ".photo-grid__list-template"); // пока не получается вынести селектор в переменную, при добавлении переменной из глобала вместо селектора все ломается, вне зависимости до renderInitialCards() назначается или после, причину пока не понял
   return card.getCard();
 }
 
