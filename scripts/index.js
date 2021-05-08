@@ -14,7 +14,7 @@ const settings = {
   errorClass: "`${inputElement.id}-error`"
 };
 
-
+// переменные
 const itemTemplate = document.querySelector(".photo-grid__list-template").content.querySelector(".photo-grid__card");
 const editProfileForm = document.querySelector(".popup_texts");
 const addCardModal = document.querySelector(".popup_cards");
@@ -46,34 +46,33 @@ const popupPhoto = document.querySelector(".popup_photo");
 //  return cardElement;
 //}
 
+//экземпляр
 const createCard = (cardData) => {
   const card = new Card(cardData, ".photo-grid__list-template");
-  card.getCard();
-  return createCard;
+  return card.getCard();
 }
 
-const addCard = (data) => {
-  gridList.append(data);
+// методы вставки элементов
+const addCard = (showCard) => {
+  gridList.append(createCard(showCard));
 }
 
-function addCardReverse(data) {
-  gridList.prepend(data);
+const addCardReverse = (showCard) => {
+  gridList.prepend(createCard(showCard));
 }
 
-// экземпляр карточки
+// вызов стандартных карточек
 const renderCard = (data) => {
-  createCard(data);
-  addCard(createCard);
+  addCard(data);
 }
 
-// добавление новой карточки
-function getAddCard(data) {
-  createCard(data);
-  addCardReverse(createCard(data));
+// вызов новой карточки
+const getAddCard = (data) => {
+  addCardReverse(data);
 }
 
 function renderInitialCards() {
-  initialCards.forEach(renderCard); //вызываем метод forEach чтобы пройти по всем элементам функции renderItems
+  initialCards.forEach(renderCard); //вызываем метод forEach чтобы пройти по всем элементам
 }
 
 function openCardPopup() {
