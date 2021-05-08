@@ -53,22 +53,22 @@ const createCard = (cardData) => {
 }
 
 // методы вставки элементов
-const addCard = (showCard) => {
+const appendCard = (showCard) => {
   gridList.append(createCard(showCard));
 }
 
-const addCardReverse = (showCard) => {
+const prependCard = (showCard) => {
   gridList.prepend(createCard(showCard));
 }
 
 // вызов стандартных карточек
 const renderCard = (data) => {
-  addCard(data);
+  appendCard(data);
 }
 
 // вызов новой карточки
 const getAddCard = (data) => {
-  addCardReverse(data);
+  prependCard(data);
 }
 
 function renderInitialCards() {
