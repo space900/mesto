@@ -48,7 +48,7 @@ const popupPhoto = document.querySelector(".popup_photo");
 
 //экземпляр
 const createCard = (cardData) => {
-  const card = new Card(cardData, ".photo-grid__list-template"); // пока не получается вынести селектор в переменную, при добавлении переменной из глобала вместо селектора все ломается, вне зависимости до renderInitialCards() назначается или после, причину пока не понял
+  const card = new Card(cardData, itemTemplate); // пока не получается вынести селектор в переменную, при добавлении переменной из глобала вместо селектора все ломается, вне зависимости до renderInitialCards() назначается или после, причину пока не понял
   return card.getCard();
 }
 
@@ -94,6 +94,8 @@ function resetProfilePopup(evt) {
   closeModal(popupName);
 }
 
+
+// закрытие модалок по клику
 function closePopupsByCloseButtons() {
   closeButtonProfile.addEventListener("click", () => closeModal(popupName));
   closeButtonCard.addEventListener("click", () => {
@@ -104,6 +106,8 @@ function closePopupsByCloseButtons() {
   closeButtonPhoto.addEventListener("click", () => closeModal(popupPhoto));
 }
 
+
+// закрытие модалок по оверлею
 const closeByOverlay = (e) => {
   if (e.target === e.currentTarget) {
     closeActivePopup(e);
