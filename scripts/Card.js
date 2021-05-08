@@ -5,7 +5,12 @@ class Card {
     this._text = name;
     this._link = link;
     this._altText = altText;
-    this._cardTemplateSelector = cardTemplateSelector;
+    this._cardTemplateSelector = document.querySelector(cardTemplateSelector).content.querySelector(".photo-grid__card");
+  }
+
+  _getTemplate() {
+    this._template = this._cardTemplateSelector.cloneNode(true);
+    return this._template;
   }
 
   _handleLikeCard(evt) {
@@ -35,9 +40,9 @@ class Card {
   }
 
   getCard() {
-    const itemTemplate = document.querySelector(this._cardTemplateSelector).content.querySelector(".photo-grid__card");
+    this._itemTemplate = this._getTemplate();
 
-    this._cardElement = itemTemplate.cloneNode(true);
+    this._cardElement = this._itemTemplate.cloneNode(true);
     const cardImage = this._cardElement.querySelector(".photo-grid__image");
 
     cardImage.src = this._link;

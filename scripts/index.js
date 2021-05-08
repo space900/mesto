@@ -14,6 +14,8 @@ const settings = {
   errorClass: "`${inputElement.id}-error`"
 };
 
+
+const itemTemplate = document.querySelector(".photo-grid__list-template").content.querySelector(".photo-grid__card");
 const editProfileForm = document.querySelector(".popup_texts");
 const addCardModal = document.querySelector(".popup_cards");
 const addCardForm = addCardModal.querySelector(".popup__form");
@@ -36,23 +38,38 @@ const cardLinkInput = document.querySelector(".popup__text_field_link");
 const gridList = document.querySelector(".photo-grid__list");
 const popupPhoto = document.querySelector(".popup_photo");
 
-const closeByOverlay = (e) => {
-  if (e.target === e.currentTarget) {
-    closeActivePopup(e);
-  }
-};
+//function createCard(element) {
+//  const cardElement = itemTemplate.cloneNode(true);
+//  cardElement.querySelector(".photo-grid__title").textContent = element.name; // выбираем методом querySelector класс с названием фото и свойством textContent, присваиваем классу значение name из массива 
+//  cardElement.querySelector(".photo-grid__image").src = element.link; // выбираем класс с фотографией, присваиваем классу значение link из массива 
+//  cardElement.querySelector(".photo-grid__image").alt = element.altText;
+//  return cardElement;
+//}
 
-// экземпляр карточки
-function renderCard(cardData) {
-  const card = new Card(cardData, ".photo-grid__list-template")
-  const createCard = card.getCard();
-  gridList.append(createCard);
+const createCard = (cardData) => {
+  const card = new Card(cardData, ".photo-grid__list-template");
+  card.getCard();
+  return createCard;
 }
 
+const addCard = (data) => {
+  gridList.append(data);
+}
+
+function addCardReverse(data) {
+  gridList.prepend(data);
+}
+
+// экземпляр карточки
+const renderCard = (data) => {
+  createCard(data);
+  addCard(createCard);
+}
+
+// добавление новой карточки
 function getAddCard(data) {
-  const card = new Card(data, ".photo-grid__list-template")
-  const createCard = card.getCard();
-  gridList.prepend(createCard);
+  createCard(data);
+  addCardReverse(createCard(data));
 }
 
 function renderInitialCards() {
@@ -85,10 +102,21 @@ function closePopupsByCloseButtons() {
     addCardForm.reset();
     addCardValidator.resetValidation();
   });
-  addCardForm.addEventListener("submit", () => closeModal(popupCard));
   closeButtonPhoto.addEventListener("click", () => closeModal(popupPhoto));
 }
 
+const closeByOverlay = (e) => {
+  if (e.target === e.currentTarget) {
+    closeActivePopup(e);
+  }
+};
+
+addCardValidator.enableValidation();
+editProfileValidator.enableValidation();
+closePopupsByCloseButtons();
+renderInitialCards();
+
+// Слушатели
 addCardForm.addEventListener("submit", (e) => {
 
   e.preventDefault();
@@ -103,12 +131,6 @@ addCardForm.addEventListener("submit", (e) => {
   addCardValidator.resetValidation();
 })
 
-addCardValidator.enableValidation();
-editProfileValidator.enableValidation();
-closePopupsByCloseButtons();
-renderInitialCards();
-
-// Слушатели
 popupOpenButton.addEventListener("click", formSubmitProfile);
 popupEditButton.addEventListener("click", openCardPopup);
 formItem.addEventListener("submit", resetProfilePopup);
