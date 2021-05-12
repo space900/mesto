@@ -1,9 +1,15 @@
+import Popup from './Popup.js'
+
 class PopupWithImage extends Popup {
-    constructor({ image, text, altText }) {
-        this._image = image;
-        this._text = text;
-        this._altText = altText;
+    constructor(popupSelector) {
+        super(popupSelector);
     }
 
-    open() {}
+    open(url, text) {
+        this.Popup.querySelector('.photo-grid__image').src = url;
+        this.Popup.querySelector('.photo-grid__title').textContent = text;
+        super.open();
+    }
 }
+
+export default PopupWithImage
