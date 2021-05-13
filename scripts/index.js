@@ -1,5 +1,6 @@
 // импорты
 import FormValidator from './FormValidation.js';
+import PopupWithForm from './PopupWithForm.js';
 import { openModal, closeModal, closeActivePopup } from './utils.js';
 import initialCards from './data.js'
 import Card from './Card.js';
@@ -48,7 +49,7 @@ const popupPhoto = document.querySelector(".popup_photo");
 
 //экземпляр
 const createCard = (cardData) => {
-  const card = new Card(cardData, itemTemplate); // пока не получается вынести селектор в переменную, при добавлении переменной из глобала вместо селектора все ломается, вне зависимости до renderInitialCards() назначается или после, причину пока не понял
+  const card = new Card(cardData, itemTemplate);
   return card.getCard();
 }
 
@@ -71,6 +72,9 @@ const getAddCard = (data) => {
   prependCard(data);
 }
 
+const addCArdPpopup = new PopupWithForm('.popup_texts', getAddCard);
+const editProfilePopup = new PopupWithForm('.popup_cards', formSubmitProfile);
+
 function renderInitialCards() {
   initialCards.forEach(renderCard); //вызываем метод forEach чтобы пройти по всем элементам
 }
@@ -79,6 +83,7 @@ function openCardPopup() {
   openModal(popupCard);
 }
 
+// функция сброса валидации, открытия и редактирования значений профиля
 function formSubmitProfile() {
   editProfileValidator.resetValidation();
   openModal(popupName);
