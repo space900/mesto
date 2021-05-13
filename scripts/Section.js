@@ -1,3 +1,4 @@
+import Card from './Card.js';
 import initialCards from './data.js'
 
 class Section {
@@ -11,8 +12,17 @@ class Section {
         initialCards.forEach(renderCard)
     }
 
-    addItem() {
+    createCard(cardData) {
+        const card = new Card(cardData, itemTemplate);
+        return card.getCard();
+    }
 
+    appendCard(showCard) {
+        this._containerSelector.append(showCard);
+    }
+
+    prependCard(showCard) {
+        this._containerSelector(showCard);
     }
 }
 

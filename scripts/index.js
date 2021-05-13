@@ -1,6 +1,5 @@
 // импорты
 import FormValidator from './FormValidation.js';
-import PopupWithForm from './PopupWithForm.js';
 import { openModal, closeModal, closeActivePopup } from './utils.js';
 import initialCards from './data.js'
 import Card from './Card.js';
@@ -72,8 +71,8 @@ const getAddCard = (data) => {
   prependCard(data);
 }
 
-const addCArdPpopup = new PopupWithForm('.popup_texts', getAddCard);
-const editProfilePopup = new PopupWithForm('.popup_cards', formSubmitProfile);
+// const addCardPopup = new PopupWithForm('.popup_texts', getAddCard);
+// const editProfilePopup = new PopupWithForm('.popup_cards', formSubmitProfile);
 
 function renderInitialCards() {
   initialCards.forEach(renderCard); //вызываем метод forEach чтобы пройти по всем элементам
