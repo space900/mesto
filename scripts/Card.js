@@ -1,11 +1,12 @@
 import {openModal, popupImage, popupImageCaption, popupPhoto} from './utils.js';
 
 class Card {
-  constructor({ name, link, altText }, cardTemplateSelector) {
+  constructor({ name, link, altText }, cardTemplateSelector, handleCardClick) {
     this._text = name;
     this._link = link;
     this._altText = altText;
     this._cardTemplateSelector = cardTemplateSelector;   //document.querySelector(cardTemplateSelector).content.querySelector(".photo-grid__card");
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -23,13 +24,13 @@ class Card {
     this._cardElement.remove();
   }
 
-  _handlePreviewPicture = () => {
-    popupImage.src = this._link;
-    popupImage.alt = this._altText;
-    popupImageCaption.textContent = this._text;
+  // _handlePreviewPicture = () => {
+  //   popupImage.src = this._link;
+  //   popupImage.alt = this._altText;
+  //   popupImageCaption.textContent = this._text;
 
-    openModal(popupPhoto);
-  }
+  //   openModal(popupPhoto);
+  // }
   
   _setEventListeners() {
     const likeButton = this._cardElement.querySelector(".photo-grid__like-btn");
@@ -38,7 +39,7 @@ class Card {
 
     likeButton.addEventListener('click', this._handleLikeCard);
     deleteButton.addEventListener('click', this._handleDeleteCard);
-    cardImage.addEventListener('click', this._handlePreviewPicture);
+    cardImage.addEventListener('click', this._handleCardClick());
   }
 
   getCard() {

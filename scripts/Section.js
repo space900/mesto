@@ -1,50 +1,54 @@
-import Card from './Card.js';
-import initialCards from './data.js'
 
 class Section {
-    constructor({ items, renderer}, containerSelector) {
-        this._items = items;
+    constructor({data, renderer}, containerSelector) {
+        this._renderedItems = data;
         this._renderer = renderer;
-        this._containerSelector = document.querySelector(containerSelector);
+        this._container = document.querySelector(containerSelector);
     }
 
-    renderInitialCards() {
-        initialCards.forEach(renderCard)
+    appendItem(showCard) {
+        this._container.append(showCard);
     }
 
-    createCard(cardData) {
-        const card = new Card(cardData, itemTemplate);
-        return card.getCard();
+    prependItem(showCard) {
+        this._container.prepend(showCard);
     }
 
-    appendCard(showCard) {
-        this._containerSelector.append(showCard);
+
+
+    // prependItem(showCard) {
+    //     this._container.prepend(showCard);
+    // }
+
+    clear() {
+        this._container.innerHTML = '';
+        
     }
 
-    prependCard(showCard) {
-        this._containerSelector(showCard);
+    renderItems() {
+        this.clear();
+            
+        this._renderedItems.forEach((item) => {
+            this._renderer(item);
+        });
     }
+
 }
 
+// const itemTemplate = document.querySelector(".photo-grid__list-template").content.querySelector(".photo-grid__card");
+
+// const appendCard = (showCard) => {
+//     gridList.append(createCard(showCard));
+// }
+
+// const renderCard = (data) => {
+//     appendCard(data);
+// }
 
 
-const itemTemplate = document.querySelector(".photo-grid__list-template").content.querySelector(".photo-grid__card");
 
-const appendCard = (showCard) => {
-    gridList.append(createCard(showCard));
-}
+// function renderInitialCards() {
+//     initialCards.forEach(renderCard); //вызываем метод forEach чтобы пройти по всем элементам
+// }
 
-const renderCard = (data) => {
-    appendCard(data);
-}
-
-const createCard = (cardData) => {
-    const card = new Card(cardData, itemTemplate);
-    return card.getCard();
-}
-
-function renderInitialCards() {
-    initialCards.forEach(renderCard); //вызываем метод forEach чтобы пройти по всем элементам
-}
-
-renderInitialCards();
+export default Section

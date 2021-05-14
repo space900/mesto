@@ -3,6 +3,8 @@ import FormValidator from './FormValidation.js';
 import { openModal, closeModal, closeActivePopup } from './utils.js';
 import initialCards from './data.js'
 import Card from './Card.js';
+import Section from './Section.js';
+import PopupWithImage from './PopupWithImage.js';
 
 // настройки для валидации
 const settings = {
@@ -38,45 +40,63 @@ const cardLinkInput = document.querySelector(".popup__text_field_link");
 const gridList = document.querySelector(".photo-grid__list");
 const popupPhoto = document.querySelector(".popup_photo");
 
-//function createCard(element) {
-//  const cardElement = itemTemplate.cloneNode(true);
-//  cardElement.querySelector(".photo-grid__title").textContent = element.name; // выбираем методом querySelector класс с названием фото и свойством textContent, присваиваем классу значение name из массива 
-//  cardElement.querySelector(".photo-grid__image").src = element.link; // выбираем класс с фотографией, присваиваем классу значение link из массива 
-//  cardElement.querySelector(".photo-grid__image").alt = element.altText;
-//  return cardElement;
-//}
+// экземпляр Section для добавления карточек в контейнер из data.js
+const section = new Section({
+  data: initialCards,
+  renderer: (cardData) => {
+    const card = new Card(cardData, itemTemplate);
+    const cardElement = card.getCard();
+    
+    section.appendItem(cardElement);
+  }
+}, ".photo-grid__list");
 
-//экземпляр
-const createCard = (cardData) => {
-  const card = new Card(cardData, itemTemplate);
-  return card.getCard();
-}
+const getAddCard = new Section({
+  data: {name: cardNameInput.value, link: cardLinkInput.value},
+  renderer: (cardData) =>  {
+    const card = new Card(cardData, itemTemplate);
+    const cardElement = card.getCard();
+
+    getAddCard.prependItem(cardElement);
+  }
+});
+
+// экземпляр PopupWithImage, открытие попап с фото
+
+// const popupWithImage = new PopupWithImage('.popup_photo');
+// popupWithImage.open();
+
+// const renderCard = (data) => {
+//   appendItem(data);
+// }
+
+
 
 // методы вставки элементов
-const appendCard = (showCard) => {
-  gridList.append(createCard(showCard));
-}
+// const appendCard = (showCard) => {
+//   gridList.append(createCard(showCard));
+// }
 
-const prependCard = (showCard) => {
-  gridList.prepend(createCard(showCard));
-}
+// const prependCard = (showCard) => {
+//   gridList.prepend(createCard(showCard));
+// }
 
-// вызов стандартных карточек
-const renderCard = (data) => {
-  appendCard(data);
-}
+// // вызов стандартных карточек
+// const renderCard = (data) => {
+//   appendCard(data);
+// }
 
-// вызов новой карточки
-const getAddCard = (data) => {
-  prependCard(data);
-}
+// // вызов новой карточки
+// const getAddCard = (data) => {
+//   prependCard(data);
+// }
 
-// const addCardPopup = new PopupWithForm('.popup_texts', getAddCard);
-// const editProfilePopup = new PopupWithForm('.popup_cards', formSubmitProfile);
+// // const addCardPopup = new PopupWithForm('.popup_texts', getAddCard);
+// // const editProfilePopup = new PopupWithForm('.popup_cards', formSubmitProfile);
 
-function renderInitialCards() {
-  initialCards.forEach(renderCard); //вызываем метод forEach чтобы пройти по всем элементам
-}
+// function renderInitialCards() {
+//   initialCards.forEach(renderCard); //вызываем метод forEach чтобы пройти по всем элементам
+// }
 
 function openCardPopup() {
   openModal(popupCard);
@@ -121,19 +141,17 @@ const closeByOverlay = (e) => {
 addCardValidator.enableValidation();
 editProfileValidator.enableValidation();
 closePopupsByCloseButtons();
-renderInitialCards();
+// renderInitialCards();
+section.renderItems();
 
 // Слушатели
 addCardForm.addEventListener("submit", (e) => {
 
   e.preventDefault();
-  const data = {
-    name: cardNameInput.value,
-    link: cardLinkInput.value
-  }
+  
 
   e.target.reset();
-  getAddCard(data);
+  getAddCard();
   closeModal(popupCard);
   addCardValidator.resetValidation();
 })

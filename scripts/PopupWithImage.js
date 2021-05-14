@@ -16,5 +16,3 @@ class PopupWithImage extends Popup {
 
 export default PopupWithImage
 
-const popupWithImage = new PopupWithImage('.popup_photo');
-popupWithImage.open(link, text);
