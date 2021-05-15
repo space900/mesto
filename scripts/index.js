@@ -1,6 +1,6 @@
 // импорты
 import FormValidator from './FormValidation.js';
-import { closeModal, closeActivePopup } from './utils.js';
+import { closeModal, openModal, closeActivePopup } from './utils.js';
 import initialCards from './data.js'
 import Card from './Card.js';
 import Section from './Section.js';
