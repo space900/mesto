@@ -42,9 +42,18 @@ const cardLinkInput = document.querySelector(".popup__text_field_link");
 const gridList = document.querySelector(".photo-grid__list");
 const popupPhoto = document.querySelector(".popup_photo");
 
+const popupType = {
+  popupAddCard: ".popup_cards",
+  popupEditProfile: ".popup_texts",
+  popupImage: ".popup_photo"
+}
+  
+const popupWithImage = new PopupWithImage('.popup_photo');
+popupWithImage.setEventListeners();
+
 // функция для открытия попап с фото
 function cardImageClickHandler(link, text) {
-  const popupWithImage = new PopupWithImage('.popup_photo');
+  
   popupWithImage.open(link, text);
   popupWithImage.setEventListeners();
 };
@@ -60,21 +69,43 @@ const cardList = new Section({
 }, ".photo-grid__list");
 
 
-function addCardSubmitHandler(data) {
-  const card = new Card(data, {
-    name: cardNameInput.value,
-    link: cardLinkInput.value
-  }, cardTemplateSelector, cardImageClickHandler);
-  const cardElement = card.getCard();
-  cardList.prependItem(cardElement);
-  addCardPopup.setEventListeners();
-}
+// const addCardModal = new PopupWithForm({
+//   popupSelector: cardFormModalWindow,
+//   handleFormSubmit: (data) => {// <======== (2)
+//     const card = new Card({ data, handleCardClick: () => {}},cardSelector);
+//     cardList.addItem(card.getView()) // <======== (1)
+//   }
+// });
 
-const addCardPopup = new PopupWithForm(".popup__form", addCardSubmitHandler);
+const addPhotoPopup = new PopupWithForm(
+  popupType.popupAddCard, {
+  handleFormSubmit: (data) => {
+    const card = new Card({ data, handleCardClick: () => {
+    
+    }}, cardTemplateSelector);
+    const cardElement = card.getCard();
+    cardList.prependItem(cardElement);
+  }
+})
 
+addPhotoPopup.setEventListeners();
+
+
+// function addCardSubmitHandler(data) {
+//   const card = new Card(data, {
+//     name: cardNameInput.value,
+//     link: cardLinkInput.value
+//   }, cardTemplateSelector, cardImageClickHandler);
+//   const cardElement = card.getCard();
+//   cardList.prependItem(cardElement);
+
+// }
+
+// const addCardPopup = new PopupWithForm(popupType.popupAddCard, addCardSubmitHandler);
+// addCardPopup.setEventListeners();
 
 // const addCardPopup = new PopupWithForm({
-//   popupSelector: addCardModal,
+//   popupSelector: ".popup__form",
 //   submitHandler: (data) => {
 //     const card = new Card(data, itemTemplate);
 //     const cardElement = card.getCard();
@@ -92,61 +123,6 @@ const addCardPopup = new PopupWithForm(".popup__form", addCardSubmitHandler);
 // })
 
 // const edipProfilePopup = new PopupWithForm()
-
-
-
-// const getAddCard = new Section({
-//   data: {name: cardNameInput.value, link: cardLinkInput.value},
-//   renderer: (cardData) =>  {
-//     const card = new Card(cardData, itemTemplate);
-//     const cardElement = card.getCard();
-
-//     getAddCard.prependItem(cardElement);
-//   }
-// });
-
-
-
-// const openPopup = new Popup(".popup_photo");
-// openPopup.open();
-// openPopup.setEventListeners();
-
-
-
-// const popupWithImage = new PopupWithImage('.popup_photo');
-// popupWithImage.open();
-
-// const renderCard = (data) => {
-//   appendItem(data);
-// }
-
-
-
-// методы вставки элементов
-// const appendCard = (showCard) => {
-//   gridList.append(createCard(showCard));
-// }
-
-// const prependCard = (showCard) => {
-//   gridList.prepend(createCard(showCard));
-// }
-
-// // вызов стандартных карточек
-// const renderCard = (data) => {
-//   appendCard(data);
-// }
-
-// // вызов новой карточки
-// const getAddCard = (data) => {
-//   prependCard(data);
-// }
-
-// // const addCardPopup = new PopupWithForm('.popup_texts', getAddCard);
-// // const editProfilePopup = new PopupWithForm('.popup_cards', formSubmitProfile);
-
-// function renderInitialCards() {
-//   initialCards.forEach(renderCard); //вызываем метод forEach чтобы пройти по всем элементам
-// }
 
 function openCardPopup() {
   openModal(popupCard);
