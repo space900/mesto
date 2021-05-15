@@ -43,12 +43,14 @@ const popupPhoto = document.querySelector(".popup_photo");
 
 // экземпляр PopupWithImage, открытие попап с фото
 
-const popupWithImage = new PopupWithImage('.popup_photo');
-popupWithImage.setEventListeners();
+
 
 
 function cardImageClickHandler(link, text) {
+  
+  const popupWithImage = new PopupWithImage('.popup_photo');
   popupWithImage.open(link, text);
+  popupWithImage.setEventListeners();
 };
 
 // экземпляр Section для добавления карточек в контейнер из data.js
