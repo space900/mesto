@@ -1,33 +1,33 @@
 const initialCards = [
     {
-      name: "Каракая-Су",
-      link: "./images/karakaya-su.jpg",
-      altText: "фото водопад Каракая-Су",
+      name: "Москва, район Тушино",
+      link: "./images/tushino.jpg",
+      altText: "стройка Тушино",
     },
     {
       name: "Эльбрус",
       link: "./images/elbrus.jpg",
-      altText: "фото гора Эльбрус",
+      altText: "гора Эльбрус",
     },
     {
-      name: "о. Рица",
-      link: "./images/ritza.jpg",
-      altText: "фото озеро Рица",
+      name: "метро Арбатская",
+      link: "./images/arbat.jpg",
+      altText: "садовое кольцо у м. Арбатская",
     },
     {
-      name: "Каньон Псахо",
-      link: "./images/psaho.jpg",
-      altText: "фото каньон Псахо Сочи",
+      name: "г. Уван, южный Урал",
+      link: "./images/ural.jpg",
+      altText: "вершина горы Уван",
     },
     {
-      name: "Южный Урал",
-      link: "./images/uvan.jpg",
-      altText: "фото горы Южный Урал",
+      name: "Щёлково",
+      link: "./images/schelkovo.jpg",
+      altText: "жилой дом в Щёлково",
     },
     {
-      name: "Армения",
-      link: "./images/armenia.jpg",
-      altText: "фото серпантины Армения",
+      name: "Тарасовка",
+      link: "./images/tarasovka.jpg",
+      altText: "рабочий с мороженым",
     },
   ];
 

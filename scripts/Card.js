@@ -1,4 +1,4 @@
-import {openModal, popupImage, popupImageCaption, popupPhoto} from './utils.js';
+
 
 class Card {
   constructor({ name, link, altText }, cardTemplateSelector, handleCardClick) {
@@ -16,12 +16,14 @@ class Card {
     
   }
 
-  _handleLikeCard(evt) {
-    evt.target.classList.toggle("photo-grid__like-btn_active");
+  _handleLikeCard() {
+    this._cardElement.querySelector(".photo-grid__like-btn")
+      .classList.toggle("photo-grid__like-btn_active");
   }
 
   _handleDeleteCard = () =>  {
     this._cardElement.remove();
+    this._cardElement = null;
   }
 
   // _handlePreviewPicture = () => {
@@ -31,15 +33,31 @@ class Card {
 
   //   openModal(popupPhoto);
   // }
+
+  // _handleLikeCard(evt) { 
+  //   evt.target.classList.toggle("photo-grid__like-btn_active"); 
+  // } 
   
   _setEventListeners() {
-    const likeButton = this._cardElement.querySelector(".photo-grid__like-btn");
-    const deleteButton = this._cardElement.querySelector(".photo-grid__delete-btn");
-    const cardImage = this._cardElement.querySelector(".photo-grid__image");
 
-    likeButton.addEventListener('click', this._handleLikeCard);
-    deleteButton.addEventListener('click', this._handleDeleteCard);
-    cardImage.addEventListener('click', this._handleCardClick());
+    this._cardElement.querySelector(".photo-grid__like-btn")
+      .addEventListener('click', () => this._handleLikeCard());
+
+    this._cardElement.querySelector(".photo-grid__delete-btn")
+      .addEventListener('click', () => this._handleDeleteCard());
+    
+    this._cardElement.querySelector(".photo-grid__image")
+      .addEventListener('click', () => this._handleCardClick(this._link, this._text));
+
+    // const likeButton = this._cardElement.querySelector(".photo-grid__like-btn");
+    // const deleteButton = this._cardElement.querySelector(".photo-grid__delete-btn");
+    // likeButton.addEventListener('click', () => this._handleLikeCard); 
+    // deleteButton.addEventListener('click', () => this._handleDeleteCard);
+    // const cardImage = this._cardElement.querySelector(".photo-grid__image");
+    
+    // likeButton.addEventListener('click', () => this._handleLikeCard); 
+    // deleteButton.addEventListener('click', () => this._handleDeleteCard);
+    // cardImage.addEventListener('click', () => this._handleCardClick(this._link, this._text));
   }
 
   getCard() {

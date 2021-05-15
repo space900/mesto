@@ -1,10 +1,11 @@
 // импорты
 import FormValidator from './FormValidation.js';
-import { openModal, closeModal, closeActivePopup } from './utils.js';
+import { closeModal, closeActivePopup } from './utils.js';
 import initialCards from './data.js'
 import Card from './Card.js';
 import Section from './Section.js';
 import PopupWithImage from './PopupWithImage.js';
+import Popup from './Popup.js';
 
 // настройки для валидации
 const settings = {
@@ -40,16 +41,27 @@ const cardLinkInput = document.querySelector(".popup__text_field_link");
 const gridList = document.querySelector(".photo-grid__list");
 const popupPhoto = document.querySelector(".popup_photo");
 
+// экземпляр PopupWithImage, открытие попап с фото
+
+const popupWithImage = new PopupWithImage('.popup_photo');
+popupWithImage.setEventListeners();
+
+
+function cardImageClickHandler(link, text) {
+  popupWithImage.open(link, text);
+};
+
 // экземпляр Section для добавления карточек в контейнер из data.js
 const section = new Section({
   data: initialCards,
   renderer: (cardData) => {
-    const card = new Card(cardData, itemTemplate);
+    const card = new Card(cardData, itemTemplate, cardImageClickHandler);
     const cardElement = card.getCard();
     
     section.appendItem(cardElement);
   }
 }, ".photo-grid__list");
+
 
 const getAddCard = new Section({
   data: {name: cardNameInput.value, link: cardLinkInput.value},
@@ -61,7 +73,13 @@ const getAddCard = new Section({
   }
 });
 
-// экземпляр PopupWithImage, открытие попап с фото
+
+
+// const openPopup = new Popup(".popup_photo");
+// openPopup.open();
+// openPopup.setEventListeners();
+
+
 
 // const popupWithImage = new PopupWithImage('.popup_photo');
 // popupWithImage.open();
@@ -117,7 +135,6 @@ function resetProfilePopup(evt) {
   defaultJob.textContent = jobInput.value;
   closeModal(popupName);
 }
-
 
 // закрытие модалок по клику
 function closePopupsByCloseButtons() {

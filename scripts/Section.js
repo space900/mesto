@@ -14,12 +14,6 @@ class Section {
         this._container.prepend(showCard);
     }
 
-
-
-    // prependItem(showCard) {
-    //     this._container.prepend(showCard);
-    // }
-
     clear() {
         this._container.innerHTML = '';
         
