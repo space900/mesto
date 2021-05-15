@@ -6,6 +6,7 @@ import Card from './Card.js';
 import Section from './Section.js';
 import PopupWithImage from './PopupWithImage.js';
 import Popup from './Popup.js';
+import PopupWithForm from './PopupWithForm.js';
 
 // настройки для валидации
 const settings = {
@@ -41,39 +42,68 @@ const cardLinkInput = document.querySelector(".popup__text_field_link");
 const gridList = document.querySelector(".photo-grid__list");
 const popupPhoto = document.querySelector(".popup_photo");
 
-// экземпляр PopupWithImage, открытие попап с фото
-
-
-
-
+// функция для открытия попап с фото
 function cardImageClickHandler(link, text) {
-  
   const popupWithImage = new PopupWithImage('.popup_photo');
   popupWithImage.open(link, text);
   popupWithImage.setEventListeners();
 };
 
 // экземпляр Section для добавления карточек в контейнер из data.js
-const section = new Section({
+const cardList = new Section({
   data: initialCards,
   renderer: (cardData) => {
     const card = new Card(cardData, itemTemplate, cardImageClickHandler);
     const cardElement = card.getCard();
-    
-    section.appendItem(cardElement);
+    cardList.appendItem(cardElement);
   }
 }, ".photo-grid__list");
 
 
-const getAddCard = new Section({
-  data: {name: cardNameInput.value, link: cardLinkInput.value},
-  renderer: (cardData) =>  {
-    const card = new Card(cardData, itemTemplate);
-    const cardElement = card.getCard();
+function addCardSubmitHandler(data) {
+  const card = new Card(data, {
+    name: cardNameInput.value,
+    link: cardLinkInput.value
+  }, cardTemplateSelector, cardImageClickHandler);
+  const cardElement = card.getCard();
+  cardList.prependItem(cardElement);
+  addCardPopup.setEventListeners();
+}
 
-    getAddCard.prependItem(cardElement);
-  }
-});
+const addCardPopup = new PopupWithForm(".popup__form", addCardSubmitHandler);
+
+
+// const addCardPopup = new PopupWithForm({
+//   popupSelector: addCardModal,
+//   submitHandler: (data) => {
+//     const card = new Card(data, itemTemplate);
+//     const cardElement = card.getCard();
+//     cardList.prependItem(cardElement);
+//   }
+// });
+
+// const addCardPopup = new PopupWithForm({
+//   popupSelector: addCardModal,
+//   submitHandler: (cardData) => {
+//     const card = new Card( {cardData, cardTemplateSelector}, cardImageClickHandler);
+//     const cardElement = card.getCard();
+//     cardList.prependItem(cardElement);
+//   }
+// })
+
+// const edipProfilePopup = new PopupWithForm()
+
+
+
+// const getAddCard = new Section({
+//   data: {name: cardNameInput.value, link: cardLinkInput.value},
+//   renderer: (cardData) =>  {
+//     const card = new Card(cardData, itemTemplate);
+//     const cardElement = card.getCard();
+
+//     getAddCard.prependItem(cardElement);
+//   }
+// });
 
 
 
@@ -161,19 +191,21 @@ addCardValidator.enableValidation();
 editProfileValidator.enableValidation();
 closePopupsByCloseButtons();
 // renderInitialCards();
-section.renderItems();
+cardList.renderItems();
+
+// addCardPopup();
 
 // Слушатели
-addCardForm.addEventListener("submit", (e) => {
+// addCardForm.addEventListener("submit", (e) => {
 
-  e.preventDefault();
-  
+//   e.preventDefault();
 
-  e.target.reset();
-  getAddCard();
-  closeModal(popupCard);
-  addCardValidator.resetValidation();
-})
+
+//   e.target.reset();
+//   getAddCard();
+//   closeModal(popupCard);
+//   addCardValidator.resetValidation();
+// })
 
 popupOpenButton.addEventListener("click", formSubmitProfile);
 popupEditButton.addEventListener("click", openCardPopup);
