@@ -6,6 +6,11 @@ class Popup {
     open() {
         this._popup.classList.add('popup_is-opened');
         document.addEventListener('keyup', this._handleEscClose);
+        document.addEventListener('click', (evt) => {
+            if (evt.target.classList.contains('popup_is-opened')) {
+                this.close();
+            }
+        })
     }
 
     close() {

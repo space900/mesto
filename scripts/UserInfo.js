@@ -5,10 +5,11 @@ class UserInfo {
     }
 
     getUserInfo() {
-        this._values = {}
+        
         return {
-            'title': this._values['title'] = this._name.textContent,
-            'subtitle': this._values['subtitle'] = this._job.textContent
+            name: "1234",
+            job: "abcd"
+            
         }
         
     }

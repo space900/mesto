@@ -49,6 +49,8 @@ const popupType = {
   popupImage: ".popup_photo"
 }
 
+const pooopup = ".popup_texts";
+
 // экземпляр Section для добавления карточек в контейнер из data.js
 const cardList = new Section({
   data: initialCards,
@@ -66,7 +68,16 @@ popupWithImage.setEventListeners();
 addCardPopup.setEventListeners();
 
 
-const userInfo = new UserInfo({ name: nameInput, job: jobInput });
+// Редактирование профиля
+const editProfilePopup = new PopupWithForm(
+  popupType.popupEditProfile, { 
+  renderer: (item) => {
+    userInfo.setUserInfo(item);
+  }
+})
+editProfilePopup.setEventListeners();
+
+const userInfo = new UserInfo({defaultName, defaultJob});
 
 // функция для открытия попап с фото
 function cardImageClickHandler(link, text) {
@@ -81,18 +92,16 @@ function addCardSubmitHandler(data) {
   addCardValidator.resetValidation();
 }
 
-const popupForEdit = new PopupWithForm({
-  data: popupType.popupEditProfile,
-  renderer: (item) => {
-    userInfo.setUserInfo(item);
-  }
-})
-
-popupForEdit.setEventListeners();
+// const popupForEdit = new PopupWithForm({
+//   data: popupType,
+//   renderer: (item) => {
+//     userInfo.setUserInfo(item);
+//   }
+// })
 
 // редактирование профиля
 function editProfileHandler() {
-
+  
   editProfilePopup.close();
 }
 
@@ -101,9 +110,9 @@ function openCardPopup() {
 }
 
 // const openEditProfile = () => {
-//   const text = userInfo.setUserInfo();
-//   nameInput.value = text.title;
-//   jobInput.value = text.subtitle;
+//   const text = userInfo.getUserInfo();
+//   nameInput.value = text.name;
+//   jobInput.value = text.job;
 //   editProfilePopup.open();
 //   editProfileValidator.resetValidation();
 // }
@@ -148,12 +157,14 @@ closePopupsByCloseButtons();
 cardList.renderItems();
 
 popupOpenButton.addEventListener("click",  () => {
-  const textCo = userInfo.setUserInfo();
-  nameInput.value = textCo.title;
-  jobInput.value = textCo.subtitle;
-  editProfilePopup.open();
   editProfileValidator.resetValidation();
+  const textInputs = userInfo.getUserInfo();
+  nameInput.value = textInputs.name;
+  jobInput.value = textInputs.job;
+  editProfilePopup.open();
+  
 });
+
 popupEditButton.addEventListener("click", openCardPopup);
 // formItem.addEventListener("submit", resetProfilePopup);
 // popupPhoto.addEventListener("click", closeByOverlay);
