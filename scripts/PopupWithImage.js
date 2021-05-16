@@ -3,7 +3,6 @@ import Popup from './Popup.js'
 class PopupWithImage extends Popup {
     constructor(popup) {
         super(popup);
-        this.open();
     }
 
     open(link, text) {

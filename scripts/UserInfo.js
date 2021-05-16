@@ -1,19 +1,21 @@
 class UserInfo {
-    constructor({ name, job }) {
-        this._name = document.querySelector(".info__title");
-        this._job = document.querySelector(".info__subtitle");
+    constructor({ nameSelector, jobSelector }) {
+        this._name = document.querySelector(nameSelector);
+        this._job = document.querySelector(jobSelector);
     }
 
     getUserInfo() {
-        this._fields = {
-            fieldName: this._name.textContent,
-            fieldJob: this._job.textContent
+        this._values = {}
+        return {
+            'title': this._values['title'] = this._name.textContent,
+            'subtitle': this._values['subtitle'] = this._job.textContent
         }
-        return this._fields;
+        
     }
 
-    setUserInfo() {
-        
+    setUserInfo(data) {
+        this._name.textContent = data.name;
+        this._job.textContent = data.job;
     }
 }
 

@@ -10,10 +10,14 @@ class Card {
   }
 
   _getTemplate() {
-    this._template = this._cardTemplateSelector.cloneNode(true);
-    
+    this._template = document
+      .querySelector(this._cardTemplateSelector)
+      .content
+      .querySelector(".photo-grid__card")
+      .cloneNode(true)
+
     return this._template;
-    
+
   }
 
   _handleLikeCard() {
@@ -21,7 +25,7 @@ class Card {
       .classList.toggle("photo-grid__like-btn_active");
   }
 
-  _handleDeleteCard = () =>  {
+  _handleDeleteCard = () => {
     this._cardElement.remove();
     this._cardElement = null;
   }
@@ -37,7 +41,7 @@ class Card {
   // _handleLikeCard(evt) { 
   //   evt.target.classList.toggle("photo-grid__like-btn_active"); 
   // } 
-  
+
   _setEventListeners() {
 
     this._cardElement.querySelector(".photo-grid__like-btn")
@@ -45,7 +49,7 @@ class Card {
 
     this._cardElement.querySelector(".photo-grid__delete-btn")
       .addEventListener('click', () => this._handleDeleteCard());
-    
+
     this._cardElement.querySelector(".photo-grid__image")
       .addEventListener('click', () => this._handleCardClick(this._link, this._text));
 
@@ -54,7 +58,7 @@ class Card {
     // likeButton.addEventListener('click', () => this._handleLikeCard); 
     // deleteButton.addEventListener('click', () => this._handleDeleteCard);
     // const cardImage = this._cardElement.querySelector(".photo-grid__image");
-    
+
     // likeButton.addEventListener('click', () => this._handleLikeCard); 
     // deleteButton.addEventListener('click', () => this._handleDeleteCard);
     // cardImage.addEventListener('click', () => this._handleCardClick(this._link, this._text));
@@ -69,11 +73,11 @@ class Card {
     cardImage.src = this._link;
     this._cardElement.querySelector(".photo-grid__title").textContent = this._text;
     cardImage.alt = this._altText;
-    
+
     this._setEventListeners();
 
     return this._cardElement;
   }
 }
 
-export default Card; 
+export default Card;
