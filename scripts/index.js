@@ -77,7 +77,7 @@ const editProfilePopup = new PopupWithForm(
 })
 editProfilePopup.setEventListeners();
 
-const userInfo = new UserInfo({defaultName, defaultJob});
+const userInfo = new UserInfo({nameSelector: '.info__title', jobSelector: '.info__subtitle'});
 
 // функция для открытия попап с фото
 function cardImageClickHandler(link, text) {

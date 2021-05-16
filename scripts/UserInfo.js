@@ -7,11 +7,9 @@ class UserInfo {
     getUserInfo() {
         
         return {
-            name: "1234",
-            job: "abcd"
-            
-        }
-        
+            name: this._name.textContent,
+            job: this._job.textContent
+        } 
     }
 
     setUserInfo(data) {
