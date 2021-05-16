@@ -25,13 +25,6 @@ class Popup {
         }
     }
 
-    _closeByOverlay = (evt) => {
-        if (evt.target === evt.currentTarget) {
-            evt.preventDefault();
-            this.close();
-        }
-    }
-
     setEventListeners() {
         this._popup.querySelector('.popup__close').addEventListener('click', this.close.bind(this));
     }
