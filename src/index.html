@@ -4,19 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./src/pages/index.css">
     <title>Место</title>
 </head>
 
 <body>
     <div class="page">
         <header class="header">
-            <img src="./src/images/logo_header.svg" alt="логотип Место" class="header__logo">
+            <img src="<%=require('./images/logo_header.svg')%>" alt="логотип Место" class="header__logo">
         </header>
 
         <main class="content">
             <section class="profile">
-                <img src="./src/images/avatar-3.jpg" alt="Аватар пользователя" class="profile__picture">
+                <img src="<%=require('./images/avatar-3.jpg')%>" alt="Аватар пользователя" class="profile__picture">
                 <div class="info">
                     <h1 class="info__title">Somebody</h1>
                     <button class="info__edit-btn" aria-label="Редактировать" type="button"></button>
@@ -34,7 +33,7 @@
 
         <template class="photo-grid__list-template" id="tmpl">
             <li class="photo-grid__card">
-                <img src="./src/images/tarasovka.jpg" alt="" class="photo-grid__image">
+                <img src="<%=require('./images/tarasovka.jpg')%>" alt="" class="photo-grid__image">
                 <button class="photo-grid__delete-btn" aria-label="Удалить" type="button"></button>
                 <h3 class="photo-grid__title"></h3>
                 <button class="photo-grid__like-btn" aria-label="Лайк" type="button"></button>
@@ -83,12 +82,12 @@
             <figure class="popup__position">
                 <button class="popup__close popup__close_photo popup__close_image" aria-label="Закрыть"
                     type="button"></button>
-                <img src="./src/images/tarasovka.jpg" alt="рабочий с мороженым" class="popup__image">
+                <img src="<%=require('./images/tarasovka.jpg')%>" alt="рабочий с мороженым" class="popup__image">
                 <p class="popup__caption"></p>
             </figure>
         </div>
     </div>
-    <script type="module" src="./src/pages/index.js" defer></script>
+    
     
 
 </body>

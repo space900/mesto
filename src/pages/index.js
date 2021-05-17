@@ -1,4 +1,6 @@
+
 // импорты
+import '../pages/index.css';
 // import FormValidator from '../components/FormValidation.js';
 import { closeModal, openModal, closeActivePopup } from '../utils/utils.js';
 import { 

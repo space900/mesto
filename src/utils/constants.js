@@ -1,34 +1,40 @@
 import FormValidator from '../components/FormValidation.js';
+import tushinoImg from '../images/tushino.jpg';
+import elbrusImg from '../images/elbrus.jpg';
+import arbatImg from '../images/arbat.jpg';
+import uralImg from '../images/ural.jpg';
+import schelkovoImg from '../images/schelkovo.jpg';
+import tarasovkaImg from '../images/tarasovka.jpg';
 
 export const initialCards = [
     {
       name: "Москва, район Тушино",
-      link: "./src/images/tushino.jpg",
+      link: tushinoImg,
       altText: "стройка Тушино",
     },
     {
       name: "Эльбрус",
-      link: "./src/images/elbrus.jpg",
+      link: elbrusImg,
       altText: "гора Эльбрус",
     },
     {
       name: "метро Арбатская",
-      link: "./src/images/arbat.jpg",
+      link: arbatImg,
       altText: "садовое кольцо у м. Арбатская",
     },
     {
       name: "1222 м., г. Уван, южный Урал",
-      link: "./src/images/ural.jpg",
+      link: uralImg,
       altText: "вершина горы Уван",
     },
     {
       name: "Щёлково",
-      link: "./src/images/schelkovo.jpg",
+      link: schelkovoImg,
       altText: "жилой дом в Щёлково",
     },
     {
       name: "Инженер и мороженое",
-      link: "./src/images/tarasovka.jpg",
+      link: tarasovkaImg,
       altText: "рабочий с мороженым",
     },
 ];
