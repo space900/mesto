@@ -1,3 +1,5 @@
+import { addCardValidator } from '../utils/constants.js';
+
 class Popup {
     constructor(popup) {
         this._popup = document.querySelector(popup);
@@ -8,6 +10,7 @@ class Popup {
         document.addEventListener('keyup', this._handleEscClose);
         document.addEventListener('click', (evt) => {
             if (evt.target.classList.contains('popup_is-opened')) {
+                addCardValidator.resetValidation();
                 this.close();
             }
         })
@@ -21,6 +24,7 @@ class Popup {
     _handleEscClose = (evt) => {
         if (evt.key === "Escape") {
             evt.preventDefault();
+            addCardValidator.resetValidation();
             this.close();
         }
     }
