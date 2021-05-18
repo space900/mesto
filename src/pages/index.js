@@ -1,25 +1,18 @@
-
 // импорты
 import '../pages/index.css';
-// import FormValidator from '../components/FormValidation.js';
-import { closeModal, openModal, closeActivePopup } from '../utils/utils.js';
-import { 
+import FormValidator from '../components/FormValidation.js';
+import {
+  gridList,
+  editProfileForm,
+  settings,
   initialCards,  
   popupType, 
   cardTemplateSelector,  
   addCardForm, 
-  addCardValidator, 
-  editProfileValidator, 
-  popupName, 
-  popupCard, 
-  popupOpenButton, 
-  popupEditButton, 
-  closeButtonProfile, 
-  closeButtonCard, 
-  closeButtonPhoto, 
+  openPopupEditProfileButton, 
+  openPopupAddCardButton, 
   nameInput, 
-  jobInput, 
-  popupPhoto 
+  jobInput
 } from '../utils/constants.js';
 
 import Card from '../components/Card.js';
@@ -28,15 +21,22 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 
+const addCardValidator = new FormValidator(settings, addCardForm);
+const editProfileValidator = new FormValidator(settings, editProfileForm);
+
+// новая карточка
+const createCard = (cardData) => {
+  const card = new Card(cardData, cardTemplateSelector, cardImageClickHandler);
+  return card.getCard();
+}
+
 // экземпляр Section для добавления карточек в контейнер из data.js
 const cardList = new Section({
   data: initialCards,
-  renderer: (cardData) => {
-    const card = new Card(cardData, cardTemplateSelector, cardImageClickHandler);
-    const cardElement = card.getCard();
-    cardList.appendItem(cardElement);
+  renderer: (cardElement) => {
+    cardList.appendItem(createCard(cardElement));
   }
-}, ".photo-grid__list");
+}, gridList);
   
 const popupWithImage = new PopupWithImage(popupType.popupImage);
 const addCardPopup = new PopupWithForm(popupType.popupAddCard, addCardSubmitHandler);
@@ -44,14 +44,8 @@ const addCardPopup = new PopupWithForm(popupType.popupAddCard, addCardSubmitHand
 popupWithImage.setEventListeners();
 addCardPopup.setEventListeners();
 
-
 // Редактирование профиля
-const editProfilePopup = new PopupWithForm(
-  popupType.popupEditProfile, { 
-  renderer: (item) => {
-    userInfo.setUserInfo(item);
-  }
-})
+const editProfilePopup = new PopupWithForm(popupType.popupEditProfile, formSubmitHandler);
 editProfilePopup.setEventListeners();
 
 const userInfo = new UserInfo({nameSelector: '.info__title', jobSelector: '.info__subtitle'});
@@ -63,60 +57,38 @@ function cardImageClickHandler(link, text) {
 
 // добавление новой карточки
 function addCardSubmitHandler(data) {
-  const newCard = new Card(data, cardTemplateSelector, cardImageClickHandler);
-  cardList.prependItem(newCard.getCard());
+  cardList.prependItem(createCard(data));
   addCardPopup.close();
   addCardValidator.resetValidation();
 }
 
-// const popupForEdit = new PopupWithForm({
-//   data: popupType,
-//   renderer: (item) => {
-//     userInfo.setUserInfo(item);
-//   }
-// })
-
-// редактирование профиля
-function editProfileHandler() {
+function formSubmitHandler() {
+  const info = {
+    name: nameInput.value,
+    job: jobInput.value
+  }
+  userInfo.setUserInfo(info);
   
   editProfilePopup.close();
 }
 
 function openCardPopup() {
+  addCardValidator.resetValidation();
+  
   addCardPopup.open();
-}
-
-// const openEditProfile = () => {
-//   const text = userInfo.getUserInfo();
-//   nameInput.value = text.name;
-//   jobInput.value = text.job;
-//   editProfilePopup.open();
-//   editProfileValidator.resetValidation();
-// }
-
-// закрытие модалок по клику
-function closePopupsByCloseButtons() {
-  closeButtonProfile.addEventListener("click", () => closeModal(popupName));
-  closeButtonCard.addEventListener("click", () => {
-    closeModal(popupCard);
-    addCardForm.reset();
-    addCardValidator.resetValidation();
-  });
-  closeButtonPhoto.addEventListener("click", () => closeModal(popupPhoto));
 }
 
 addCardValidator.enableValidation();
 editProfileValidator.enableValidation();
-closePopupsByCloseButtons();
+// closePopupsByCloseButtons();
 cardList.renderItems();
 
-popupOpenButton.addEventListener("click",  () => {
+openPopupEditProfileButton.addEventListener("click",  () => {
+  editProfilePopup.open();
   editProfileValidator.resetValidation();
   const textInputs = userInfo.getUserInfo();
   nameInput.value = textInputs.name;
   jobInput.value = textInputs.job;
-  editProfilePopup.open();
-  
 });
 
-popupEditButton.addEventListener("click", openCardPopup);
+openPopupAddCardButton.addEventListener("click", openCardPopup);

@@ -1,11 +1,9 @@
-
-
 class Card {
   constructor({ name, link, altText }, cardTemplateSelector, handleCardClick) {
     this._text = name;
     this._link = link;
     this._altText = altText;
-    this._cardTemplateSelector = cardTemplateSelector;   //document.querySelector(cardTemplateSelector).content.querySelector(".photo-grid__card");
+    this._cardTemplateSelector = cardTemplateSelector;
     this._handleCardClick = handleCardClick;
   }
 
@@ -30,18 +28,6 @@ class Card {
     this._cardElement = null;
   }
 
-  // _handlePreviewPicture = () => {
-  //   popupImage.src = this._link;
-  //   popupImage.alt = this._altText;
-  //   popupImageCaption.textContent = this._text;
-
-  //   openModal(popupPhoto);
-  // }
-
-  // _handleLikeCard(evt) { 
-  //   evt.target.classList.toggle("photo-grid__like-btn_active"); 
-  // } 
-
   _setEventListeners() {
 
     this._cardElement.querySelector(".photo-grid__like-btn")
@@ -52,16 +38,6 @@ class Card {
 
     this._cardElement.querySelector(".photo-grid__image")
       .addEventListener('click', () => this._handleCardClick(this._link, this._text));
-
-    // const likeButton = this._cardElement.querySelector(".photo-grid__like-btn");
-    // const deleteButton = this._cardElement.querySelector(".photo-grid__delete-btn");
-    // likeButton.addEventListener('click', () => this._handleLikeCard); 
-    // deleteButton.addEventListener('click', () => this._handleDeleteCard);
-    // const cardImage = this._cardElement.querySelector(".photo-grid__image");
-
-    // likeButton.addEventListener('click', () => this._handleLikeCard); 
-    // deleteButton.addEventListener('click', () => this._handleDeleteCard);
-    // cardImage.addEventListener('click', () => this._handleCardClick(this._link, this._text));
   }
 
   getCard() {
