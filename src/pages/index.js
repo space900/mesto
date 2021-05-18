@@ -21,9 +21,6 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 
-const addCardValidator = new FormValidator(settings, addCardForm);
-const editProfileValidator = new FormValidator(settings, editProfileForm);
-
 // новая карточка
 const createCard = (cardData) => {
   const card = new Card(cardData, cardTemplateSelector, cardImageClickHandler);
@@ -37,18 +34,17 @@ const cardList = new Section({
     cardList.appendItem(createCard(cardElement));
   }
 }, gridList);
-  
+
+// остальные экземпляры
+const addCardValidator = new FormValidator(settings, addCardForm);
+const editProfileValidator = new FormValidator(settings, editProfileForm);
 const popupWithImage = new PopupWithImage(popupType.popupImage);
 const addCardPopup = new PopupWithForm(popupType.popupAddCard, addCardSubmitHandler);
-// const editProfilePopup = new PopupWithForm(popupType.popupEditProfile, editProfileHandler);
+const editProfilePopup = new PopupWithForm(popupType.popupEditProfile, formSubmitHandler);
+const userInfo = new UserInfo({nameSelector: '.info__title', jobSelector: '.info__subtitle'});
 popupWithImage.setEventListeners();
 addCardPopup.setEventListeners();
-
-// Редактирование профиля
-const editProfilePopup = new PopupWithForm(popupType.popupEditProfile, formSubmitHandler);
 editProfilePopup.setEventListeners();
-
-const userInfo = new UserInfo({nameSelector: '.info__title', jobSelector: '.info__subtitle'});
 
 // функция для открытия попап с фото
 function cardImageClickHandler(link, text) {
