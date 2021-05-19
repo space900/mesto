@@ -2,6 +2,8 @@
 import '../pages/index.css';
 import FormValidator from '../components/FormValidation.js';
 import {
+  userInfoTitle,
+  userInfoSubtitle,
   gridList,
   editProfileForm,
   settings,
@@ -40,8 +42,8 @@ const addCardValidator = new FormValidator(settings, addCardForm);
 const editProfileValidator = new FormValidator(settings, editProfileForm);
 const popupWithImage = new PopupWithImage(popupType.popupImage);
 const addCardPopup = new PopupWithForm(popupType.popupAddCard, addCardSubmitHandler);
-const editProfilePopup = new PopupWithForm(popupType.popupEditProfile, formSubmitHandler);
-const userInfo = new UserInfo({nameSelector: '.info__title', jobSelector: '.info__subtitle'});
+const editProfilePopup = new PopupWithForm(popupType.popupEditProfile, formEditProfileSubmitHandler);
+const userInfo = new UserInfo({nameSelector: userInfoTitle, jobSelector: userInfoSubtitle});
 popupWithImage.setEventListeners();
 addCardPopup.setEventListeners();
 editProfilePopup.setEventListeners();
@@ -58,7 +60,7 @@ function addCardSubmitHandler(data) {
   addCardValidator.resetValidation();
 }
 
-function formSubmitHandler() {
+function formEditProfileSubmitHandler() {
   const info = {
     name: nameInput.value,
     job: jobInput.value

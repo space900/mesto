@@ -14,13 +14,13 @@ class Section {
         this._container.prepend(showCard);
     }
 
-    clear() {
+    _clear() {
         this._container.innerHTML = '';
 
     }
 
     renderItems() {
-        this.clear();
+        this._clear();
         this._renderedItems.forEach((item) => {
             this._renderer(item);
         });

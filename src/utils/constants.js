@@ -56,6 +56,8 @@ export const popupType = {
 };
 
 // переменные
+export const userInfoTitle = '.info__title';
+export const userInfoSubtitle = '.info__subtitle';
 export const gridList = '.photo-grid__list';
 export const popupPhoto = document.querySelector(".popup_photo");
 export const popupImage = popupPhoto.querySelector(".popup__image");
