@@ -17,11 +17,69 @@ import {
   jobInput
 } from '../utils/constants.js';
 
+import Api from '../components/Api.js';
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+
+// создание экземпляра Api
+
+// const api = new Api({
+//   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-24',
+//   headers: {
+//     authorization: '7db52f09-fd63-4bba-b480-bb98507e779c',
+//     'Content-Type': 'application/json'
+//   }
+// });
+
+fetch('https://nomoreparties.co/v1/cohort-24/users/me', {
+  headers: {
+    authorization: '7db52f09-fd63-4bba-b480-bb98507e779c',
+    'Content-Type': 'application/json'
+  }
+})
+  .then(res => res.json())
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {
+      console.log(`Ошибка: ${err}`);
+    });
+
+
+fetch('https://nomoreparties.co/v1/cohort-24/cards', {
+  headers: {
+    authorization: '7db52f09-fd63-4bba-b480-bb98507e779c',
+    'Content-Type': 'application/json'
+  }
+});
+
+fetch('https://nomoreparties.co/v1/cohort-24/users/me', {
+  method: 'PATCH',
+  headers: {
+    authorization: '7db52f09-fd63-4bba-b480-bb98507e779c',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: 'beyondmyspace',
+    about: 'кто-то'
+  })
+});
+
+fetch('https://nomoreparties.co/v1/cohort-24/cards', {
+  method: 'POST',
+  headers: {
+    authorization: '7db52f09-fd63-4bba-b480-bb98507e779c',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: "Вид на Эльбрус",
+    link: 'https://vk.com/hnykin_andrey?z=photo5618335_457241659%2Fwall5618335_8897'
+  })
+}); 
+
 
 // новая карточка
 const createCard = (cardData) => {
