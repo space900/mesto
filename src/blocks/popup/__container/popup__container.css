@@ -5,6 +5,7 @@
     padding: 34px 36px 36px;
     max-width: 430px;
     border-radius: 10px;
+    width: 100%;
 }
 
 @media screen and (max-width: 549px) {

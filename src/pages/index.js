@@ -34,51 +34,52 @@ import UserInfo from '../components/UserInfo.js';
 //   }
 // });
 
-fetch('https://nomoreparties.co/v1/cohort-24/users/me', {
-  headers: {
-    authorization: '7db52f09-fd63-4bba-b480-bb98507e779c',
-    'Content-Type': 'application/json'
-  }
-})
-  .then(res => res.json())
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((err) => {
-      console.log(`Ошибка: ${err}`);
-    });
+// fetch('https://nomoreparties.co/v1/cohort-24/users/me', {
+//   headers: {
+//     authorization: '7db52f09-fd63-4bba-b480-bb98507e779c',
+//     'Content-Type': 'application/json'
+//   }
+// })
+//   .then(res => res.json())
+//     .then((result) => {
+//       console.log(result);
+//     })
+//     .catch((err) => {
+//       console.log(`Ошибка: ${err}`);
+//     });
 
 
-fetch('https://nomoreparties.co/v1/cohort-24/cards', {
-  headers: {
-    authorization: '7db52f09-fd63-4bba-b480-bb98507e779c',
-    'Content-Type': 'application/json'
-  }
-});
+// fetch('https://nomoreparties.co/v1/cohort-24/cards', {
+//   headers: {
+//     authorization: '7db52f09-fd63-4bba-b480-bb98507e779c',
+//     'Content-Type': 'application/json'
+//   }
+// });
 
-fetch('https://nomoreparties.co/v1/cohort-24/users/me', {
-  method: 'PATCH',
-  headers: {
-    authorization: '7db52f09-fd63-4bba-b480-bb98507e779c',
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    name: 'beyondmyspace',
-    about: 'кто-то'
-  })
-});
+// fetch('https://nomoreparties.co/v1/cohort-24/users/me', {
+//   method: 'PATCH',
+//   headers: {
+//     authorization: '7db52f09-fd63-4bba-b480-bb98507e779c',
+//     'Content-Type': 'application/json'
+//   },
+//   body: JSON.stringify({
+//     name: 'beyondmyspace',
+//     about: 'кто-то'
+//   })
+// });
 
-fetch('https://nomoreparties.co/v1/cohort-24/cards', {
-  method: 'POST',
-  headers: {
-    authorization: '7db52f09-fd63-4bba-b480-bb98507e779c',
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    name: "Вид на Эльбрус",
-    link: 'https://vk.com/hnykin_andrey?z=photo5618335_457241659%2Fwall5618335_8897'
-  })
-}); 
+// fetch('https://nomoreparties.co/v1/cohort-24/cards', {
+//   method: 'POST',
+//   headers: {
+//     authorization: '7db52f09-fd63-4bba-b480-bb98507e779c',
+//     'Content-Type': 'application/json'
+//   },
+//   body: JSON.stringify({
+//     name: "Вид на Эльбрус",
+//     link: 'https://vk.com/hnykin_andrey?z=photo5618335_457241659%2Fwall5618335_8897'
+//   })
+// }); 
+
 
 
 // новая карточка

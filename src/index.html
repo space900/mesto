@@ -36,7 +36,10 @@
                 <img src="<%=require('./images/tarasovka.jpg')%>" alt="" class="photo-grid__image">
                 <button class="photo-grid__delete-btn" aria-label="Удалить" type="button"></button>
                 <h3 class="photo-grid__title"></h3>
-                <button class="photo-grid__like-btn" aria-label="Лайк" type="button"></button>
+                <div class="photo-grid__like-container">
+                    <button class="photo-grid__like-btn" aria-label="Лайк" type="button"></button>
+                    <h4 class="photo-grid__like-count">1</h4>
+                </div>
             </li>
 
         </template>
@@ -75,6 +78,20 @@
                     <span class="popup__link-error popup__text-input"></span>
                     <button class="popup__submit popup__submit_create-btn" type="submit" disabled="true"
                         aria-label="Создать">Создать</button>
+                </form>
+            </div>
+        </div>
+        <div class="popup popup_avatar">
+            <div class="popup__container">
+                <button class="popup__close popup__close_cards" aria-label="Закрыть" type="button"></button>
+                <h2 class="popup__title">Обновить аватар</h2>
+                <form action="#" class="popup__form" name="field" method="get" novalidate>
+                    <input id="popup__photo-name" type="url" placeholder="Ссылка на аватар" value="" name="avatar"
+                        class="popup__text popup__text_field_name popup__text_input" minlength="2" maxlength="30"
+                        required>
+                    <span class="popup__photo-name-error popup__text-input"></span>
+                    <button class="popup__submit popup__submit_save-btn" type="submit"
+                        aria-label="Сохранить">Сохранить</button>
                 </form>
             </div>
         </div>

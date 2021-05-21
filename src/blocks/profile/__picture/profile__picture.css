@@ -4,6 +4,12 @@
     margin-right: 30px;
     object-fit: cover;
     height: 120px;
+    transition: 0.5s;
+    cursor: url(../../../images/edit-btn.svg), auto;
+}
+
+.profile__picture:hover {
+    opacity: 0.5;
 }
 
 @media screen and (max-width: 767px) {
