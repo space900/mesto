@@ -22,8 +22,8 @@ class Card {
     this.likeBtnActive = 'photo-grid__like-btn_active';
     this._cardElement.querySelector(".photo-grid__like-btn")
       .classList.toggle(this.likeBtnActive);
-      this.count = document.querySelector('photo-grid__like-count');
-      this.count =+ 1;
+      let count = document.querySelector('photo-grid__like-count');
+      count =+ 1;
   }
 
   _handleDeleteCard = () => {
