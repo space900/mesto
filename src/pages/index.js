@@ -123,6 +123,9 @@ function addCardSubmitHandler(data) {
 }
 
 function formEditProfileSubmitHandler() {
+  // api.setUserInfo({
+  //   name: user
+  // })
   const info = {
     name: nameInput.value,
     job: jobInput.value
@@ -159,21 +162,22 @@ editProfileValidator.enableValidation();
 //   })
 //   .catch(e => console.log(`Ошибка при получении данных user: ${e}`))
 
-let user = null;
-let job = null;
-
 Promise.all([ api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cards]) => {
     console.log(userData)
-    user = userData.about;
-    job = userData.name;
+    // const info = {
+    //   user: nameInput.value,
+    //   job: jobInput.value 
+    // }
+
     userInfo.setUserInfo({
-      user: user.name,
-      job: user.job
+      name: userData.name,
+      job: userData.about,
+      avatar: userData.avatar
     })
     cardList.renderItems(cards);
   })
-  .catch(e => console.log(`Ошибка при получении данных user: ${e}`))
+  .catch(e => console.log(`Ошибка при получении данных: ${e}`))
 
 openPopupEditProfileButton.addEventListener("click", () => {
   editProfilePopup.open();
