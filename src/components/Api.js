@@ -1,3 +1,5 @@
+import { jobInput, nameInput, popupCardLinkInput, popupCardNameInput } from "../utils/constants";
+
 class Api {
     constructor({ address, token, groupId }) {
         this._address = address;
@@ -15,6 +17,21 @@ class Api {
 
     }
 
+    getUserData() {
+        return fetch(`${this._address}/${this._groupId}/users/me`, {
+            method: 'PATCH',
+            headers: {
+                authorization: this._token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: nameInput.value,
+                about: jobInput.value
+            })
+        })
+            .then(result => result.ok ? result.json() : Promise.reject(`${result.status}`));
+    }
+
     getUserInfo() {
         return fetch(`${this._address}/${this._groupId}/users/me`, {
             headers: {
@@ -24,27 +41,32 @@ class Api {
             .then(result => result.ok ? result.json() : Promise.reject(`${result.status}`));
     }
         
-    // addCard({name, link, altText}) {
-    //     return fetch(`${this._address}/${this._groupId}/cards`, {
-    //         method: 'POST',
-    //         headers: {
-    //             authorization: this._token,
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             name = this._name,
-    //             link = this._link,
-    //             altText = this._altText
-    //         })
-    //     })
-    //         .then(res => {
-    //             if (res.ok) {
-    //                 return res.json();
-    //             }
-    //             return Promise.reject(`Ошибка: ${res.status}`);
-    //         })
+    addCard() {
+        return fetch(`${this._address}/${this._groupId}/cards`, {
+            method: 'POST',
+            headers: {
+                authorization: this._token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                link: popupCardLinkInput.value,
+                name: popupCardNameInput.value,
+                
+            })
+        })
+            .then(result => result.ok ? result.json() : Promise.reject(`${result.status}`));
 
-    // }
+    }
+
+    deleteCard(id) {
+        return fetch(`${this._address}/${this._groupId}/cards/${id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: this._token
+            },
+        })
+            .then(result => result.ok ? result.json() : Promise.reject(`${result.status}`));
+    }
 
 
 }

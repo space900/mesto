@@ -105,33 +105,41 @@ function cardImageClickHandler(link, text) {
 // добавление новой карточки
 function addCardSubmitHandler(data) {
   cardList.prependItem(createCard(data));
+  api.addCard()
+    .then((result) => {
+      console.log(result + 'всё ок')
+    })
+    .catch(e => console.log(`Ошибка при добавлении карточки: ${e}`))
+
   addCardPopup.close();
   addCardValidator.resetValidation();
-  fetch('https://nomoreparties.co/v1/cohort-24/cards', {
-    method: 'POST',
-    headers: {
-      authorization: '7db52f09-fd63-4bba-b480-bb98507e779c',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      name: "arbat, neon city b/w",
-      link: 'https://sun9-14.userapi.com/impf/c844416/v844416591/101413/xhR0Wlhp0EE.jpg?size=2560x2148&quality=96&sign=3ce7cfd2384c655d3cea2212339f65c8&type=album'
-    })
 
-  })
+  // fetch('https://nomoreparties.co/v1/cohort-24/cards', {
+  //   method: 'POST',
+  //   headers: {
+  //     authorization: '7db52f09-fd63-4bba-b480-bb98507e779c',
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify({
+  //     name: "где денги!",
+  //     link: 'https://images.unsplash.com/photo-1529933037705-0d537317ae7b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=671&q=80'
+  //   })
+
+  // })
 
 }
 
 function formEditProfileSubmitHandler() {
-  // api.setUserInfo({
-  //   name: user
-  // })
   const info = {
     name: nameInput.value,
     job: jobInput.value
   }
   userInfo.setUserInfo(info);
-
+  api.getUserData()
+    .then((result) => {
+      console.log(result + 'всё ок')
+    })
+    .catch(e => console.log(`Ошибка при обновлении юзера: ${e}`))
   editProfilePopup.close();
 }
 
@@ -165,10 +173,6 @@ editProfileValidator.enableValidation();
 Promise.all([ api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cards]) => {
     console.log(userData)
-    // const info = {
-    //   user: nameInput.value,
-    //   job: jobInput.value 
-    // }
 
     userInfo.setUserInfo({
       name: userData.name,

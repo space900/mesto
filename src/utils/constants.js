@@ -61,6 +61,8 @@ export const popupType = {
 };
 
 // переменные
+export const popupCardLinkInput = document.querySelector('.popup__text_field_link');
+export const popupCardNameInput = document.querySelector('.popup__text_field_name');
 export const userInfoTitle = '.info__title';
 export const userInfoSubtitle = '.info__subtitle';
 export const profileAvatar = '.profile__picture';
@@ -80,3 +82,4 @@ export const closeButtonPhoto = document.querySelector(".popup__close_image");
 export const nameInput = document.querySelector(".popup__text_field_nickname");
 export const jobInput = document.querySelector(".popup__text_field_job");
 export const changeProfileAvatar = document.querySelector(".popup_avatar");
+
