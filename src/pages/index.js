@@ -25,7 +25,6 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
-import { data } from 'autoprefixer';
 
 // создание экземпляра Api
 
@@ -51,13 +50,6 @@ import { data } from 'autoprefixer';
 //       console.log(`Ошибка: ${err}`);
 //     });
 
-// fetch('https://nomoreparties.co/v1/cohort-24/cards', {
-//   headers: {
-//     authorization: '7db52f09-fd63-4bba-b480-bb98507e779c',
-//     'Content-Type': 'application/json'
-//   }
-// });
-
 // fetch('https://nomoreparties.co/v1/cohort-24/users/me', {
 //   method: 'PATCH',
 //   headers: {
@@ -69,18 +61,6 @@ import { data } from 'autoprefixer';
 //     about: 'кто-то'
 //   })
 // });
-
-// fetch('https://nomoreparties.co/v1/cohort-24/cards', {
-//   method: 'POST',
-//   headers: {
-//     authorization: '7db52f09-fd63-4bba-b480-bb98507e779c',
-//     'Content-Type': 'application/json'
-//   },
-//   body: JSON.stringify({
-//     name: "бесконечный дом",
-//     link: 'https://sun9-34.userapi.com/impf/c830209/v830209607/18f80f/EXy09X7eKmk.jpg?size=2560x1936&quality=96&sign=a8946e9cb56598abac301dd219cb38a5&type=album'
-//   })
-// }); 
 
 // экземпляр Api
 
@@ -179,11 +159,21 @@ editProfileValidator.enableValidation();
 //   })
 //   .catch(e => console.log(`Ошибка при получении данных user: ${e}`))
 
+let user = null;
+let job = null;
+
 Promise.all([ api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cards]) => {
     console.log(userData)
+    user = userData.about;
+    job = userData.name;
+    userInfo.setUserInfo({
+      user: user.name,
+      job: user.job
+    })
     cardList.renderItems(cards);
   })
+  .catch(e => console.log(`Ошибка при получении данных user: ${e}`))
 
 openPopupEditProfileButton.addEventListener("click", () => {
   editProfilePopup.open();

@@ -14,10 +14,12 @@ class UserInfo {
         } 
     }
 
-    setUserInfo(data) {
-        this._name.textContent = data.name;
-        this._job.textContent = data.job;
-        this._avatarSelector = data.avatar;
+    setUserInfo({ name, job, avatar}) {
+        if (name) {
+            this._name.textContent = name;
+            this._job.textContent = job;
+            this._avatarSelector = avatar;
+        }
     }
 }
 
