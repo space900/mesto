@@ -102,6 +102,9 @@ function cardImageClickHandler(link, text) {
   popupWithImage.open(link, text);
 };
 
+let user = null;
+
+
 // добавление новой карточки
 function addCardSubmitHandler(data) {
   cardList.prependItem(createCard(data));
@@ -113,19 +116,6 @@ function addCardSubmitHandler(data) {
 
   addCardPopup.close();
   addCardValidator.resetValidation();
-
-  // fetch('https://nomoreparties.co/v1/cohort-24/cards', {
-  //   method: 'POST',
-  //   headers: {
-  //     authorization: '7db52f09-fd63-4bba-b480-bb98507e779c',
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify({
-  //     name: "где денги!",
-  //     link: 'https://images.unsplash.com/photo-1529933037705-0d537317ae7b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=671&q=80'
-  //   })
-
-  // })
 
 }
 
@@ -177,7 +167,8 @@ Promise.all([ api.getUserInfo(), api.getInitialCards()])
     userInfo.setUserInfo({
       name: userData.name,
       job: userData.about,
-      avatar: userData.avatar
+      avatar: userData.avatar,
+      userID: userData._id
     })
     cardList.renderItems(cards);
   })

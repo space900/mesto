@@ -40,7 +40,7 @@ class Api {
         })
             .then(result => result.ok ? result.json() : Promise.reject(`${result.status}`));
     }
-        
+
     addCard() {
         return fetch(`${this._address}/${this._groupId}/cards`, {
             method: 'POST',
@@ -52,6 +52,7 @@ class Api {
                 link: popupCardLinkInput.value,
                 name: popupCardNameInput.value,
                 
+
             })
         })
             .then(result => result.ok ? result.json() : Promise.reject(`${result.status}`));
