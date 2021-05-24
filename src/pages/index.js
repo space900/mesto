@@ -102,7 +102,7 @@ function cardImageClickHandler(link, text) {
   popupWithImage.open(link, text);
 };
 
-let user = null;
+
 
 
 // добавление новой карточки
@@ -113,7 +113,7 @@ function addCardSubmitHandler(data) {
       console.log(result + 'всё ок')
     })
     .catch(e => console.log(`Ошибка при добавлении карточки: ${e}`))
-  userInfo.getId();
+  // userInfo.getId();
   addCardPopup.close();
   addCardValidator.resetValidation();
 

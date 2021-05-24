@@ -1,8 +1,9 @@
 class Card {
-  constructor({ name, link, altText }, cardTemplateSelector, handleCardClick) {
+  constructor({ name, link, altText, likes }, cardTemplateSelector, handleCardClick) {
     this._text = name;
     this._link = link;
     this._altText = altText;
+    this._likes = likes;
     this._cardTemplateSelector = cardTemplateSelector;
     this._handleCardClick = handleCardClick;
   }
@@ -19,11 +20,11 @@ class Card {
   }
 
   _handleLikeCard() {
-
+    // this._cardElement.querySelector(".photo-grid__like-count").textContent = this._likes.length
     this.likeCount = this._cardElement.querySelector(".photo-grid__like-count");
     console.log(this.likeCount)
     this.likeBtnActive = 'photo-grid__like-btn_active';
-    
+    // this.likeCount.textContent = this._cardElement.querySelector(".photo-grid__like-btn").length
     if(this.likeBtnActive) {
       this._cardElement.querySelector(".photo-grid__like-btn")
       .classList.toggle(this.likeBtnActive);
