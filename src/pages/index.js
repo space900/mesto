@@ -113,7 +113,7 @@ function addCardSubmitHandler(data) {
       console.log(result + 'всё ок')
     })
     .catch(e => console.log(`Ошибка при добавлении карточки: ${e}`))
-
+  userInfo.getId();
   addCardPopup.close();
   addCardValidator.resetValidation();
 

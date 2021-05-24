@@ -19,11 +19,17 @@ class Card {
   }
 
   _handleLikeCard() {
+
+    this.likeCount = this._cardElement.querySelector(".photo-grid__like-count");
+    console.log(this.likeCount)
     this.likeBtnActive = 'photo-grid__like-btn_active';
-    this._cardElement.querySelector(".photo-grid__like-btn")
+    
+    if(this.likeBtnActive) {
+      this._cardElement.querySelector(".photo-grid__like-btn")
       .classList.toggle(this.likeBtnActive);
-      let count = document.querySelector('photo-grid__like-count');
-      count =+ 1;
+      this.likeCount.textContent -= [ 1, -1] [+this.likeCount.classList.toggle('active')];
+
+    }
   }
 
   _handleDeleteCard = () => {
