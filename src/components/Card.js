@@ -20,17 +20,22 @@ class Card {
   }
 
   _handleLikeCard() {
-    // this._cardElement.querySelector(".photo-grid__like-count").textContent = this._likes.length
-    this.likeCount = this._cardElement.querySelector(".photo-grid__like-count");
-    console.log(this.likeCount)
+    this._likeCount = this._cardElement.querySelector(".photo-grid__like-count");
+    console.log(this._likeCount)
+  
     this.likeBtnActive = 'photo-grid__like-btn_active';
-    // this.likeCount.textContent = this._cardElement.querySelector(".photo-grid__like-btn").length
+    
+    
     if(this.likeBtnActive) {
       this._cardElement.querySelector(".photo-grid__like-btn")
       .classList.toggle(this.likeBtnActive);
-      this.likeCount.textContent -= [ 1, -1] [+this.likeCount.classList.toggle('active')];
+      this._likeCount.textContent -= [ 1, -1] [+this._likeCount.classList.toggle('active')];
 
     }
+  }
+
+  _checkLikes() {
+    this._cardElement.querySelector(".photo-grid__like-count").textContent = this._likes.length
   }
 
   _handleDeleteCard = () => {
@@ -52,14 +57,16 @@ class Card {
 
   getCard() {
     this._itemTemplate = this._getTemplate();
-
+  
+    
     this._cardElement = this._itemTemplate.cloneNode(true);
     const cardImage = this._cardElement.querySelector(".photo-grid__image");
-
+    
     cardImage.src = this._link;
     this._cardElement.querySelector(".photo-grid__title").textContent = this._text;
     cardImage.alt = this._altText;
-
+    
+    this._checkLikes();
     this._setEventListeners();
 
     return this._cardElement;
