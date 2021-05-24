@@ -82,4 +82,3 @@ export const closeButtonPhoto = document.querySelector(".popup__close_image");
 export const nameInput = document.querySelector(".popup__text_field_nickname");
 export const jobInput = document.querySelector(".popup__text_field_job");
 export const changeProfileAvatar = document.querySelector(".popup_avatar");
-

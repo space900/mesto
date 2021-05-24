@@ -58,7 +58,8 @@ import UserInfo from '../components/UserInfo.js';
 //   },
 //   body: JSON.stringify({
 //     name: 'beyondmyspace',
-//     about: 'кто-то'
+//     about: 'кто-то',
+//     avatar: 'https://images.unsplash.com/photo-1586410073908-5f314173d3a5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80'
 //   })
 // });
 
@@ -101,9 +102,6 @@ changeAvatarPopup.setEventListeners();
 function cardImageClickHandler(link, text) {
   popupWithImage.open(link, text);
 };
-
-
-
 
 // добавление новой карточки
 function addCardSubmitHandler(data) {
