@@ -1,5 +1,5 @@
 class Card {
-  constructor({ name, link, altText, likes, _id, owner, currentUserId }, cardTemplateSelector, handleCardClick, handleLikeClick) {
+  constructor({ name, link, altText, likes, _id, owner, currentUserId }, cardTemplateSelector, handleCardClick, handleLikeClick, handleDeleteCard) {
     this._text = name;
     this._link = link;
     this._altText = altText;
@@ -10,6 +10,7 @@ class Card {
     this._cardTemplateSelector = cardTemplateSelector;
     this._handleCardClick = handleCardClick;
     this._handleLikeClick = handleLikeClick;
+    this._handleDeleteCard = handleDeleteCard;
   }
 
   _getTemplate() {
@@ -39,7 +40,7 @@ class Card {
     this._likeCount.textContent = this._likes.length;
   }
 
-  _handleDeleteCard = () => {
+  handleDeleteCard = () => {
     this._cardElement.remove();
     this._cardElement = null;
   };
@@ -49,7 +50,7 @@ class Card {
 
     this._cardElement
       .querySelector(".photo-grid__delete-btn")
-      .addEventListener("click", () => this._handleDeleteCard());
+      .addEventListener("click", () => this._handleDeleteCard(this));
 
     this._cardElement
       .querySelector(".photo-grid__image")

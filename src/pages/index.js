@@ -94,7 +94,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
     // новая карточка
     const createCard = (cardData) => {
-      const card = new Card({ ...cardData, currentUserId: currentUserId }, cardTemplateSelector, cardImageClickHandler, handleLikeClick)
+      const card = new Card({ ...cardData, currentUserId: currentUserId }, cardTemplateSelector, cardImageClickHandler, handleLikeClick, handleDeleteCard)
       return card.getCard();
     }
 
@@ -118,7 +118,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
       api.addCard(data)
         .then((result) => {
-          cardList.prependItem(createCard(result));
+          cardList.prependItem(createCard(result))
         })
         .catch(e => console.log(`Ошибка при добавлении карточки: ${e}`))
       // userInfo.getId();
@@ -145,6 +145,21 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
             card.setLikeInfo(res)
           })
       }
+    }
+
+    function handleDeleteCard(card) {
+      function confirmSubmitHandler() {
+        api.deleteCard(card._cardId)
+          .then(res => {
+            confirmModal.close()
+
+            card.handleDeleteCard()
+          })
+      }
+
+      const confirmModal = new PopupWithForm('.popup_delete', confirmSubmitHandler)
+      confirmModal.setEventListeners()
+      confirmModal.open()
     }
   })
   .catch(e => console.log(`Ошибка при получении данных: ${e}`))
