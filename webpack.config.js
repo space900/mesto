@@ -11,6 +11,7 @@ module.exports = {
         publicPath: ''
     },
     mode: 'development',
+    devtool: 'cheap-module-source-map',
     devServer: {
         contentBase: path.resolve(__dirname, './dist'), // путь, куда "смотрит" режим разработчика
         compress: true, // это ускорит загрузку в режиме разработки

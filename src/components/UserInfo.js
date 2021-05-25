@@ -22,10 +22,10 @@ class UserInfo {
         } 
     }
 
-    setUserInfo({ name, job, avatar, userID}) {
-        if (name, job) {
+    setUserInfo({ name, about, avatar, userID}) {
+        if (name, about) {
             this._name.textContent = name;
-            this._job.textContent = job;
+            this._job.textContent = about;
             this._avatarSelector = avatar;
             this._userID = userID;
         }

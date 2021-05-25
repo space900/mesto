@@ -49,9 +49,8 @@ class Api {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                link: popupCardLinkInput.value,
-                name: popupCardNameInput.value,
-                owner: data.owner
+                link: data.link,
+                name: data.photoName,
 
             })
         })
@@ -61,6 +60,26 @@ class Api {
 
     deleteCard(id) {
         return fetch(`${this._address}/${this._groupId}/cards/${id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: this._token
+            },
+        })
+            .then(result => result.ok ? result.json() : Promise.reject(`${result.status}`));
+    }
+
+    setLike(cardId) {
+        return fetch(`${this._address}/${this._groupId}/cards/likes/${cardId}`, {
+            method: 'PUT',
+            headers: {
+                authorization: this._token
+            },
+        })
+            .then(result => result.ok ? result.json() : Promise.reject(`${result.status}`));
+    }
+
+    deleteLike(cardId) {
+        return fetch(`${this._address}/${this._groupId}/cards/likes/${cardId}`, {
             method: 'DELETE',
             headers: {
                 authorization: this._token
