@@ -1,7 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin'); 
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 
 module.exports = {
     entry: { main: './src/pages/index.js' },
@@ -11,7 +12,6 @@ module.exports = {
         publicPath: ''
     },
     mode: 'development',
-    devtool: 'cheap-module-source-map',
     devServer: {
         contentBase: path.resolve(__dirname, './dist'), // путь, куда "смотрит" режим разработчика
         compress: true, // это ускорит загрузку в режиме разработки
