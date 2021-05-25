@@ -35,6 +35,8 @@
 @import url(../blocks/photo-grid/__delete-btn/photo-grid__delete-btn.css);
 @import url(../blocks/photo-grid/__like-container/photo-grid__like-container.css);
 @import url(../blocks/photo-grid/__like-count/photo-grid__like-count.css);
+@import url(../blocks/photo-grid/__delete-btn/_visible/photo-grid__delete-btn_visible.css);
+@import url(../blocks/photo-grid/__delete-btn/_hide/photo-grid__delete-btn_hide.css);
 
 /* footer */
 

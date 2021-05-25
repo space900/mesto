@@ -41,7 +41,7 @@ class Api {
             .then(result => result.ok ? result.json() : Promise.reject(`${result.status}`));
     }
 
-    addCard() {
+    addCard(data) {
         return fetch(`${this._address}/${this._groupId}/cards`, {
             method: 'POST',
             headers: {
@@ -51,7 +51,7 @@ class Api {
             body: JSON.stringify({
                 link: popupCardLinkInput.value,
                 name: popupCardNameInput.value,
-                
+                owner: data.owner
 
             })
         })

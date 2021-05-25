@@ -73,9 +73,14 @@ const api = new Api({
 
 // новая карточка
 const createCard = (cardData) => {
-  const card = new Card(cardData, cardTemplateSelector, cardImageClickHandler);
+  
+  // console.log(cardData)
+  const card = new Card(cardData, cardTemplateSelector, cardImageClickHandler)
+    // .then(result => result.json())
+    
   return card.getCard();
 }
+
 
 // экземпляр Section для добавления карточек в контейнер из data.js
 const cardList = new Section({
@@ -166,9 +171,11 @@ Promise.all([ api.getUserInfo(), api.getInitialCards()])
       name: userData.name,
       job: userData.about,
       avatar: userData.avatar,
-      userID: userData._id
+      _id: userData._id,
     })
+    console.log(userData._id)
     cardList.renderItems(cards);
+    
   })
   .catch(e => console.log(`Ошибка при получении данных: ${e}`))
 
