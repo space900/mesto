@@ -1,10 +1,14 @@
 .profile__picture {
-    max-width: 120px;
+    width: 120px;
+    height: 120px;
+    background-position: center;
+    background-size: cover;
     border-radius: 50%;
     margin-right: 30px;
     object-fit: cover;
     height: 120px;
     transition: 0.5s;
+    background-image: url(../../../images/avatar-3.jpg);
     cursor: url(../../../images/edit-btn.svg), auto;
 }
 
