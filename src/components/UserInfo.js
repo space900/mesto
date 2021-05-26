@@ -13,10 +13,8 @@ class UserInfo {
     };
   }
 
-  setUserAvatar() {
-    return {
-      userAvatar: this._avatar.src
-    }
+  setUserAvatar(avatar) {
+    this._avatar.src = avatar;
   }
 
   setUserInfo({ name, about, userID }) {

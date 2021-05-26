@@ -8,7 +8,7 @@
     object-fit: cover;
     height: 120px;
     transition: 0.5s;
-    background-image: url(../../../images/avatar-3.jpg);
+    
     cursor: url(../../../images/edit-btn.svg), auto;
 }
 

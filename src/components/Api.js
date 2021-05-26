@@ -51,7 +51,7 @@ class Api {
     }).then((result) => (result.ok ? result.json() : Promise.reject(`${result.status}`)));
   }
 
-  changeAvatar() {
+  changeAvatar(infoAvatar) {
     return fetch(`${this._address}/${this._groupId}/users/me/avatar`, {
         method: "PATCH",
         headers: {
@@ -59,7 +59,7 @@ class Api {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            avatar: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1052&q=80',
+            avatar: infoAvatar.avatar,
           }),
       }).then((result) => (result.ok ? result.json() : Promise.reject(`${result.status}`)));
   }

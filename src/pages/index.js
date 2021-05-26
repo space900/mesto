@@ -73,10 +73,13 @@ addCardValidator.enableValidation();
 editProfileValidator.enableValidation();
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
-  .then(([userData, cards]) => {
+  .then(([userData, cards, ]) => {
     const currentUserId = userData._id;
     console.log('userData', userData)
-
+    
+    // userData.avatar = userInfo.setUserAvatar();
+    console.log(userInfo.setUserAvatar)
+    
     // новая карточка
     const createCard = (cardData) => {
       const card = new Card(
@@ -148,10 +151,14 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     // замена аватара
     function changeAvatarSubmit(data) {
 
-      console.log(api.changeAvatar(data))
+      
       api.changeAvatar(data)
+      
+      // console.log(api.changeAvatar(data))
         .then((res) => {
-          userInfo.setUserAvatar(res)
+          
+          userInfo.setUserAvatar(res.avatar)
+          
           changeAvatarModal.close()
         })
         .catch((e) => console.log(`Ошибка при смене аватара: ${e}`));
