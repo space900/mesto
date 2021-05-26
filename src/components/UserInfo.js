@@ -10,15 +10,19 @@ class UserInfo {
     return {
       name: this._name.textContent,
       job: this._job.textContent,
-    //   avatar: this._avatar.src
     };
   }
 
-  setUserInfo({ name, about, avatar, userID }) {
+  setUserAvatar() {
+    return {
+      userAvatar: this._avatar.src
+    }
+  }
+
+  setUserInfo({ name, about, userID }) {
     if ((name, about)) {
       this._name.textContent = name;
       this._job.textContent = about;
-      this._avatarSelector = avatar;
       this._userID = userID;
     }
   }
