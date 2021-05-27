@@ -53,15 +53,15 @@ class Api {
 
   changeAvatar(infoAvatar) {
     return fetch(`${this._address}/${this._groupId}/users/me/avatar`, {
-        method: "PATCH",
-        headers: {
-          authorization: this._token,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            avatar: infoAvatar.avatar,
-          }),
-      }).then((result) => (result.ok ? result.json() : Promise.reject(`${result.status}`)));
+      method: "PATCH",
+      headers: {
+        authorization: this._token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        avatar: infoAvatar.avatar,
+      }),
+    }).then((result) => (result.ok ? result.json() : Promise.reject(`${result.status}`)));
   }
 
   deleteCard(id) {

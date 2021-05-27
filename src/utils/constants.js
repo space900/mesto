@@ -1,10 +1,3 @@
-import tushinoImg from "../images/tushino.jpg";
-import elbrusImg from "../images/elbrus.jpg";
-import arbatImg from "../images/arbat.jpg";
-import uralImg from "../images/ural.jpg";
-import schelkovoImg from "../images/schelkovo.jpg";
-import tarasovkaImg from "../images/tarasovka.jpg";
-
 export const initialCards = [];
 
 // настройки для валидации
@@ -16,7 +9,6 @@ export const settings = {
   inputErrorClass: "popup__text_invalid",
   errorClass: "`${inputElement.id}-error`",
 };
-
 
 // попапы
 export const popupType = {
@@ -49,3 +41,4 @@ export const closeButtonPhoto = document.querySelector(".popup__close_image");
 export const nameInput = document.querySelector(".popup__text_field_nickname");
 export const jobInput = document.querySelector(".popup__text_field_job");
 export const changeProfileAvatar = document.querySelector(".popup_avatar");
+export const submitDeletePopup = document.querySelector(".popup_delete");

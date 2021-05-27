@@ -4,7 +4,7 @@ class Card {
     cardTemplateSelector,
     handleCardClick,
     handleLikeClick,
-    handleDeleteCard
+    handleDeleteCardClick
   ) {
     this._text = name;
     this._link = link;
@@ -16,7 +16,7 @@ class Card {
     this._cardTemplateSelector = cardTemplateSelector;
     this._handleCardClick = handleCardClick;
     this._handleLikeClick = handleLikeClick;
-    this._handleDeleteCard = handleDeleteCard;
+    this._handleDeleteCardClick = handleDeleteCardClick;
   }
 
   _getTemplate() {
@@ -45,7 +45,7 @@ class Card {
     this._likeCount.textContent = this._likes.length;
   }
 
-  handleDeleteCard = () => {
+  handleDeleteCard() {
     this._cardElement.remove();
     this._cardElement = null;
   };
@@ -57,11 +57,15 @@ class Card {
 
     this._cardElement
       .querySelector(".photo-grid__delete-btn")
-      .addEventListener("click", () => this._handleDeleteCard(this));
+      .addEventListener("click", () => this._handleDeleteCardClick(this));
 
     this._cardElement
       .querySelector(".photo-grid__image")
       .addEventListener("click", () => this._handleCardClick(this._link, this._text));
+  }
+
+  getId() {
+    return this._cardId
   }
 
   getCard() {

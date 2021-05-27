@@ -2,6 +2,7 @@
 import "../pages/index.css";
 import FormValidator from "../components/FormValidation.js";
 import {
+  addCardModal,
   profileAvatar,
   profileAvatarButton,
   changeProfileAvatar,
@@ -18,6 +19,7 @@ import {
   openPopupAddCardButton,
   nameInput,
   jobInput,
+  submitDeletePopup,
 } from "../utils/constants.js";
 
 import Api from "../components/Api.js";
@@ -25,8 +27,8 @@ import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithConfirm from "../components/PopupWithConfirm";
 import UserInfo from "../components/UserInfo.js";
-
 
 // экземпляр Api
 const api = new Api({
@@ -49,10 +51,22 @@ const userInfo = new UserInfo({
 
 popupWithImage.setEventListeners();
 
+const confirmModal = new PopupWithConfirm(".popup_delete");
+confirmModal.setEventListeners()
 
-function renderLoading(isLoading) {
+function renderLoading(isLoading, popup) {
   if (isLoading) {
-    
+    popup.querySelector('.popup__submit_save-btn').textContent = 'Сохранение...';
+  } else {
+    if (popup.classList.contains('popup_cards')) {
+      popup.querySelector('.popup__submit_save-btn').textContent = "Создать"
+    }
+    else if (popup.classList.contains('popup_delete')) {
+      popup.querySelector('.popup__submit_save-btn').textContent = "Да"
+    }
+    else {
+      popup.querySelector('.popup__submit_save-btn').textContent = "Сохранить"
+    }
   }
 }
 
@@ -61,6 +75,27 @@ function cardImageClickHandler(link, text) {
   popupWithImage.open(link, text);
 }
 
+// удаление карточки
+function handleDeleteCardClick(card) {
+  console.log('confirmSubmitHandler', confirmSubmitHandler)
+  function confirmSubmitHandler() {
+    renderLoading(true, submitDeletePopup)
+    api.deleteCard(card.getId())
+      .then(res => {
+        console.log(res)
+        confirmModal.close();
+        card.handleDeleteCard();
+      })
+      .catch((e) => console.log(`Ошибка при удалении карточки: ${e}`))
+      .finally(() => {
+        renderLoading(false, submitDeletePopup)
+      })
+  }
+  confirmModal.setNewSubmitHandler(confirmSubmitHandler)
+  confirmModal.open()
+}
+
+// вызов валидаций
 changeAvatarValidator.enableValidation();
 addCardValidator.enableValidation();
 editProfileValidator.enableValidation();
@@ -79,7 +114,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
         cardTemplateSelector,
         cardImageClickHandler,
         handleLikeClick,
-        handleDeleteCard
+        handleDeleteCardClick
       );
       return card.getCard();
     };
@@ -112,13 +147,16 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
     // добавление новой карточки
     function addCardSubmitHandler(data) {
-      api
-        .addCard(data)
+      renderLoading(true, addCardModal)
+      api.addCard(data)
         .then((result) => {
           cardList.prependItem(createCard(result));
         })
-        .catch((e) => console.log(`Ошибка при добавлении карточки: ${e}`));
-      // userInfo.getId();
+        .catch((e) => console.log(`Ошибка при добавлении карточки: ${e}`))
+        .finally(() => {
+          renderLoading(false, addCardModal)
+        })
+
       addCardPopup.close();
       addCardValidator.resetValidation();
     }
@@ -145,13 +183,16 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
     // замена аватара
     function changeAvatarSubmit(data) {
-      api
-        .changeAvatar(data)
+      renderLoading(true, changeProfileAvatar)
+      api.changeAvatar(data)
         .then((res) => {
           userInfo.setUserAvatar(res.avatar);
           changeAvatarModal.close();
         })
-        .catch((e) => console.log(`Ошибка при смене аватара: ${e}`));
+        .catch((e) => console.log(`Ошибка при смене аватара: ${e}`))
+        .finally(() => {
+          renderLoading(false, changeProfileAvatar)
+        })
     }
 
     // изменение инфо профиля
@@ -162,35 +203,25 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       };
       console.log(info, "info");
       userInfo.setUserInfo(info);
-      api
-        .getUserData()
+      renderLoading(true, editProfileForm)
+      api.getUserData()
         .then((result) => {
           console.log(result + "всё ок");
         })
-        .catch((e) => console.log(`Ошибка при обновлении юзера: ${e}`));
+        .catch((e) => console.log(`Ошибка при обновлении юзера: ${e}`))
+        .finally(() => {
+          renderLoading(false, editProfileForm)
+        })
       editProfilePopup.close();
     }
 
-    // удаление карточки
-    function handleDeleteCard(card) {
-      function confirmSubmitHandler() {
-        api.deleteCard(card._cardId).then((res) => {
-          confirmModal.close();
-
-          card.handleDeleteCard();
-        });
-      }
-
-      const confirmModal = new PopupWithForm(".popup_delete", confirmSubmitHandler);
-      confirmModal.setEventListeners();
-      confirmModal.open();
-    }
-
+    // слушатель аватара
     profileAvatarButton.addEventListener("click", () => {
       changeAvatarModal.open();
       changeAvatarValidator.resetValidation();
     });
 
+    // слушатель юзера
     openPopupEditProfileButton.addEventListener("click", () => {
       editProfilePopup.open();
 
