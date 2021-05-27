@@ -17,6 +17,7 @@ export const settings = {
   errorClass: "`${inputElement.id}-error`",
 };
 
+
 // попапы
 export const popupType = {
   popupAddCard: ".popup_cards",

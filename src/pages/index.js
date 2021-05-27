@@ -40,48 +40,38 @@ const addCardValidator = new FormValidator(settings, addCardForm);
 const editProfileValidator = new FormValidator(settings, editProfileForm);
 const popupWithImage = new PopupWithImage(popupType.popupImage);
 const changeAvatarValidator = new FormValidator(settings, changeProfileAvatar);
-const editProfilePopup = new PopupWithForm(popupType.popupEditProfile, formEditProfileSubmitHandler);
 
-const userInfo = new UserInfo({ nameSelector: userInfoTitle, jobSelector: userInfoSubtitle, avatarSelector: profileAvatar });
+const userInfo = new UserInfo({
+  nameSelector: userInfoTitle,
+  jobSelector: userInfoSubtitle,
+  avatarSelector: profileAvatar,
+});
+
 popupWithImage.setEventListeners();
-editProfilePopup.setEventListeners();
+
+
+function renderLoading(isLoading) {
+  if (isLoading) {
+    
+  }
+}
 
 // функция для открытия попап с фото
 function cardImageClickHandler(link, text) {
   popupWithImage.open(link, text);
 }
 
-
-// изменение инфо профиля
-function formEditProfileSubmitHandler() {
-  const info = {
-    name: nameInput.value,
-    job: jobInput.value,
-  };
-  console.log(info, 'info')
-  userInfo.setUserInfo(info);
-  api
-    .getUserData()
-    .then((result) => {
-      console.log(result + "всё ок");
-    })
-    .catch((e) => console.log(`Ошибка при обновлении юзера: ${e}`));
-  editProfilePopup.close();
-}
 changeAvatarValidator.enableValidation();
 addCardValidator.enableValidation();
 editProfileValidator.enableValidation();
 
-    
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cards]) => {
-    userInfo.setUserAvatar(userData.avatar)
+    userInfo.setUserAvatar(userData.avatar);
+    userInfo.setUserInfo(userData.name, userData.job);
     const currentUserId = userData._id;
-    console.log('userData', userData)
-    
-    // userData.avatar = userInfo.setUserAvatar();
-    console.log(userInfo.setUserAvatar)
-    
+    console.log("userData", userData);
+
     // новая карточка
     const createCard = (cardData) => {
       const card = new Card(
@@ -103,7 +93,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
         },
       },
       gridList
-      
     );
 
     userInfo.setUserInfo(userData);
@@ -116,6 +105,10 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     // форма смены аватара
     const changeAvatarModal = new PopupWithForm(popupType.popupChangeAvatar, changeAvatarSubmit);
     changeAvatarModal.setEventListeners();
+
+    // форма изменения полей юзера
+    const editProfilePopup = new PopupWithForm(popupType.popupEditProfile, formEditProfileSubmitHandler);
+    editProfilePopup.setEventListeners();
 
     // добавление новой карточки
     function addCardSubmitHandler(data) {
@@ -137,7 +130,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
     openPopupAddCardButton.addEventListener("click", openCardPopup);
 
-
     // лайк-клик
     function handleLikeClick(card) {
       if (card.isLiked) {
@@ -153,48 +145,40 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
     // замена аватара
     function changeAvatarSubmit(data) {
-      
-      
-      api.changeAvatar(data)
-      
-      // console.log(api.changeAvatar(data))
+      api
+        .changeAvatar(data)
         .then((res) => {
-          
-          userInfo.setUserAvatar(res.avatar)
-          
-          changeAvatarModal.close()
+          userInfo.setUserAvatar(res.avatar);
+          changeAvatarModal.close();
         })
         .catch((e) => console.log(`Ошибка при смене аватара: ${e}`));
-
-      // const newAvatar = {
-      //   userAvatar: profileAvatar
-      // }
-
-
-      // console.log(newAvatar)
-
-      // console.log(userInfo.setUserAvatar(newAvatar))
-      // api.changeAvatar()
-      //   .then(() => {
-      //     userInfo.setUserAvatar({
-      //       userAvatar: avatar
-      //     })
-
-      //   })
-      //   .catch((e) => console.log(`Ошибка при смене аватара: ${e}`));
-      // changeAvatarModal.close()
     }
 
+    // изменение инфо профиля
+    function formEditProfileSubmitHandler() {
+      const info = {
+        name: nameInput.value,
+        job: jobInput.value,
+      };
+      console.log(info, "info");
+      userInfo.setUserInfo(info);
+      api
+        .getUserData()
+        .then((result) => {
+          console.log(result + "всё ок");
+        })
+        .catch((e) => console.log(`Ошибка при обновлении юзера: ${e}`));
+      editProfilePopup.close();
+    }
 
     // удаление карточки
     function handleDeleteCard(card) {
       function confirmSubmitHandler() {
-        api.deleteCard(card._cardId)
-          .then((res) => {
-            confirmModal.close();
+        api.deleteCard(card._cardId).then((res) => {
+          confirmModal.close();
 
-            card.handleDeleteCard();
-          });
+          card.handleDeleteCard();
+        });
       }
 
       const confirmModal = new PopupWithForm(".popup_delete", confirmSubmitHandler);
@@ -217,10 +201,3 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     });
   })
   .catch((e) => console.log(`Ошибка при получении данных: ${e}`));
-
-
-
-
-
-
-
