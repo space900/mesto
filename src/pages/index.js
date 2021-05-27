@@ -72,8 +72,10 @@ changeAvatarValidator.enableValidation();
 addCardValidator.enableValidation();
 editProfileValidator.enableValidation();
 
+    
 Promise.all([api.getUserInfo(), api.getInitialCards()])
-  .then(([userData, cards, ]) => {
+  .then(([userData, cards]) => {
+    userInfo.setUserAvatar(userData.avatar)
     const currentUserId = userData._id;
     console.log('userData', userData)
     
@@ -101,6 +103,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
         },
       },
       gridList
+      
     );
 
     userInfo.setUserInfo(userData);
@@ -150,7 +153,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
     // замена аватара
     function changeAvatarSubmit(data) {
-
+      
       
       api.changeAvatar(data)
       
