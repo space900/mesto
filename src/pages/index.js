@@ -42,18 +42,16 @@ const addCardValidator = new FormValidator(settings, addCardForm);
 const editProfileValidator = new FormValidator(settings, editProfileForm);
 const popupWithImage = new PopupWithImage(popupType.popupImage);
 const changeAvatarValidator = new FormValidator(settings, changeProfileAvatar);
+const confirmModal = new PopupWithConfirm(".popup_delete");
 
+// селекторы юзера
 const userInfo = new UserInfo({
   nameSelector: userInfoTitle,
   jobSelector: userInfoSubtitle,
   avatarSelector: profileAvatar,
 });
 
-popupWithImage.setEventListeners();
-
-const confirmModal = new PopupWithConfirm(".popup_delete");
-confirmModal.setEventListeners()
-
+// улучшенный UX форм
 function renderLoading(isLoading, popup) {
   if (isLoading) {
     popup.querySelector('.popup__submit_save-btn').textContent = 'Сохранение...';
@@ -77,7 +75,6 @@ function cardImageClickHandler(link, text) {
 
 // удаление карточки
 function handleDeleteCardClick(card) {
-  console.log('confirmSubmitHandler', confirmSubmitHandler)
   function confirmSubmitHandler() {
     renderLoading(true, submitDeletePopup)
     api.deleteCard(card.getId())
@@ -100,12 +97,14 @@ changeAvatarValidator.enableValidation();
 addCardValidator.enableValidation();
 editProfileValidator.enableValidation();
 
+popupWithImage.setEventListeners();
+confirmModal.setEventListeners()
+
 Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([userData, cards]) => {
     userInfo.setUserAvatar(userData.avatar);
     userInfo.setUserInfo(userData.name, userData.job);
     const currentUserId = userData._id;
-    console.log("userData", userData);
 
     // новая карточка
     const createCard = (cardData) => {
@@ -161,11 +160,13 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       addCardValidator.resetValidation();
     }
 
+    // открытие попап-фото
     function openCardPopup() {
       addCardValidator.resetValidation();
       addCardPopup.open();
     }
 
+    // слушатель попап-фото
     openPopupAddCardButton.addEventListener("click", openCardPopup);
 
     // лайк-клик
@@ -201,12 +202,12 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
         name: nameInput.value,
         job: jobInput.value,
       };
-      console.log(info, "info");
+  
       userInfo.setUserInfo(info);
       renderLoading(true, editProfileForm)
       api.getUserData()
         .then((result) => {
-          console.log(result + "всё ок");
+          userInfo.setUserInfo(result);
         })
         .catch((e) => console.log(`Ошибка при обновлении юзера: ${e}`))
         .finally(() => {
