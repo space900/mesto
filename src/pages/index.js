@@ -59,29 +59,17 @@ function cardImageClickHandler(link, text) {
 
 // удаление карточки
 function handleDeleteCardClick(card) {
-  const getid = card._cardId;
-
-  console.log(getid, 'card')
-  confirmModal.setNewSubmitHandler(confirmSubmitHandler)
   confirmModal.open()
-}
+  confirmModal.setNewSubmitHandler(() => {
+    api.deleteCard(card.getId())
+      .then(res => {
+        console.log(res)
+        card.handleDeleteCard();
+        confirmModal.close();
 
-function confirmSubmitHandler(card) {
-  console.log(getid)
-  
-  renderLoading(true, submitDeletePopup)
-  api.deleteCard(card.getid())
-    .then(res => {
-      console.log(res)
-      card.handleDeleteCard();
-      confirmModal.close();
-
-    })
-    .catch((e) => console.log(`Ошибка при удалении карточки: ${e}`))
-    .finally(() => {
-      renderLoading(false, submitDeletePopup)
-    })
-  
+      })
+      .catch((e) => console.log(`Ошибка при удалении карточки: ${e}`))
+  });
 }
 
 // вызов валидаций
@@ -105,7 +93,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
         cardTemplateSelector,
         cardImageClickHandler,
         handleLikeClick,
-        handleDeleteCardClick
+        handleDeleteCardClick,
       );
       return card.getCard();
     };
@@ -149,7 +137,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
           renderLoading(false, addCardModal)
         })
 
-      
+
       addCardValidator.resetValidation();
     }
 
@@ -168,12 +156,12 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
         api.deleteLike(card._cardId).then((res) => {
           card.setLikeInfo(res);
         })
-        .catch((e) => console.log(`Ошибка при попытке убрать лайк: ${e}`))
+          .catch((e) => console.log(`Ошибка при попытке убрать лайк: ${e}`))
       } else {
         api.setLike(card._cardId).then((res) => {
           card.setLikeInfo(res);
         })
-        .catch((e) => console.log(`Ошибка при попытке поставить лайк: ${e}`))
+          .catch((e) => console.log(`Ошибка при попытке поставить лайк: ${e}`))
       }
     }
 
@@ -197,7 +185,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
         name: nameInput.value,
         job: jobInput.value,
       };
-  
+
       userInfo.setUserInfo(info);
       renderLoading(true, editProfileForm)
       api.getUserData()
