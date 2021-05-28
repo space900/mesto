@@ -22,6 +22,7 @@ import {
   submitDeletePopup,
 } from "../utils/constants.js";
 
+import { renderLoading } from "../utils/utils.js";
 import Api from "../components/Api.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
@@ -51,23 +52,6 @@ const userInfo = new UserInfo({
   avatarSelector: profileAvatar,
 });
 
-// улучшенный UX форм
-function renderLoading(isLoading, popup) {
-  if (isLoading) {
-    popup.querySelector('.popup__submit_save-btn').textContent = 'Сохранение...';
-  } else {
-    if (popup.classList.contains('popup_cards')) {
-      popup.querySelector('.popup__submit_save-btn').textContent = "Создать"
-    }
-    else if (popup.classList.contains('popup_delete')) {
-      popup.querySelector('.popup__submit_save-btn').textContent = "Да"
-    }
-    else {
-      popup.querySelector('.popup__submit_save-btn').textContent = "Сохранить"
-    }
-  }
-}
-
 // функция для открытия попап с фото
 function cardImageClickHandler(link, text) {
   popupWithImage.open(link, text);
@@ -75,21 +59,29 @@ function cardImageClickHandler(link, text) {
 
 // удаление карточки
 function handleDeleteCardClick(card) {
-  function confirmSubmitHandler() {
-    renderLoading(true, submitDeletePopup)
-    api.deleteCard(card.getId())
-      .then(res => {
-        console.log(res)
-        confirmModal.close();
-        card.handleDeleteCard();
-      })
-      .catch((e) => console.log(`Ошибка при удалении карточки: ${e}`))
-      .finally(() => {
-        renderLoading(false, submitDeletePopup)
-      })
-  }
+  const getid = card._cardId;
+
+  console.log(getid, 'card')
   confirmModal.setNewSubmitHandler(confirmSubmitHandler)
   confirmModal.open()
+}
+
+function confirmSubmitHandler(card) {
+  console.log(getid)
+  
+  renderLoading(true, submitDeletePopup)
+  api.deleteCard(card.getid())
+    .then(res => {
+      console.log(res)
+      card.handleDeleteCard();
+      confirmModal.close();
+
+    })
+    .catch((e) => console.log(`Ошибка при удалении карточки: ${e}`))
+    .finally(() => {
+      renderLoading(false, submitDeletePopup)
+    })
+  
 }
 
 // вызов валидаций
@@ -150,13 +142,14 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       api.addCard(data)
         .then((result) => {
           cardList.prependItem(createCard(result));
+          addCardPopup.close();
         })
         .catch((e) => console.log(`Ошибка при добавлении карточки: ${e}`))
         .finally(() => {
           renderLoading(false, addCardModal)
         })
 
-      addCardPopup.close();
+      
       addCardValidator.resetValidation();
     }
 
@@ -174,11 +167,13 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       if (card.isLiked) {
         api.deleteLike(card._cardId).then((res) => {
           card.setLikeInfo(res);
-        });
+        })
+        .catch((e) => console.log(`Ошибка при попытке убрать лайк: ${e}`))
       } else {
         api.setLike(card._cardId).then((res) => {
           card.setLikeInfo(res);
-        });
+        })
+        .catch((e) => console.log(`Ошибка при попытке поставить лайк: ${e}`))
       }
     }
 
@@ -208,12 +203,12 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       api.getUserData()
         .then((result) => {
           userInfo.setUserInfo(result);
+          editProfilePopup.close();
         })
         .catch((e) => console.log(`Ошибка при обновлении юзера: ${e}`))
         .finally(() => {
           renderLoading(false, editProfileForm)
         })
-      editProfilePopup.close();
     }
 
     // слушатель аватара

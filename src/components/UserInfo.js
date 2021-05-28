@@ -10,6 +10,7 @@ class UserInfo {
     return {
       name: this._name.textContent,
       job: this._job.textContent,
+      avatar: this._avatar.src
     };
   }
 

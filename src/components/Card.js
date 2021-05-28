@@ -48,16 +48,14 @@ class Card {
   handleDeleteCard() {
     this._cardElement.remove();
     this._cardElement = null;
-  };
+  }
 
   _setEventListeners() {
     this._cardElement
       .querySelector(".photo-grid__like-btn")
       .addEventListener("click", () => this._handleLikeClick(this));
 
-    this._cardElement
-      .querySelector(".photo-grid__delete-btn")
-      .addEventListener("click", () => this._handleDeleteCardClick(this));
+    this._deleteBtn.addEventListener("click", () => this._handleDeleteCardClick(this));
 
     this._cardElement
       .querySelector(".photo-grid__image")
@@ -65,7 +63,7 @@ class Card {
   }
 
   getId() {
-    return this._cardId
+    return this._cardId;
   }
 
   getCard() {
@@ -73,9 +71,9 @@ class Card {
 
     this._cardElement = this._itemTemplate.cloneNode(true);
     const cardImage = this._cardElement.querySelector(".photo-grid__image");
-
+    this._deleteBtn = this._cardElement.querySelector(".photo-grid__delete-btn");
     if (this._cardOwnerId !== this._currentUserId) {
-      this._cardElement.querySelector(".photo-grid__delete-btn").classList.add("photo-grid__delete-btn_hide");
+      this._deleteBtn.classList.add("photo-grid__delete-btn_hide");
     }
 
     cardImage.src = this._link;

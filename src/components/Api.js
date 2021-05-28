@@ -7,12 +7,16 @@ class Api {
     this._groupId = groupId;
   }
 
+  getStatus(result) {
+    return result.ok ? result.json() : Promise.reject(`${result.status}`);
+  }
+
   getInitialCards() {
     return fetch(`${this._address}/${this._groupId}/cards`, {
       headers: {
         authorization: this._token,
       },
-    }).then((result) => (result.ok ? result.json() : Promise.reject(`${result.status}`)));
+    }).then(this.getStatus);
   }
 
   getUserData() {
@@ -26,7 +30,7 @@ class Api {
         name: nameInput.value,
         about: jobInput.value,
       }),
-    }).then((result) => (result.ok ? result.json() : Promise.reject(`${result.status}`)));
+    }).then(this.getStatus);
   }
 
   getUserInfo() {
@@ -34,7 +38,7 @@ class Api {
       headers: {
         authorization: this._token,
       },
-    }).then((result) => (result.ok ? result.json() : Promise.reject(`${result.status}`)));
+    }).then(this.getStatus);
   }
 
   addCard(data) {
@@ -48,7 +52,7 @@ class Api {
         link: data.link,
         name: data.photoName,
       }),
-    }).then((result) => (result.ok ? result.json() : Promise.reject(`${result.status}`)));
+    }).then(this.getStatus);
   }
 
   changeAvatar(infoAvatar) {
@@ -61,7 +65,7 @@ class Api {
       body: JSON.stringify({
         avatar: infoAvatar.avatar,
       }),
-    }).then((result) => (result.ok ? result.json() : Promise.reject(`${result.status}`)));
+    }).then(this.getStatus);
   }
 
   deleteCard(id) {
@@ -70,7 +74,7 @@ class Api {
       headers: {
         authorization: this._token,
       },
-    }).then((result) => (result.ok ? result.json() : Promise.reject(`${result.status}`)));
+    }).then(this.getStatus);
   }
 
   setLike(cardId) {
@@ -79,7 +83,7 @@ class Api {
       headers: {
         authorization: this._token,
       },
-    }).then((result) => (result.ok ? result.json() : Promise.reject(`${result.status}`)));
+    }).then(this.getStatus);
   }
 
   deleteLike(cardId) {
@@ -88,7 +92,7 @@ class Api {
       headers: {
         authorization: this._token,
       },
-    }).then((result) => (result.ok ? result.json() : Promise.reject(`${result.status}`)));
+    }).then(this.getStatus);
   }
 }
 
