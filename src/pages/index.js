@@ -137,7 +137,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
           renderLoading(false, addCardModal)
         })
 
-
       addCardValidator.resetValidation();
     }
 
